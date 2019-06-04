@@ -11,11 +11,13 @@ public class Marca implements PersisteDados {
 	//Atributos
 	private int id;
 	private String nome;
+	private String caminhoParaArquivoLogo;
 
 	//Construtores
 	public Marca() {
 		this.id = 0;
 		this.nome = "";
+		this.caminhoParaArquivoLogo = "";
 	}
 
 	//Getters e Setters
@@ -35,6 +37,14 @@ public class Marca implements PersisteDados {
 		this.nome = nome;
 	}
 
+	public String getCaminhoParaArquivoLogo() {
+		return caminhoParaArquivoLogo;
+	}
+
+	public void setCaminhoParaArquivoLogo(String caminhoParaArquivoLogo) {
+		this.caminhoParaArquivoLogo = caminhoParaArquivoLogo;
+	}
+
 	//Métodos Próprios
 
 	//Métodos Herdados
@@ -44,6 +54,7 @@ public class Marca implements PersisteDados {
 
 		this.id = Utils.convertaParaInt(campos.get(0));
 		this.nome = campos.get(1);
+		this.caminhoParaArquivoLogo = campos.get(2);
 	}
 
 	@Override
@@ -54,7 +65,8 @@ public class Marca implements PersisteDados {
 
 		dadosDoObjeto.append(nomeDaClasse).append(";");
 		dadosDoObjeto.append(this.id).append(";");
-		dadosDoObjeto.append(this.nome);
+		dadosDoObjeto.append(this.nome).append(";");
+		dadosDoObjeto.append(this.caminhoParaArquivoLogo);
 
 		return dadosDoObjeto.toString();
 	}

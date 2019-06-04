@@ -56,9 +56,8 @@ public class ClienteTcpController {
 
 	private String comuniqueComServidor(String mensagem) throws Exception {
 		try {
-			System.out.println("Enviando requisição: " + mensagem);
 			conexaoComCliente.enviarMensagem(mensagem);
-			String resposta = conexaoComCliente.receberMensagem();
+			String resposta = conexaoComCliente.receberResposta();
 
 			if(resposta.startsWith("!")) {
 				String respostaSemExclamacao = resposta.replaceFirst("!", "");
