@@ -126,7 +126,8 @@ public class Veiculo implements PersisteDados {
 		this.categoria = categoria;
 		int valorEstado = Utils.convertaParaInt(campos.get(9));
 		this.estado = Estado.valueOf(valorEstado);
-		String dadosModelo = campos.get(10) + ";" + campos.get(11) + ";" + campos.get(12) + ";" + campos.get(13);
+		String dadosModelo = campos.get(10) + ";" + campos.get(11) + ";" + campos.get(12) + ";" + campos.get(13) + ";" +
+				campos.get(14);
 		Modelo modelo = (Modelo) PersisteDadosFactory.obtenhaInstancia("Modelo");
 		modelo.monteObjeto(dadosModelo);
 		this.modelo = modelo;

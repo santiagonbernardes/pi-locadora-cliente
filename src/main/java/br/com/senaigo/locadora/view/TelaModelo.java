@@ -321,7 +321,6 @@ public class TelaModelo extends javax.swing.JInternalFrame implements Formulario
 		try {
 			atualizeFonteDeDadosModelo();
 			DefaultTableModel tabela = (DefaultTableModel) jTableLista.getModel();
-			;
 			tabela.setRowCount(0);
 			for (Modelo modelo : fonteDeDadosModelo) {
 				Object[] campos = {

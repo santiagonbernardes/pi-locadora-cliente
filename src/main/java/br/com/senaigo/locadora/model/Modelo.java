@@ -54,7 +54,7 @@ public class Modelo implements PersisteDados {
 
 		this.id = Utils.convertaParaInt(campos.get(0));
 		this.nome = campos.get(1);
-		String dadosMarca = campos.get(2) + ";" + campos.get(3);
+		String dadosMarca = campos.get(2) + ";" + campos.get(3) + ";" + campos.get(4);
 		Marca marca = (Marca) PersisteDadosFactory.obtenhaInstancia("Marca");
 		marca.monteObjeto(dadosMarca);
 		this.marca = marca;
