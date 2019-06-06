@@ -39,8 +39,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanelBase = new javax.swing.JPanel();
         jDesktopPanePainelPrincipal = new javax.swing.JDesktopPane();
         jMenuBarMenuPrincipal = new javax.swing.JMenuBar();
-        jMenuFuncionario = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuGeral = new javax.swing.JMenu();
+        jMenuItemFuncionario = new javax.swing.JMenuItem();
+        jMenuItemSair = new javax.swing.JMenuItem();
         jMenuCliente = new javax.swing.JMenu();
         jMenuItemPessoaFisica = new javax.swing.JMenuItem();
         jMenuPessoaJuridica = new javax.swing.JMenuItem();
@@ -50,11 +51,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuModelo = new javax.swing.JMenuItem();
         jMenuCategoria = new javax.swing.JMenuItem();
         jMenuCarro = new javax.swing.JMenuItem();
-        jMenuLacacao = new javax.swing.JMenu();
+        jMenuLocacao = new javax.swing.JMenu();
+        jMenuItemLocar = new javax.swing.JMenuItem();
+        jMenuItemDevolver = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(300, 400));
         setSize(new java.awt.Dimension(0, 0));
+
+        jDesktopPanePainelPrincipal.setBackground(new java.awt.Color(255, 255, 255));
+        jDesktopPanePainelPrincipal.setForeground(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout jPanelBaseLayout = new javax.swing.GroupLayout(jPanelBase);
         jPanelBase.setLayout(jPanelBaseLayout);
@@ -64,29 +70,52 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
         jPanelBaseLayout.setVerticalGroup(
             jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPanePainelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 777, Short.MAX_VALUE)
+            .addComponent(jDesktopPanePainelPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 773, Short.MAX_VALUE)
         );
 
         jMenuBarMenuPrincipal.setBackground(new java.awt.Color(255, 204, 0));
 
-        jMenuFuncionario.setForeground(new java.awt.Color(0, 0, 0));
-        jMenuFuncionario.setIcon(new javax.swing.ImageIcon("arquivo/imagens/user_1.png"));
-        jMenuFuncionario.setText("Funcionário");
+        jMenuGeral.setBackground(new java.awt.Color(255, 255, 255));
+        jMenuGeral.setForeground(new java.awt.Color(0, 0, 0));
+        jMenuGeral.setIcon(new javax.swing.ImageIcon("arquivo/imagens/loguinho.png"));
+        jMenuGeral.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
-        jMenuItem1.setText("Usuário");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemFuncionario.setBackground(new java.awt.Color(255, 255, 255));
+        jMenuItemFuncionario.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jMenuItemFuncionario.setForeground(new java.awt.Color(0, 0, 0));
+        jMenuItemFuncionario.setIcon(new javax.swing.ImageIcon("arquivo/imagens/group.png"));
+        jMenuItemFuncionario.setText("Funcionário");
+        jMenuItemFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jMenuItemFuncionarioActionPerformed(evt);
             }
         });
-        jMenuFuncionario.add(jMenuItem1);
+        jMenuGeral.add(jMenuItemFuncionario);
 
-        jMenuBarMenuPrincipal.add(jMenuFuncionario);
+        jMenuItemSair.setBackground(new java.awt.Color(255, 255, 255));
+        jMenuItemSair.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jMenuItemSair.setForeground(new java.awt.Color(0, 0, 0));
+        jMenuItemSair.setIcon(new javax.swing.ImageIcon("arquivo/imagens/cancel.png"));
+        jMenuItemSair.setText("Sair");
+        jMenuItemSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemSairActionPerformed(evt);
+            }
+        });
+        jMenuGeral.add(jMenuItemSair);
 
+        jMenuBarMenuPrincipal.add(jMenuGeral);
+
+        jMenuCliente.setBackground(new java.awt.Color(255, 255, 255));
         jMenuCliente.setForeground(new java.awt.Color(0, 0, 0));
         jMenuCliente.setIcon(new javax.swing.ImageIcon("arquivo/imagens/group_1.png"));
         jMenuCliente.setText("Cliente");
+        jMenuCliente.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
+        jMenuItemPessoaFisica.setBackground(new java.awt.Color(255, 255, 255));
+        jMenuItemPessoaFisica.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jMenuItemPessoaFisica.setForeground(new java.awt.Color(0, 0, 0));
+        jMenuItemPessoaFisica.setIcon(new javax.swing.ImageIcon("arquivo/imagens/user.png"));
         jMenuItemPessoaFisica.setText("Pessoa Física");
         jMenuItemPessoaFisica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,6 +124,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenuCliente.add(jMenuItemPessoaFisica);
 
+        jMenuPessoaJuridica.setBackground(new java.awt.Color(255, 255, 255));
+        jMenuPessoaJuridica.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jMenuPessoaJuridica.setForeground(new java.awt.Color(0, 0, 0));
+        jMenuPessoaJuridica.setIcon(new javax.swing.ImageIcon("arquivo/imagens/user_gray.png"));
         jMenuPessoaJuridica.setText("Pessoa Jurídica");
         jMenuPessoaJuridica.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -103,6 +136,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenuCliente.add(jMenuPessoaJuridica);
 
+        jMenuItemMotorista.setBackground(new java.awt.Color(255, 255, 255));
+        jMenuItemMotorista.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jMenuItemMotorista.setForeground(new java.awt.Color(0, 0, 0));
+        jMenuItemMotorista.setIcon(new javax.swing.ImageIcon("arquivo/imagens/user_green.png"));
         jMenuItemMotorista.setText("Motorista");
         jMenuItemMotorista.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,10 +150,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBarMenuPrincipal.add(jMenuCliente);
 
+        jMenuVeiculo.setBackground(new java.awt.Color(255, 255, 255));
         jMenuVeiculo.setForeground(new java.awt.Color(0, 0, 0));
         jMenuVeiculo.setIcon(new javax.swing.ImageIcon("arquivo/imagens/veiculo.png"));
         jMenuVeiculo.setText("Veículo");
+        jMenuVeiculo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
+        jMenuItemMarca.setBackground(new java.awt.Color(255, 255, 255));
+        jMenuItemMarca.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jMenuItemMarca.setForeground(new java.awt.Color(0, 0, 0));
+        jMenuItemMarca.setIcon(new javax.swing.ImageIcon("arquivo/imagens/car.png"));
         jMenuItemMarca.setText("Marca");
         jMenuItemMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,6 +168,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenuVeiculo.add(jMenuItemMarca);
 
+        jMenuModelo.setBackground(new java.awt.Color(255, 255, 255));
+        jMenuModelo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jMenuModelo.setForeground(new java.awt.Color(0, 0, 0));
+        jMenuModelo.setIcon(new javax.swing.ImageIcon("arquivo/imagens/car.png"));
         jMenuModelo.setText("Modelo");
         jMenuModelo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,6 +180,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenuVeiculo.add(jMenuModelo);
 
+        jMenuCategoria.setBackground(new java.awt.Color(255, 255, 255));
+        jMenuCategoria.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jMenuCategoria.setForeground(new java.awt.Color(0, 0, 0));
+        jMenuCategoria.setIcon(new javax.swing.ImageIcon("arquivo/imagens/car.png"));
         jMenuCategoria.setText("Categoria");
         jMenuCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,6 +192,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenuVeiculo.add(jMenuCategoria);
 
+        jMenuCarro.setBackground(new java.awt.Color(255, 255, 255));
+        jMenuCarro.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jMenuCarro.setForeground(new java.awt.Color(0, 0, 0));
         jMenuCarro.setIcon(new javax.swing.ImageIcon("arquivo/imagens/car.png"));
         jMenuCarro.setText("Carro");
         jMenuCarro.addActionListener(new java.awt.event.ActionListener() {
@@ -152,10 +206,37 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBarMenuPrincipal.add(jMenuVeiculo);
 
-        jMenuLacacao.setForeground(new java.awt.Color(0, 0, 0));
-        jMenuLacacao.setIcon(new javax.swing.ImageIcon("arquivo/imagens/chave.png"));
-        jMenuLacacao.setText("Locação");
-        jMenuBarMenuPrincipal.add(jMenuLacacao);
+        jMenuLocacao.setBackground(new java.awt.Color(255, 255, 255));
+        jMenuLocacao.setForeground(new java.awt.Color(0, 0, 0));
+        jMenuLocacao.setIcon(new javax.swing.ImageIcon("arquivo/imagens/chave.png"));
+        jMenuLocacao.setText("Locação");
+        jMenuLocacao.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        jMenuItemLocar.setBackground(new java.awt.Color(255, 255, 255));
+        jMenuItemLocar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jMenuItemLocar.setForeground(new java.awt.Color(0, 0, 0));
+        jMenuItemLocar.setIcon(new javax.swing.ImageIcon("arquivo/imagens/key_add.png"));
+        jMenuItemLocar.setText("Locar");
+        jMenuItemLocar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemLocarActionPerformed(evt);
+            }
+        });
+        jMenuLocacao.add(jMenuItemLocar);
+
+        jMenuItemDevolver.setBackground(new java.awt.Color(255, 255, 255));
+        jMenuItemDevolver.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jMenuItemDevolver.setForeground(new java.awt.Color(0, 0, 0));
+        jMenuItemDevolver.setIcon(new javax.swing.ImageIcon("arquivo/imagens/key_delete.png"));
+        jMenuItemDevolver.setText("Devolver");
+        jMenuItemDevolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDevolverActionPerformed(evt);
+            }
+        });
+        jMenuLocacao.add(jMenuItemDevolver);
+
+        jMenuBarMenuPrincipal.add(jMenuLocacao);
 
         setJMenuBar(jMenuBarMenuPrincipal);
 
@@ -259,7 +340,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 		}
 	}//GEN-LAST:event_jMenuCarroActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuItemFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemFuncionarioActionPerformed
         // TODO add your handling code here:
         try {
 			jDesktopPanePainelPrincipal.removeAll();
@@ -269,7 +350,36 @@ public class TelaPrincipal extends javax.swing.JFrame {
 			funcionario.setMaximum(true);
 		} catch (Exception e) {
 		}
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_jMenuItemFuncionarioActionPerformed
+
+    private void jMenuItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemSairActionPerformed
+        // TODO add your handling code here:
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItemSairActionPerformed
+
+    private void jMenuItemLocarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLocarActionPerformed
+        // TODO add your handling code here:
+        try {
+			jDesktopPanePainelPrincipal.removeAll();
+			TelaLocacao locacao = new TelaLocacao();
+			jDesktopPanePainelPrincipal.add(locacao);
+			locacao.setVisible(true);
+			locacao.setMaximum(true);
+		} catch (Exception e) {
+		}
+    }//GEN-LAST:event_jMenuItemLocarActionPerformed
+
+    private void jMenuItemDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDevolverActionPerformed
+        // TODO add your handling code here:
+        try {
+			jDesktopPanePainelPrincipal.removeAll();
+			TelaDevolucao devolucao = new TelaDevolucao();
+			jDesktopPanePainelPrincipal.add(devolucao);
+			devolucao.setVisible(true);
+			devolucao.setMaximum(true);
+		} catch (Exception e) {
+		}
+    }//GEN-LAST:event_jMenuItemDevolverActionPerformed
 
 	/**
 	 * @param args the command line arguments
@@ -312,12 +422,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuCarro;
     private javax.swing.JMenuItem jMenuCategoria;
     private javax.swing.JMenu jMenuCliente;
-    private javax.swing.JMenu jMenuFuncionario;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenu jMenuGeral;
+    private javax.swing.JMenuItem jMenuItemDevolver;
+    private javax.swing.JMenuItem jMenuItemFuncionario;
+    private javax.swing.JMenuItem jMenuItemLocar;
     private javax.swing.JMenuItem jMenuItemMarca;
     private javax.swing.JMenuItem jMenuItemMotorista;
     private javax.swing.JMenuItem jMenuItemPessoaFisica;
-    private javax.swing.JMenu jMenuLacacao;
+    private javax.swing.JMenuItem jMenuItemSair;
+    private javax.swing.JMenu jMenuLocacao;
     private javax.swing.JMenuItem jMenuModelo;
     private javax.swing.JMenuItem jMenuPessoaJuridica;
     private javax.swing.JMenu jMenuVeiculo;
