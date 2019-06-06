@@ -293,7 +293,7 @@ public class TelaModelo extends javax.swing.JInternalFrame implements Formulario
 
 	private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
 		try {
-			String idTexto = jTextFieldID.getText();
+			String idTexto = jTextFieldID.getText().trim();
 			String nome = jTextFieldNome.getText().trim();
 			Marca marca = (Marca) jComboBoxMarca.getSelectedItem();
 

@@ -1,6 +1,7 @@
 package br.com.senaigo.locadora.utils;
 
 import javax.swing.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,6 +18,13 @@ public class Utils {
 
 	public static float convertaStringParaFloat(String valor) {
 		return Float.parseFloat(valor);
+	}
+
+	public static String convertaFloatParaStringComDuasCasasDecimais(float valor) {
+		DecimalFormat formatador = new DecimalFormat();
+		formatador.setMaximumFractionDigits(2);
+		formatador.setMinimumFractionDigits(2);
+		return formatador.format(valor).replace(",", ".");
 	}
 
 	public static List<String> obtenhaCampos(String dadosDoObjeto) {

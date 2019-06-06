@@ -1,13 +1,14 @@
 package br.com.senaigo.locadora.view;
 
 import br.com.senaigo.locadora.controller.ClienteTcpController;
+import br.com.senaigo.locadora.excecoes.ValidacaoException;
 import br.com.senaigo.locadora.interfaces.FormularioPadrao;
 import br.com.senaigo.locadora.model.Categoria;
 import br.com.senaigo.locadora.model.ControleFormularioPadrao;
 import br.com.senaigo.locadora.persistencia.Operacao;
 import br.com.senaigo.locadora.utils.Utils;
 
-import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -18,12 +19,17 @@ public class TelaCategoria extends javax.swing.JInternalFrame implements Formula
 	private List<Categoria> fonteDeDadosCategoria;
 	private ControleFormularioPadrao formulario;
 
-	public TelaCategoria() throws IOException {
-		controller = new ClienteTcpController();
-		initComponents();
-		formulario = new ControleFormularioPadrao(this);
-		preenchaGrid();
-		formulario.configureFormularioParaNavegacao();
+	public TelaCategoria(){
+		try {
+			controller = new ClienteTcpController();
+			initComponents();
+			formulario = new ControleFormularioPadrao(this);
+			preenchaGrid();
+			formulario.configureFormularioParaNavegacao();
+		} catch (Exception erro) {
+			String titulo = "Erro ao abrir tela de categorias!";
+			Utils.mostreAdvertencia(erro, titulo);
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -93,48 +99,48 @@ public class TelaCategoria extends javax.swing.JInternalFrame implements Formula
 		javax.swing.GroupLayout jPanelMarcaLayout = new javax.swing.GroupLayout(jPanelMarca);
 		jPanelMarca.setLayout(jPanelMarcaLayout);
 		jPanelMarcaLayout.setHorizontalGroup(
-			jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMarcaLayout.createSequentialGroup()
-					.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-				.addGroup(jPanelMarcaLayout.createSequentialGroup()
-					.addGap(33, 33, 33)
-					.addGroup(jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+				jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMarcaLayout.createSequentialGroup()
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 						.addGroup(jPanelMarcaLayout.createSequentialGroup()
-							.addComponent(jLabelID)
-							.addGap(18, 18, 18)
-							.addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-							.addGap(758, 758, 758)
-							.addComponent(jLabelValorLocacao)
-							.addGap(31, 31, 31)
-							.addComponent(jTextFieldValorLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-						.addGroup(jPanelMarcaLayout.createSequentialGroup()
-							.addComponent(jLabelNome)
-							.addGap(18, 18, 18)
-							.addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 1150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(32, Short.MAX_VALUE))
+								.addGap(33, 33, 33)
+								.addGroup(jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+										.addGroup(jPanelMarcaLayout.createSequentialGroup()
+												.addComponent(jLabelID)
+												.addGap(18, 18, 18)
+												.addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+												.addGap(758, 758, 758)
+												.addComponent(jLabelValorLocacao)
+												.addGap(31, 31, 31)
+												.addComponent(jTextFieldValorLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
+										.addGroup(jPanelMarcaLayout.createSequentialGroup()
+												.addComponent(jLabelNome)
+												.addGap(18, 18, 18)
+												.addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 1150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+								.addContainerGap(32, Short.MAX_VALUE))
 		);
 		jPanelMarcaLayout.setVerticalGroup(
-			jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(jPanelMarcaLayout.createSequentialGroup()
-					.addContainerGap(20, Short.MAX_VALUE)
-					.addGroup(jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-						.addComponent(jLabelID)
-						.addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addComponent(jLabelValorLocacao)
-						.addComponent(jTextFieldValorLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-					.addGroup(jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-						.addComponent(jLabelNome)
-						.addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-					.addGap(26, 26, 26)
-					.addGroup(jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-						.addComponent(jButtonCancelar)
-						.addComponent(jButtonSalvar))
-					.addContainerGap(35, Short.MAX_VALUE))
+				jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(jPanelMarcaLayout.createSequentialGroup()
+								.addContainerGap(20, Short.MAX_VALUE)
+								.addGroup(jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+										.addComponent(jLabelID)
+										.addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addComponent(jLabelValorLocacao)
+										.addComponent(jTextFieldValorLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+								.addGroup(jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+										.addComponent(jLabelNome)
+										.addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+								.addGap(26, 26, 26)
+								.addGroup(jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+										.addComponent(jButtonCancelar)
+										.addComponent(jButtonSalvar))
+								.addContainerGap(35, Short.MAX_VALUE))
 		);
 
 		jLabelLogo.setIcon(new javax.swing.ImageIcon("arquivo/imagens/logoPI.png"));
@@ -142,18 +148,18 @@ public class TelaCategoria extends javax.swing.JInternalFrame implements Formula
 		jTableLista.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 		jTableLista.setForeground(new java.awt.Color(0, 0, 0));
 		jTableLista.setModel(new javax.swing.table.DefaultTableModel(
-			new Object[][]{
+				new Object[][]{
 
-			},
-			new String[]{
-				"ID", "Nome", "Valor diário da locação"
-			}
+				},
+				new String[]{
+						"ID", "Nome", "Valor diário da locação"
+				}
 		) {
 			Class[] types = new Class[]{
-				java.lang.String.class, java.lang.String.class, java.lang.String.class
+					java.lang.String.class, java.lang.String.class, java.lang.String.class
 			};
 			boolean[] canEdit = new boolean[]{
-				false, false, false
+					false, false, false
 			};
 
 			public Class getColumnClass(int columnIndex) {
@@ -203,48 +209,48 @@ public class TelaCategoria extends javax.swing.JInternalFrame implements Formula
 		javax.swing.GroupLayout jPanelBaseLayout = new javax.swing.GroupLayout(jPanelBase);
 		jPanelBase.setLayout(jPanelBaseLayout);
 		jPanelBaseLayout.setHorizontalGroup(
-			jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(jPanelBaseLayout.createSequentialGroup()
-					.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 						.addGroup(jPanelBaseLayout.createSequentialGroup()
-							.addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-						.addGroup(jPanelBaseLayout.createSequentialGroup()
-							.addComponent(jButtonNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-						.addComponent(jPanelMarca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addGroup(jPanelBaseLayout.createSequentialGroup()
+												.addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+										.addGroup(jPanelBaseLayout.createSequentialGroup()
+												.addComponent(jButtonNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+										.addComponent(jPanelMarca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		jPanelBaseLayout.setVerticalGroup(
-			jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(jPanelBaseLayout.createSequentialGroup()
-					.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(jPanelMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-						.addComponent(jButtonNovo)
-						.addComponent(jButtonEditar))
-					.addGap(18, 18, Short.MAX_VALUE)
-					.addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 						.addGroup(jPanelBaseLayout.createSequentialGroup()
-							.addGap(0, 0, Short.MAX_VALUE)
-							.addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
-						.addComponent(jScrollPaneTabela, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE))
-					.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(jPanelMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+										.addComponent(jButtonNovo)
+										.addComponent(jButtonEditar))
+								.addGap(18, 18, Short.MAX_VALUE)
+								.addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addGroup(jPanelBaseLayout.createSequentialGroup()
+												.addGap(0, 0, Short.MAX_VALUE)
+												.addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+										.addComponent(jScrollPaneTabela, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE))
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setHorizontalGroup(
-			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addComponent(jPanelBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addComponent(jPanelBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 		);
 		layout.setVerticalGroup(
-			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addComponent(jPanelBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addComponent(jPanelBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 		);
 
 		pack();
@@ -252,26 +258,80 @@ public class TelaCategoria extends javax.swing.JInternalFrame implements Formula
 
 	private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
 		try {
-			//TODO popular o objeto dentro deste try
-			String id = jTextFieldID.getText();
-			String nome = jTextFieldNome.getText();
-			String valorDiaria = jTextFieldValorLocacao.getText();
+			String idTexto = jTextFieldID.getText().trim();
+			String nome = jTextFieldNome.getText().trim();
+			String valorDiariaTexto = jTextFieldValorLocacao.getText().trim();
 
-			Categoria categoria = new Categoria();
-			categoria.setNome(nome);
-			categoria.setValorDiarioLocacao(Utils.convertaStringParaFloat(valorDiaria));
-			if (id.isEmpty()) {
-				controller.execute(categoria, Operacao.INCLUIR);
-			} else {
-				categoria.setId(Utils.convertaStringParaInt(id));
-				controller.execute(categoria, Operacao.ALTERAR);
+			if (nome.isEmpty()) {
+				throw new ValidacaoException("Não é possível salvar uma categoria sem o nome. (Obrigatório)");
 			}
-			preenchaGrid();
-			formulario.configureFormularioParaNavegacao();
+
+			if (!nome.matches("^[-'a-zA-ZÀ-ÖØ-öø-ÿ\\s]{1,15}$")) {
+				String mensagem = "O nome da marca é inválido. Informe um nome seguindo as regras abaixo:\n" +
+						"* Até 15 caracteres;\n" +
+						"* Letras (A-z permitindo acentuações válidas em português);\n" +
+						"* Cedilha (ç);\n" +
+						"* Hífen (-);\n" +
+						"* Apóstrofe (‘).";
+				throw new ValidacaoException(mensagem);
+			}
+
+			if (valorDiariaTexto.isEmpty()) {
+				throw new ValidacaoException("Não é possível salvar uma categoria sem o valor da locação diária. (Obrigatório)");
+			}
+
+			float valorDiaria = Utils.convertaStringParaFloat(valorDiariaTexto);
+
+			if (valorDiaria <= 0) {
+				throw new ValidacaoException("O valor da locação não pode ser menor ou igual a 0.");
+			}
+
+			int id = idTexto.isEmpty() ? 0 : Utils.convertaStringParaInt(idTexto);
+
+			int dadosValidos = valideNomeUnicoValorJaExiste(nome, valorDiaria, id);
+
+			if (dadosValidos == JOptionPane.YES_OPTION) {
+
+				Categoria categoria = new Categoria();
+				categoria.setId(id);
+				categoria.setNome(nome);
+				categoria.setValorDiarioLocacao(valorDiaria);
+
+				Operacao operacao = categoria.getId() == 0 ? Operacao.INCLUIR : Operacao.ALTERAR;
+				controller.execute(categoria, operacao);
+
+				preenchaGrid();
+				formulario.configureFormularioParaNavegacao();
+			}
+		} catch (ValidacaoException erroDeValidacao) {
+			Utils.mostreAdvertenciaValidacao(erroDeValidacao);
 		} catch (Exception erro) {
-			JOptionPane.showMessageDialog(null, "Erro ao " + Operacao.INCLUIR + " Marca: " + erro.getMessage());
+			Utils.mostreAdvertencia(erro, "Erro ao salvar categoria!");
 		}
 	}//GEN-LAST:event_jButtonSalvarActionPerformed
+
+	public int valideNomeUnicoValorJaExiste(String nomeInformado, float valorLocacaoInformado, int id) throws ValidacaoException {
+		int resultadoValidacao = JOptionPane.YES_OPTION;
+		for (Categoria categoria : fonteDeDadosCategoria) {
+			boolean nomesIguais = categoria.getNome().equalsIgnoreCase(nomeInformado);
+			boolean idsDiferentes = categoria.getId() != id;
+			if (nomesIguais && idsDiferentes) {
+				String mensagem = "O nome da categoria é único. Já existe uma categoria chamada " + nomeInformado + " cadastrada. " +
+						"Informe um nome não cadastrado.";
+				throw new ValidacaoException(mensagem);
+			}
+
+			if (categoria.getValorDiarioLocacao() == valorLocacaoInformado) {
+				String titulo = "Valor diária de locação já existe!";
+				String mensagem = "Deseja criar uma categoria com o mesmo valor de locação da categoria " +
+						categoria.getNome() + "?";
+				resultadoValidacao = JOptionPane.showConfirmDialog(null,
+						mensagem,
+						titulo, JOptionPane.YES_NO_OPTION);
+			}
+		}
+		return resultadoValidacao;
+	}
 
 	private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
 		boolean podeModificarComponentes = formulario.confirmeApagarFormulario();
@@ -297,7 +357,8 @@ public class TelaCategoria extends javax.swing.JInternalFrame implements Formula
 			Categoria categoria = fonteDeDadosCategoria.get(indexDoObjeto);
 			jTextFieldID.setText(String.valueOf(categoria.getId()));
 			jTextFieldNome.setText(categoria.getNome());
-			jTextFieldValorLocacao.setText(String.valueOf(categoria.getValorDiarioLocacao()));
+			String valorLocacaoTexto = Utils.convertaFloatParaStringComDuasCasasDecimais(categoria.getValorDiarioLocacao());
+			jTextFieldValorLocacao.setText(valorLocacaoTexto);
 		}
 	}//GEN-LAST:event_jButtonEditarActionPerformed
 
@@ -308,14 +369,14 @@ public class TelaCategoria extends javax.swing.JInternalFrame implements Formula
 			tabela.setRowCount(0);
 			for (Categoria categoria : fonteDeDadosCategoria) {
 				Object[] campos = {
-					categoria.getId(),
-					categoria.getNome(),
-					categoria.getValorDiarioLocacao()
+						categoria.getId(),
+						categoria.getNome(),
+						"R$ "+Utils.convertaFloatParaStringComDuasCasasDecimais(categoria.getValorDiarioLocacao())
 				};
 				tabela.addRow(campos);
 			}
 		} catch (Exception erro) {
-
+			Utils.mostreAdvertenciaPreenchimentoGrid(erro);
 		}
 	}
 
@@ -323,7 +384,8 @@ public class TelaCategoria extends javax.swing.JInternalFrame implements Formula
 		try {
 			fonteDeDadosCategoria = controller.liste("Categoria");
 		} catch (Exception erro) {
-			JOptionPane.showMessageDialog(null, "Erro ao atualizaar fonte de dados de categorias: " + erro.getMessage());
+			String titulo = "Erro do preencher fonte de dados de categorias!";
+			Utils.mostreAdvertencia(erro, titulo);
 		}
 	}
 

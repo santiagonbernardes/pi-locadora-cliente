@@ -36,7 +36,7 @@ public class TelaMarca extends javax.swing.JInternalFrame implements FormularioP
 			formulario.configureFormularioParaNavegacao();
 			jButtonArquivo.setEnabled(false);
 		} catch (Exception e) {
-			String titulo = "Erro ao abrir tela de marcas";
+			String titulo = "Erro ao abrir tela de marcas!";
 			Utils.mostreAdvertencia(e, titulo);
 		}
 
@@ -295,7 +295,7 @@ public class TelaMarca extends javax.swing.JInternalFrame implements FormularioP
 	private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
 		try {
 			String nome = jTextFieldNome.getText().trim();
-			String idTexto = jTextFieldID.getText();
+			String idTexto = jTextFieldID.getText().trim();
 			ImageIcon icon = (ImageIcon) jLabelIcone.getIcon();
 
 			if (nome.isEmpty()) {
@@ -429,7 +429,7 @@ public class TelaMarca extends javax.swing.JInternalFrame implements FormularioP
 		try {
 			fonteDeDadosMarca = controller.liste("Marca");
 		} catch (Exception erro) {
-			String titulo = "Erro do preencher fonte de dados de marcas";
+			String titulo = "Erro do preencher fonte de dados de marcas!";
 			Utils.mostreAdvertencia(erro, titulo);
 		}
 

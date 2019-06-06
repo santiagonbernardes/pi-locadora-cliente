@@ -65,7 +65,7 @@ public class Categoria implements PersisteDados {
 		dadosDoObjeto.append(nomeDaClasse).append(";");
 		dadosDoObjeto.append(this.id).append(";");
 		dadosDoObjeto.append(this.nome).append(";");
-		dadosDoObjeto.append(this.valorDiarioLocacao);
+		dadosDoObjeto.append(Utils.convertaFloatParaStringComDuasCasasDecimais(this.valorDiarioLocacao));
 
 		return dadosDoObjeto.toString();
 	}
