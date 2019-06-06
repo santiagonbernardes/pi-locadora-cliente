@@ -125,7 +125,11 @@ public class ControleFormularioPadrao {
 
 	private boolean isFormularioVazio() {
 		for(JTextField camposDeTexto : camposDoFormularioSemCampoId) {
-			if (!camposDeTexto.getText().trim().isEmpty()) {
+			if(camposDeTexto instanceof JFormattedTextField) {
+				if(((JFormattedTextField) camposDeTexto).getValue() != null) {
+					return false;
+				}
+			} else if (!camposDeTexto.getText().trim().isEmpty()) {
 				return false;
 			}
 		}
