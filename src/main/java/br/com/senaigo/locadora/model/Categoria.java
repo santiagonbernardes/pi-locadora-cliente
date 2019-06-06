@@ -51,9 +51,9 @@ public class Categoria implements PersisteDados {
 	public void monteObjeto(String dadosDoObjeto) {
 		List<String> campos = Utils.obtenhaCampos(dadosDoObjeto);
 
-		this.id = Utils.convertaParaInt(campos.get(0));
+		this.id = Utils.convertaStringParaInt(campos.get(0));
 		this.nome = campos.get(1);
-		this.valorDiarioLocacao = Utils.convertaParaFloat(campos.get(2));
+		this.valorDiarioLocacao = Utils.convertaStringParaFloat(campos.get(2));
 	}
 
 	@Override

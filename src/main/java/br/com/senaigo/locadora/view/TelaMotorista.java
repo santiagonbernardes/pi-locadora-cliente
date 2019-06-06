@@ -647,7 +647,7 @@ public class TelaMotorista extends javax.swing.JInternalFrame implements Formula
             if(id.isEmpty()) {
                 controller.execute(motorista, Operacao.INCLUIR);
             } else {
-                motorista.setId(Utils.convertaParaInt(id));
+                motorista.setId(Utils.convertaStringParaInt(id));
                 controller.execute(motorista, Operacao.ALTERAR);
             }
 			preenchaGrid();

@@ -113,7 +113,7 @@ public class Motorista implements PersisteDados {
 	public void monteObjeto(String dadosDoObjeto) {
 		List<String> campos = Utils.obtenhaCampos(dadosDoObjeto);
 
-		this.id = Utils.convertaParaInt(campos.get(0));
+		this.id = Utils.convertaStringParaInt(campos.get(0));
 		this.nome = campos.get(1);
 		this.dataNascimento = DataUtils.convertaStringParaLocalDate(campos.get(2));
 		this.cpf = campos.get(3);
@@ -124,7 +124,7 @@ public class Motorista implements PersisteDados {
 		endereco.setBairro(campos.get(7));
 		endereco.setCidade(campos.get(8));
 		endereco.setCep(campos.get(9));
-		EstadosBrasil estado = EstadosBrasil.valueOf(Utils.convertaParaInt(campos.get(10)));
+		EstadosBrasil estado = EstadosBrasil.valueOf(Utils.convertaStringParaInt(campos.get(10)));
 		endereco.setEstado(estado);
 		this.endereco = endereco;
 		this.telefonePrincipal = Telefone.obtenhaInstancia(campos.get(11));

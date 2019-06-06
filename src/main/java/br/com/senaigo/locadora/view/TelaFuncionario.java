@@ -744,7 +744,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame implements Formu
             if (id.isEmpty()) {
                 controller.execute(funcionario, Operacao.INCLUIR);
             } else {
-                funcionario.setId(Utils.convertaParaInt(id));
+                funcionario.setId(Utils.convertaStringParaInt(id));
                 controller.execute(funcionario, Operacao.ALTERAR);
             }
             preenchaGrid();

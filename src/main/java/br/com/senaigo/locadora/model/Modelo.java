@@ -52,7 +52,7 @@ public class Modelo implements PersisteDados {
 	public void monteObjeto(String dadosDoObjeto) {
 		List<String> campos = Utils.obtenhaCampos(dadosDoObjeto);
 
-		this.id = Utils.convertaParaInt(campos.get(0));
+		this.id = Utils.convertaStringParaInt(campos.get(0));
 		this.nome = campos.get(1);
 		String dadosMarca = campos.get(2) + ";" + campos.get(3) + ";" + campos.get(4);
 		Marca marca = (Marca) PersisteDadosFactory.obtenhaInstancia("Marca");

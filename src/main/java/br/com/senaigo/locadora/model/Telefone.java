@@ -43,7 +43,7 @@ public class Telefone {
 		int ddd = 0;
 
 		if (matcherDDD.find()) {
-			ddd = Utils.convertaParaInt(matcherDDD.group());
+			ddd = Utils.convertaStringParaInt(matcherDDD.group());
 		}
 
 
@@ -51,7 +51,7 @@ public class Telefone {
 		Matcher matcherNumero = padraoNumero.matcher(telefoneFormatado);
 		int numero = 0;
 		if (matcherNumero.find()) {
-			numero = Utils.convertaParaInt(matcherNumero.group().replace("-", ""));
+			numero = Utils.convertaStringParaInt(matcherNumero.group().replace("-", ""));
 		}
 
 

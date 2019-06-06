@@ -134,7 +134,7 @@ public class Cliente implements PersisteDados {
 	public void monteObjeto(String dadosDoObjeto) {
 		List<String> campos = Utils.obtenhaCampos(dadosDoObjeto);
 
-		this.id = Utils.convertaParaInt(campos.get(0));
+		this.id = Utils.convertaStringParaInt(campos.get(0));
 		this.nome = campos.get(1);
 		this.razaoSocial = campos.get(2);
 		this.nomeFantasia = campos.get(3);
@@ -148,7 +148,7 @@ public class Cliente implements PersisteDados {
 		endereco.setBairro(campos.get(10));
 		endereco.setCidade(campos.get(11));
 		endereco.setCep(campos.get(12));
-		EstadosBrasil estado = EstadosBrasil.valueOf(Utils.convertaParaInt(campos.get(13)));
+		EstadosBrasil estado = EstadosBrasil.valueOf(Utils.convertaStringParaInt(campos.get(13)));
 		endereco.setEstado(estado);
 		this.endereco = endereco;
 		this.telefonePrincipal = Telefone.obtenhaInstancia(campos.get(14));

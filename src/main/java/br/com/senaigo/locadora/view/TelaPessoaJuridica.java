@@ -4,11 +4,9 @@ import br.com.senaigo.locadora.controller.ClienteTcpController;
 import br.com.senaigo.locadora.interfaces.FormularioPadrao;
 import br.com.senaigo.locadora.model.*;
 import br.com.senaigo.locadora.persistencia.Operacao;
-import br.com.senaigo.locadora.utils.DataUtils;
 import br.com.senaigo.locadora.utils.Utils;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -628,7 +626,7 @@ public class TelaPessoaJuridica extends javax.swing.JInternalFrame implements Fo
             if(id.isEmpty()) {
                 controller.execute(cliente, Operacao.INCLUIR);
             } else {
-                cliente.setId(Utils.convertaParaInt(id));
+                cliente.setId(Utils.convertaStringParaInt(id));
                 controller.execute(cliente, Operacao.ALTERAR);
             }
 

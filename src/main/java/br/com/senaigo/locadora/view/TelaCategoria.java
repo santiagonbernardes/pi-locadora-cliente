@@ -259,11 +259,11 @@ public class TelaCategoria extends javax.swing.JInternalFrame implements Formula
 
 			Categoria categoria = new Categoria();
 			categoria.setNome(nome);
-			categoria.setValorDiarioLocacao(Utils.convertaParaFloat(valorDiaria));
+			categoria.setValorDiarioLocacao(Utils.convertaStringParaFloat(valorDiaria));
 			if (id.isEmpty()) {
 				controller.execute(categoria, Operacao.INCLUIR);
 			} else {
-				categoria.setId(Utils.convertaParaInt(id));
+				categoria.setId(Utils.convertaStringParaInt(id));
 				controller.execute(categoria, Operacao.ALTERAR);
 			}
 			preenchaGrid();

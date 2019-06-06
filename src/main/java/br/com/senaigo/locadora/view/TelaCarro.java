@@ -8,7 +8,6 @@ import br.com.senaigo.locadora.utils.Utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -489,10 +488,10 @@ public class TelaCarro extends javax.swing.JInternalFrame implements FormularioP
 
 			Veiculo veiculo = new Veiculo();
 			veiculo.setPlaca(placa);
-			veiculo.setRenavam(Utils.convertaParaLong(renavam));
-			veiculo.setAnoFabricacao(Utils.convertaParaInt(ano));
-			veiculo.setValorCompra(Utils.convertaParaFloat(valorCompra));
-			veiculo.setKmAtual(Utils.convertaParaInt(quilometragem));
+			veiculo.setRenavam(Utils.convertaStringParaLong(renavam));
+			veiculo.setAnoFabricacao(Utils.convertaStringParaInt(ano));
+			veiculo.setValorCompra(Utils.convertaStringParaFloat(valorCompra));
+			veiculo.setKmAtual(Utils.convertaStringParaInt(quilometragem));
 			veiculo.setCategoria(categoria);
 			veiculo.setEstado(estado);
 			veiculo.setModelo(modelo);
@@ -500,7 +499,7 @@ public class TelaCarro extends javax.swing.JInternalFrame implements FormularioP
 			if (id.isEmpty()) {
 				controller.execute(veiculo, Operacao.INCLUIR);
 			} else {
-				veiculo.setId(Utils.convertaParaInt(id));
+				veiculo.setId(Utils.convertaStringParaInt(id));
 				controller.execute(veiculo, Operacao.ALTERAR);
 			}
 

@@ -7,6 +7,8 @@ package br.com.senaigo.locadora.view;
 
 import br.com.senaigo.locadora.controller.ClienteTcpController;
 import br.com.senaigo.locadora.model.Funcionario;
+import br.com.senaigo.locadora.utils.ArquivoUtils;
+
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
@@ -26,11 +28,12 @@ public class TelaLogon extends javax.swing.JFrame {
     /**
      * Creates new form TelaLogon
      */
-    public TelaLogon() throws IOException, Exception {
+    public TelaLogon() throws Exception {
+        ArquivoUtils.garantaExistenciaDeDiretorio("Repositório/Marcas");
+        ArquivoUtils.garantaExistenciaDeDiretorio("Repositório/Locação");
         initComponents();
         controller = new ClienteTcpController();
         fonteDeDadosFuncionario = controller.liste("Funcionario");
-        
     }
 
     /**

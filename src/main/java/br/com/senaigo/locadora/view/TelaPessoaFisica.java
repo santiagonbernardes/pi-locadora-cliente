@@ -590,7 +590,7 @@ public class TelaPessoaFisica extends javax.swing.JInternalFrame implements Form
 			if (id.isEmpty()) {
 				controller.execute(cliente, Operacao.INCLUIR);
 			} else {
-				cliente.setId(Utils.convertaParaInt(id));
+				cliente.setId(Utils.convertaStringParaInt(id));
 				controller.execute(cliente, Operacao.ALTERAR);
 			}
 			preenchaGrid();

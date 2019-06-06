@@ -1,20 +1,21 @@
 package br.com.senaigo.locadora.utils;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Utils {
 
-	public static int convertaParaInt(String valor) {
+	public static int convertaStringParaInt(String valor) {
 		return Integer.parseInt(valor);
 	}
 
-	public static long convertaParaLong(String valor) {
+	public static long convertaStringParaLong(String valor) {
 		return Long.parseLong(valor);
 	}
 
-	public static float convertaParaFloat(String valor) {
+	public static float convertaStringParaFloat(String valor) {
 		return Float.parseFloat(valor);
 	}
 
@@ -24,9 +25,8 @@ public class Utils {
 		return campos;
 	}
 
-	public static List<String> obtenhaParametros(String dadosDoObjeto) {
-		List<String> campos;
-		campos = Arrays.asList(dadosDoObjeto.split("\\|"));
-		return campos;
+	public static void mostreAdvertencia(Exception excecao, String titulo) {
+		JOptionPane.showMessageDialog(null, excecao.getMessage(), titulo, JOptionPane.WARNING_MESSAGE);
 	}
+
 }

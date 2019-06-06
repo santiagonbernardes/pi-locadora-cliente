@@ -284,10 +284,12 @@ public class TelaModelo extends javax.swing.JInternalFrame implements Formulario
 
 	private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
 		try {
-			//TODO popular dados aqui
 			String id = jTextFieldID.getText();
 			String nome = jTextFieldNome.getText();
 			Marca marca = (Marca) jComboBoxMarca.getSelectedItem();
+			if(marca == null) {
+				throw new Exception("Para cadastrar um modelo é necessário informar uma marca.");
+			}
 
 			Modelo modelo = new Modelo();
 			modelo.setNome(nome);
@@ -296,13 +298,13 @@ public class TelaModelo extends javax.swing.JInternalFrame implements Formulario
 			if (id.isEmpty()) {
 				controller.execute(modelo, Operacao.INCLUIR);
 			} else {
-				modelo.setId(Utils.convertaParaInt(id));
+				modelo.setId(Utils.convertaStringParaInt(id));
 				controller.execute(modelo, Operacao.ALTERAR);
 			}
 			preenchaGrid();
 			formulario.configureFormularioParaNavegacao();
 		} catch (Exception erro) {
-			JOptionPane.showMessageDialog(null, "Erro ao " + Operacao.INCLUIR + " Marca: " + erro.getMessage());
+			JOptionPane.showMessageDialog(null, "Erro ao salvar modelos: " + erro.getMessage());
 		}
 	}//GEN-LAST:event_jButtonSalvarActionPerformed
 
