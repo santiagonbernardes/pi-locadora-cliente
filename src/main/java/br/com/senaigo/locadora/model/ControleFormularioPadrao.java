@@ -55,7 +55,7 @@ public class ControleFormularioPadrao {
 		if (!isFormularioVazio()) {
 			int opcaoDoUsuario = JOptionPane.showConfirmDialog(null,
 				"As informações do formulário serão perdidas, deseja continuar?",
-				"Rent System", JOptionPane.YES_NO_OPTION);
+				"Apagar formulário?", JOptionPane.YES_NO_OPTION);
 
 			podeModificarComponentes = opcaoDoUsuario == JOptionPane.YES_OPTION;
 		}

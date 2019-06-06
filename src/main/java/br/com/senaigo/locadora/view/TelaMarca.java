@@ -1,6 +1,7 @@
 package br.com.senaigo.locadora.view;
 
 import br.com.senaigo.locadora.controller.ClienteTcpController;
+import br.com.senaigo.locadora.excecoes.ValidacaoException;
 import br.com.senaigo.locadora.interfaces.FormularioPadrao;
 import br.com.senaigo.locadora.model.ControleFormularioPadrao;
 import br.com.senaigo.locadora.model.Marca;
@@ -294,60 +295,63 @@ public class TelaMarca extends javax.swing.JInternalFrame implements FormularioP
 	private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
 		try {
 			String nome = jTextFieldNome.getText().trim();
-			String id = jTextFieldID.getText();
+			String idTexto = jTextFieldID.getText();
 			ImageIcon icon = (ImageIcon) jLabelIcone.getIcon();
 
 			if (nome.isEmpty()) {
-				throw new Exception("Não é possível salvar uma marca sem o nome. (Obrigatório)");
+				throw new ValidacaoException("Não é possível salvar uma marca sem o nome. (Obrigatório)");
 			}
 
 			if (!nome.matches("^[-'a-zA-ZÀ-ÖØ-öø-ÿ\\s]{1,15}$")) {
 				String mensagem = "O nome da marca é inválido. Informe um nome seguindo as regras abaixo:\n" +
 						"* Até 15 caracteres;\n" +
-						"* Letras (A-z permitindo acentuações válidas em português.);\n" +
+						"* Letras (A-z permitindo acentuações válidas em português);\n" +
 						"* Cedilha (ç);\n" +
 						"* Hífen (-);\n" +
 						"* Apóstrofe (‘).";
-				throw new Exception(mensagem);
+				throw new ValidacaoException(mensagem);
 			}
 
 			if(icon == null) {
-				throw new Exception("Informe a logomarca. (Obrigatório)");
+				throw new ValidacaoException("Informe a logomarca. (Obrigatório)");
 			}
+			int id = idTexto.isEmpty() ? 0 : Utils.convertaStringParaInt(idTexto);
 
-			valideNomeUnicoParaMarca(nome);
-
-			Marca marca = new Marca();
+			valideNomeUnicoParaMarca(nome, id);
 
 			Image imagemSemTratamento = icon.getImage();
 			BufferedImage imagem = (BufferedImage) imagemSemTratamento;
 			String nomeArquivo = ArquivoUtils.obtenhaNomeAleatorioParaArquivo(10);
 			File arquivoImagem = new File("Repositório/Marcas/" + nomeArquivo + ".png");
 			ImageIO.write(imagem, "png", arquivoImagem);
+
+			Marca marca = new Marca();
+			marca.setId(id);
 			marca.setNome(nome);
 			marca.setCaminhoParaArquivoLogo(arquivoImagem.getPath());
 
-			if (id.equals("")) {
-				controller.execute(marca, Operacao.INCLUIR);
-			} else {
-				marca.setId(Utils.convertaStringParaInt(id));
-				controller.execute(marca, Operacao.ALTERAR);
-			}
+			Operacao operacao = marca.getId() == 0 ? Operacao.INCLUIR : Operacao.ALTERAR;
+
+			controller.execute(marca, operacao);
 
 			preenchaGrid();
 			formulario.configureFormularioParaNavegacao();
 			jButtonArquivo.setEnabled(false);
 			jLabelIcone.setIcon(null);
 
-		} catch (Exception erro) {
+		} catch(ValidacaoException erroDeValidacao){
+			Utils.mostreAdvertenciaValidacao(erroDeValidacao);
+		}catch (Exception erro) {
 			Utils.mostreAdvertencia(erro, "Erro ao salvar marca!");
 		}
 	}
 
-	private void valideNomeUnicoParaMarca(String nomeInformadoPeloUsuario) throws Exception {
+	private void valideNomeUnicoParaMarca(String nomeMarcaUsuario, int id) throws Exception {
 		for(Marca marca : fonteDeDadosMarca) {
-			if(marca.getNome().equals(nomeInformadoPeloUsuario)){
-				throw new Exception("O nome da marca é único. Já existe uma marca " + nomeInformadoPeloUsuario + " cadastrada." +
+			boolean nomesIguais = marca.getNome().equalsIgnoreCase(nomeMarcaUsuario);
+			boolean idsDiferentes = marca.getId() != id;
+			if(nomesIguais && idsDiferentes){
+				throw new ValidacaoException("O nome da marca é único. Já existe uma marca " + nomeMarcaUsuario + " cadastrada. " +
 						"Informe um nome não cadastrado.");
 			}
 		}
@@ -373,8 +377,7 @@ public class TelaMarca extends javax.swing.JInternalFrame implements FormularioP
 				jButtonArquivo.setEnabled(true);
 			}
 		} catch (Exception e) {
-			String titulo = "Erro ao preencher formulário para edição!";
-			Utils.mostreAdvertencia(e, titulo);
+			Utils.mostreAdvertenciaTelaEdicao(e);
 		}
 	}//GEN-LAST:event_jButtonEditarActionPerformed
 
@@ -390,9 +393,8 @@ public class TelaMarca extends javax.swing.JInternalFrame implements FormularioP
 			if (retorno == JFileChooser.APPROVE_OPTION) {
 				File file = fileChooser.getSelectedFile();
 				BufferedImage imagemOriginal = ImageIO.read(file);
-				Dimension tamanhoLabel = jLabelIcone.getPreferredSize();
-				int largura = (int) tamanhoLabel.getWidth();
-				int altura = (int) tamanhoLabel.getHeight();
+				int largura = jLabelIcone.getWidth();
+				int altura = jLabelIcone.getHeight();
 				BufferedImage imagemTratada = new BufferedImage(largura, altura, imagemOriginal.getType());
 				Graphics2D graphics = imagemTratada.createGraphics();
 				graphics.drawImage(imagemOriginal, 0, 0, largura, altura, null);
@@ -419,7 +421,7 @@ public class TelaMarca extends javax.swing.JInternalFrame implements FormularioP
 				tabela.addRow(campos);
 			}
 		} catch (Exception erro) {
-			JOptionPane.showMessageDialog(null, "Erro ao preencher grid: " + erro.getMessage());
+			Utils.mostreAdvertenciaPreenchimentoGrid(erro);
 		}
 	}
 

@@ -29,4 +29,18 @@ public class Utils {
 		JOptionPane.showMessageDialog(null, excecao.getMessage(), titulo, JOptionPane.WARNING_MESSAGE);
 	}
 
+	public static void mostreAdvertenciaValidacao (Exception excecao) {
+		String titulo = "Informações inválidas!";
+		mostreAdvertencia(excecao, titulo);
+	}
+
+	public static void mostreAdvertenciaTelaEdicao(Exception excecao) {
+		String titulo = "Erro ao preencher formulário para edição!";
+		mostreAdvertencia(excecao, titulo);
+	}
+	public static void mostreAdvertenciaPreenchimentoGrid(Exception excecao) {
+		String titulo = "Erro ao preencher grid!";
+		mostreAdvertencia(excecao, titulo);
+	}
+
 }

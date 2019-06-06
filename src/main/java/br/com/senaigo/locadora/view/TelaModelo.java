@@ -1,6 +1,7 @@
 package br.com.senaigo.locadora.view;
 
 import br.com.senaigo.locadora.controller.ClienteTcpController;
+import br.com.senaigo.locadora.excecoes.ValidacaoException;
 import br.com.senaigo.locadora.interfaces.FormularioPadrao;
 import br.com.senaigo.locadora.model.ControleFormularioPadrao;
 import br.com.senaigo.locadora.model.Marca;
@@ -8,7 +9,6 @@ import br.com.senaigo.locadora.model.Modelo;
 import br.com.senaigo.locadora.persistencia.Operacao;
 import br.com.senaigo.locadora.utils.Utils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -18,16 +18,21 @@ public class TelaModelo extends javax.swing.JInternalFrame implements Formulario
 
 	private ClienteTcpController controller;
 	private List<Modelo> fonteDeDadosModelo;
-	private List<Marca> fontedeDadosMarca;
+	private List<Marca> fonteDeDadosMarca;
 	private ControleFormularioPadrao formulario;
 
-	public TelaModelo() throws IOException {
-		controller = new ClienteTcpController();
-		atualizeFonteDeDadosMarca();
-		initComponents();
-		formulario = new ControleFormularioPadrao(this);
-		preenchaGrid();
-		formulario.configureFormularioParaNavegacao();
+	public TelaModelo() {
+		try{
+			controller = new ClienteTcpController();
+			atualizeFonteDeDadosMarca();
+			initComponents();
+			formulario = new ControleFormularioPadrao(this);
+			preenchaGrid();
+			formulario.configureFormularioParaNavegacao();
+		} catch (Exception erro) {
+			String titulo = "Erro ao abrir tela de modelos!";
+			Utils.mostreAdvertencia(erro, titulo);
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -116,7 +121,7 @@ public class TelaModelo extends javax.swing.JInternalFrame implements Formulario
 		jLabelMarca.setForeground(new java.awt.Color(0, 0, 0));
 		jLabelMarca.setText("Marca:");
 
-		jComboBoxMarca.setModel(new DefaultComboBoxModel(fontedeDadosMarca.toArray()));
+		jComboBoxMarca.setModel(new DefaultComboBoxModel(fonteDeDadosMarca.toArray()));
 
 		javax.swing.GroupLayout jPanelMarcaLayout = new javax.swing.GroupLayout(jPanelMarca);
 		jPanelMarca.setLayout(jPanelMarcaLayout);
@@ -270,41 +275,67 @@ public class TelaModelo extends javax.swing.JInternalFrame implements Formulario
 	}//GEN-LAST:event_jButtonNovoActionPerformed
 
 	private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-		boolean podeModificarComponentes = formulario.confirmeApagarFormulario();
+		try {
+			boolean podeModificarComponentes = formulario.confirmeApagarFormulario();
 
-		if (podeModificarComponentes) {
-			int indexDoObjeto = jTableLista.getSelectedRow();
-			formulario.configureFormularioParaEntradaDeDados();
-			Modelo modelo = fonteDeDadosModelo.get(indexDoObjeto);
-			jTextFieldID.setText(String.valueOf(modelo.getId()));
-			jTextFieldNome.setText(modelo.getNome());
-			jComboBoxMarca.setSelectedItem(modelo.getMarca());
+			if (podeModificarComponentes) {
+				int indexDoObjeto = jTableLista.getSelectedRow();
+				formulario.configureFormularioParaEntradaDeDados();
+				Modelo modelo = fonteDeDadosModelo.get(indexDoObjeto);
+				jTextFieldID.setText(String.valueOf(modelo.getId()));
+				jTextFieldNome.setText(modelo.getNome());
+				jComboBoxMarca.setSelectedItem(modelo.getMarca());
+			}
+		} catch (Exception erro) {
+			Utils.mostreAdvertenciaTelaEdicao(erro);
 		}
 	}//GEN-LAST:event_jButtonEditarActionPerformed
 
 	private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
 		try {
-			String id = jTextFieldID.getText();
-			String nome = jTextFieldNome.getText();
+			String idTexto = jTextFieldID.getText();
+			String nome = jTextFieldNome.getText().trim();
 			Marca marca = (Marca) jComboBoxMarca.getSelectedItem();
-			if(marca == null) {
-				throw new Exception("Para cadastrar um modelo é necessário informar uma marca.");
+
+			if (nome.isEmpty()) {
+				throw new ValidacaoException("Não é possível salvar uma modelo sem o nome. (Obrigatório)");
 			}
 
+			if (!nome.matches("^[0-9-'a-zA-ZÀ-ÖØ-öø-ÿ\\s]{1,15}$")) {
+				String mensagem = "O nome do modelo é inválido. Informe um nome seguindo as regras abaixo:\n" +
+						"* Até 15 caracteres;\n" +
+						"* Letras (A-z permitindo acentuações válidas em português);\n" +
+						"* Cedilha (ç);\n" +
+						"* Hífen (-);\n" +
+						"* Apóstrofe (‘);\n" +
+						"* Números (0-9).";
+				throw new ValidacaoException(mensagem);
+			}
+
+			if(marca == null) {
+				throw new ValidacaoException("Para cadastrar um modelo é necessário informar uma marca.");
+			}
+
+			valideNomeUnicoParaModelo(nome, marca);
+
+			int id = idTexto.isEmpty() ? 0 : Utils.convertaStringParaInt(idTexto);
+
 			Modelo modelo = new Modelo();
+			modelo.setId(id);
 			modelo.setNome(nome);
 			modelo.setMarca(marca);
 
-			if (id.isEmpty()) {
-				controller.execute(modelo, Operacao.INCLUIR);
-			} else {
-				modelo.setId(Utils.convertaStringParaInt(id));
-				controller.execute(modelo, Operacao.ALTERAR);
-			}
+			Operacao operacao = modelo.getId() == 0 ? Operacao.INCLUIR : Operacao.ALTERAR;
+
+			controller.execute(modelo, operacao);
+
 			preenchaGrid();
 			formulario.configureFormularioParaNavegacao();
-		} catch (Exception erro) {
-			JOptionPane.showMessageDialog(null, "Erro ao salvar modelos: " + erro.getMessage());
+		} catch(ValidacaoException erroValidacao){
+			Utils.mostreAdvertenciaValidacao(erroValidacao);
+		}catch (Exception erro) {
+			String titulo = "Erro ao salvar modelo!";
+			Utils.mostreAdvertencia(erro, titulo);
 		}
 	}//GEN-LAST:event_jButtonSalvarActionPerformed
 
@@ -318,6 +349,15 @@ public class TelaModelo extends javax.swing.JInternalFrame implements Formulario
 	private void jTableListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListaMouseClicked
 		formulario.configureConformeInteracaoComGrid();
 	}//GEN-LAST:event_jTableListaMouseClicked
+
+	private void valideNomeUnicoParaModelo(String nomeInformado, Marca marcaSelecionada) throws ValidacaoException {
+		for(Modelo modelo : fonteDeDadosModelo) {
+			if(modelo.getNome().equalsIgnoreCase(nomeInformado) && modelo.getMarca().equals(marcaSelecionada)) {
+				String mensagem = "Já existe um modelo " + nomeInformado + " vinculado a marca " + marcaSelecionada.toString();
+				throw new ValidacaoException(mensagem);
+			}
+		}
+	}
 
 	private void preenchaGrid() {
 		try {
@@ -333,7 +373,7 @@ public class TelaModelo extends javax.swing.JInternalFrame implements Formulario
 				tabela.addRow(campos);
 			}
 		} catch (Exception erro) {
-			JOptionPane.showMessageDialog(null, "Erro ao " + Operacao.LISTAR + " Modelo: " + erro.getMessage());
+			Utils.mostreAdvertenciaPreenchimentoGrid(erro);
 		}
 	}
 
@@ -341,15 +381,17 @@ public class TelaModelo extends javax.swing.JInternalFrame implements Formulario
 		try {
 			fonteDeDadosModelo = controller.liste("Modelo");
 		} catch (Exception erro) {
-			JOptionPane.showMessageDialog(null, "Erro do preencher fonte de dados de modelos: " + erro.getMessage());
+			String titulo = "Erro ao preencher fonte de dados de modelos!";
+			Utils.mostreAdvertencia(erro, titulo);
 		}
 	}
 
 	private void atualizeFonteDeDadosMarca() {
 		try {
-			fontedeDadosMarca = controller.liste("Marca");
+			fonteDeDadosMarca = controller.liste("Marca");
 		} catch (Exception erro) {
-			JOptionPane.showMessageDialog(null, "Erro do preencher fonte de dados de marcas: " + erro.getMessage());
+			String titulo = "Erro ao preencher fonte de dados de marcas!";
+			Utils.mostreAdvertencia(erro, titulo);
 		}
 	}
 
