@@ -14,7 +14,7 @@ public class CampoEmail extends CampoDeTexto {
 	@Override
 	protected void facaValidacoesAdicionaisSeNecessario(String objetoEmTexto) throws ValidacaoException {
 		if(objetoEmTexto.length() > 64) {
-			throw new ValidacaoException("No máximo 64 caracteres");
+			throw new ValidacaoException("Um e-mail pode ter no máximo 64 caracteres!");
 		}
 	}
 }

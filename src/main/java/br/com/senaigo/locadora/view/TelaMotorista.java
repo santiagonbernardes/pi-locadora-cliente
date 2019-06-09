@@ -1,14 +1,17 @@
 package br.com.senaigo.locadora.view;
 
 import br.com.senaigo.locadora.controller.ClienteTcpController;
+import br.com.senaigo.locadora.excecoes.ValidacaoException;
 import br.com.senaigo.locadora.interfaces.FormularioPadrao;
 import br.com.senaigo.locadora.model.*;
 import br.com.senaigo.locadora.persistencia.Operacao;
 import br.com.senaigo.locadora.utils.DataUtils;
 import br.com.senaigo.locadora.utils.Utils;
+import br.com.senaigo.locadora.utils.formularioUtils.*;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -55,7 +58,7 @@ public class TelaMotorista extends javax.swing.JInternalFrame implements Formula
 				tabela.addRow(campos);
 			}
 		} catch (Exception erro) {
-			JOptionPane.showMessageDialog(null, "Erro ao " + Operacao.LISTAR + " Modelo: " + erro.getMessage());
+		    Utils.mostreAdvertenciaPreenchimentoGrid(erro);
 		}
 	}
 
@@ -63,7 +66,8 @@ public class TelaMotorista extends javax.swing.JInternalFrame implements Formula
 		try {
 			this.fonteDeDadosMotorista = controller.liste("Motorista");
 		} catch (Exception erro) {
-			JOptionPane.showMessageDialog(null, "Erro ao " + Operacao.LISTAR + " Modelo: " + erro.getMessage());
+            String titulo = "Erro do preencher fonte de dados de motoristas!";
+            Utils.mostreAdvertencia(erro, titulo);
 		}
 	}
 
@@ -75,13 +79,11 @@ public class TelaMotorista extends javax.swing.JInternalFrame implements Formula
         jPanelDadosGerais = new javax.swing.JPanel();
         jLabelID = new javax.swing.JLabel();
         jTextFieldID = new javax.swing.JTextField();
-        jLabelCPF = new javax.swing.JLabel();
         jLabelNome = new javax.swing.JLabel();
         jTextFieldNome = new javax.swing.JTextField();
         jLabelAniversario = new javax.swing.JLabel();
         jLabelCNH = new javax.swing.JLabel();
         jLabelIcone = new javax.swing.JLabel();
-        jFormattedTextFieldCpf = new javax.swing.JFormattedTextField();
         jFormattedTextFieldCnh = new javax.swing.JFormattedTextField();
         jFormattedTextFieldDataNascimento = new javax.swing.JFormattedTextField();
         jPanelDadosDeEndereco = new javax.swing.JPanel();
@@ -131,11 +133,6 @@ public class TelaMotorista extends javax.swing.JInternalFrame implements Formula
         jTextFieldID.setEditable(false);
         jTextFieldID.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
-        jLabelCPF.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelCPF.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabelCPF.setForeground(new java.awt.Color(0, 0, 0));
-        jLabelCPF.setText("CPF");
-
         jLabelNome.setBackground(new java.awt.Color(255, 255, 255));
         jLabelNome.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabelNome.setForeground(new java.awt.Color(0, 0, 0));
@@ -154,12 +151,6 @@ public class TelaMotorista extends javax.swing.JInternalFrame implements Formula
         jLabelCNH.setText("CNH:");
 
         jLabelIcone.setBackground(new java.awt.Color(0, 0, 0));
-
-        try {
-            jFormattedTextFieldCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
 
         try {
             jFormattedTextFieldCnh.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###########")));
@@ -192,14 +183,10 @@ public class TelaMotorista extends javax.swing.JInternalFrame implements Formula
                                 .addGroup(jPanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelID)
                                     .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(54, 54, 54)
+                                .addGap(61, 61, 61)
                                 .addGroup(jPanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelCPF)
-                                    .addComponent(jFormattedTextFieldCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelCNH)
-                                    .addComponent(jFormattedTextFieldCnh, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jFormattedTextFieldCnh, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelCNH))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabelIcone, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabelNome))
@@ -214,11 +201,9 @@ public class TelaMotorista extends javax.swing.JInternalFrame implements Formula
                         .addGap(29, 29, 29)
                         .addGroup(jPanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelID)
-                            .addComponent(jLabelCPF)
                             .addComponent(jLabelCNH))
                         .addGroup(jPanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jFormattedTextFieldCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jFormattedTextFieldCnh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanelDadosGeraisLayout.createSequentialGroup()
@@ -574,28 +559,36 @@ public class TelaMotorista extends javax.swing.JInternalFrame implements Formula
     }// </editor-fold>//GEN-END:initComponents
 
 	private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-		boolean podeModificarComponentes = formulario.confirmeApagarFormulario();
+        try{
+            boolean podeModificarComponentes = formulario.confirmeApagarFormulario();
 
-		if (podeModificarComponentes) {
-			int indexDoObjeto = jTableLista.getSelectedRow();
-			formulario.configureFormularioParaEntradaDeDados();
-			Motorista motorista = fonteDeDadosMotorista.get(indexDoObjeto);
-			jTextFieldID.setText(String.valueOf(motorista.getId()));
-			jTextFieldNome.setText(motorista.getNome());
-			jFormattedTextFieldCpf.setText(motorista.getCpf());
-			jFormattedTextFieldCnh.setText(motorista.getCnh());
-			jFormattedTextFieldDataNascimento.setText(DataUtils.convertaLocalDateParaStringFormatada(motorista.getDataNascimento()));
-			jFormattedTextFieldCep.setText(motorista.getEndereco().getCep());
-			jTextFieldLogradouro.setText(motorista.getEndereco().getLogradouro());
-			jTextFieldNumero.setText(motorista.getEndereco().getNumero());
-			jTextFieldComplemento.setText(motorista.getEndereco().getComplemento());
-			jTextFieldBairro.setText(motorista.getEndereco().getBairro());
-			jTextFieldCidade.setText(motorista.getEndereco().getCidade());
-			jComboBoxUF.setSelectedItem(motorista.getEndereco().getEstado());
-			jFormattedTextFieldTelefone.setText(motorista.getTelefonePrincipal().toString());
-			jFormattedTextFieldTelefoneCel.setText(motorista.getTelefoneAlternativo().toString());
-			jTextFieldEmail.setText(motorista.getEmail());
-		}
+            if (podeModificarComponentes) {
+                int indexDoObjeto = jTableLista.getSelectedRow();
+                formulario.configureFormularioParaEntradaDeDados();
+                Motorista motorista = fonteDeDadosMotorista.get(indexDoObjeto);
+                jTextFieldID.setText(String.valueOf(motorista.getId()));
+                jTextFieldNome.setText(motorista.getNome());
+                jFormattedTextFieldCnh.setText(motorista.getCnh());
+                jFormattedTextFieldCnh.setValue(motorista.getCnh());
+                jFormattedTextFieldDataNascimento.setText(DataUtils.convertaLocalDateParaStringFormatada(motorista.getDataNascimento()));
+                jFormattedTextFieldDataNascimento.setValue(DataUtils.convertaLocalDateParaStringFormatada(motorista.getDataNascimento()));
+                jFormattedTextFieldCep.setText(motorista.getEndereco().getCep());
+                jFormattedTextFieldCep.setValue(motorista.getEndereco().getCep());
+                jTextFieldLogradouro.setText(motorista.getEndereco().getLogradouro());
+                jTextFieldNumero.setText(motorista.getEndereco().getNumero());
+                jTextFieldComplemento.setText(motorista.getEndereco().getComplemento());
+                jTextFieldBairro.setText(motorista.getEndereco().getBairro());
+                jTextFieldCidade.setText(motorista.getEndereco().getCidade());
+                jComboBoxUF.setSelectedItem(motorista.getEndereco().getEstado());
+                jFormattedTextFieldTelefone.setText(motorista.getTelefonePrincipal().toString());
+                jFormattedTextFieldTelefone.setValue(motorista.getTelefonePrincipal().toString());
+                jFormattedTextFieldTelefoneCel.setText(motorista.getTelefoneAlternativo().toString());
+                jFormattedTextFieldTelefoneCel.setValue(motorista.getTelefoneAlternativo().toString());
+                jTextFieldEmail.setText(motorista.getEmail());
+            }
+        } catch (Exception erro) {
+            Utils.mostreAdvertenciaTelaEdicao(erro);
+        }
 	}//GEN-LAST:event_jButtonEditarActionPerformed
 
 	private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
@@ -607,56 +600,89 @@ public class TelaMotorista extends javax.swing.JInternalFrame implements Formula
 
 	private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
 		try {
-			String id = jTextFieldID.getText();
-			String nome = jTextFieldNome.getText();
-			String dataNascimento = jFormattedTextFieldDataNascimento.getText();
-			String cpf = jFormattedTextFieldCpf.getText();
-			String cnh = jFormattedTextFieldCnh.getText();
-			String logradouro = jTextFieldLogradouro.getText();
-			String numero = jTextFieldNumero.getText();
-			String complemento = jTextFieldComplemento.getText();
-			String bairro = jTextFieldBairro.getText();
-			String cidade = jTextFieldCidade.getText();
-			String cep = jFormattedTextFieldCep.getText();
-			EstadosBrasil estado = (EstadosBrasil) jComboBoxUF.getSelectedItem();
-			String telefonePrincipal = jFormattedTextFieldTelefone.getText();
-			String telefoneAlternativo = jFormattedTextFieldTelefoneCel.getText();
-			String email = jTextFieldEmail.getText();
+			CampoId campoId = new CampoId(jLabelID, jTextFieldID);
+			CampoDeTexto campoNome = new CampoDeTexto(jLabelNome, jTextFieldNome, true, ValidacaoTexto.NOME_COMPLETO_PADRAO);
+			CampoDeTexto campoCnh = new CampoDeTexto(jLabelCNH, jFormattedTextFieldCnh, true);
+			CampoData campoData = new CampoData(jLabelAniversario, jFormattedTextFieldDataNascimento, true);
+			CampoDeTexto campoCep = new CampoDeTexto(jLabelCEP, jFormattedTextFieldCep, true);
+			CampoDeTexto campoLogradouro = new CampoDeTexto(jLabelLogradouro, jTextFieldLogradouro, true, ValidacaoTexto.LOGRADOURO);
+			CampoDeTexto campoNumero = new CampoDeTexto(jLabelNumero, jTextFieldNumero, false, ValidacaoTexto.NUMERO_ENDERECO);
+			CampoDeTexto campoComplemento = new CampoDeTexto(jLabelComplemento, jTextFieldComplemento, false, ValidacaoTexto.COMPLEMENTO_ENDERECO);
+			CampoDeTexto campoBairro = new CampoDeTexto(jLabelBairro, jTextFieldBairro, true, ValidacaoTexto.BAIRRO_ENDERECO);
+			CampoDeTexto campoCidade = new CampoDeTexto(jLabelCidade, jTextFieldCidade, true, ValidacaoTexto.CIDADE);
+			CampoComboBox<EstadosBrasil> campoEstadoBrasil = new CampoComboBox<>(jLabelUF, jComboBoxUF);
+			CampoDeTexto campoTelefone = new CampoDeTexto(jLabelTelefone, jFormattedTextFieldTelefone, false);
+			CampoDeTexto campoTelefoneCel = new CampoDeTexto(jLabelTelefoneCel, jFormattedTextFieldTelefoneCel, false);
+			CampoEmail campoEmail = new CampoEmail(jLabelEmail, jTextFieldEmail, false);
 
-			Motorista motorista = (Motorista) PersisteDadosFactory.obtenhaInstancia("Motorista");
-			motorista.setNome(nome);
-			motorista.setCpf(cpf);
-			motorista.setCnh(cnh);
-			LocalDate data = DataUtils.convertaStringParaLocalDate(dataNascimento);
+			valideUmTelefoneObrigatorio(campoTelefone, campoTelefoneCel);
+			valideMaiorDeIdade(campoData);
+			valideCnhUnica(campoCnh, campoId);
+
+			Motorista motorista = new Motorista();
+			motorista.setId(campoId.getDadosDoCampo());
+			motorista.setNome(campoNome.getDadosDoCampo());
+			motorista.setCnh(campoCnh.getDadosDoCampo());
+			LocalDate data = DataUtils.convertaStringParaLocalDate(campoData.getDadosDoCampo());
 			motorista.setDataNascimento(data);
 			Endereco endereco = new Endereco();
-			endereco.setLogradouro(logradouro);
-			endereco.setBairro(bairro);
-			endereco.setComplemento(complemento);
-			endereco.setNumero(numero);
-			endereco.setCep(cep);
-			endereco.setCidade(cidade);
-			endereco.setEstado(estado);
+			endereco.setLogradouro(campoLogradouro.getDadosDoCampo());
+			endereco.setBairro(campoBairro.getDadosDoCampo());
+			endereco.setComplemento(campoComplemento.getDadosDoCampo());
+			endereco.setNumero(campoNumero.getDadosDoCampo());
+			endereco.setCep(campoCep.getDadosDoCampo());
+			endereco.setCidade(campoCidade.getDadosDoCampo());
+			endereco.setEstado((EstadosBrasil) campoEstadoBrasil.getDadosDoCampo());
 			motorista.setEndereco(endereco);
-			Telefone telefonePrincipalObjeto = Telefone.obtenhaInstancia(telefonePrincipal);
-			Telefone telefoneAlternativoObjeto = Telefone.obtenhaInstancia(telefoneAlternativo);
-			motorista.setTelefonePrincipal(telefonePrincipalObjeto);
-			motorista.setTelefoneAlternativo(telefoneAlternativoObjeto);
-			motorista.setEmail(email);
+			Telefone telefonePrincipal = Telefone.obtenhaInstancia(campoTelefone.getDadosDoCampo());
+			Telefone telefoneCelular = Telefone.obtenhaInstancia(campoTelefoneCel.getDadosDoCampo());
+			motorista.setTelefonePrincipal(telefonePrincipal);
+			motorista.setTelefoneAlternativo(telefoneCelular);
+			motorista.setEmail(campoEmail.getDadosDoCampo());
 
-			if (id.isEmpty()) {
-				controller.execute(motorista, Operacao.INCLUIR);
-			} else {
-				motorista.setId(Utils.convertaStringParaInt(id));
-				controller.execute(motorista, Operacao.ALTERAR);
-			}
+			Operacao operacao = motorista.getId() == 0 ? Operacao.INCLUIR : Operacao.ALTERAR;
+
+			controller.execute(motorista, operacao);
+
 			preenchaGrid();
 			formulario.configureFormularioParaNavegacao();
 
+		} catch (ValidacaoException erroDeValidacao) {
+			Utils.mostreAdvertenciaValidacao(erroDeValidacao);
 		} catch (Exception erro) {
-			JOptionPane.showMessageDialog(null, erro.getMessage());
+			Utils.mostreAdvertencia(erro, "Erro ao salvar Motorista!");
 		}
 	}//GEN-LAST:event_jButtonSalvarActionPerformed
+
+	private void valideUmTelefoneObrigatorio(CampoDeTexto campoTelefone, CampoDeTexto campoTelefoneCel) throws ValidacaoException {
+		if (campoTelefone.getDadosDoCampo().isEmpty() && campoTelefoneCel.getDadosDoCampo().isEmpty()) {
+			throw new ValidacaoException("Informe ao menos um número de telefone!");
+		}
+	}
+
+	private void valideMaiorDeIdade(CampoData campoData) throws ValidacaoException {
+		LocalDate dataHoje = LocalDate.now();
+		LocalDate dataNascimento = DataUtils.convertaStringParaLocalDate(campoData.getDadosDoCampo());
+		int idade = Period.between(dataNascimento, dataHoje).getYears();
+
+		if(idade < 18) {
+			throw new ValidacaoException("Um motorista deve ser maior de 18 anos!");
+		}
+	}
+
+	private void valideCnhUnica(CampoDeTexto campoCnh, CampoId campoId) throws ValidacaoException {
+		String cnhInformada = campoCnh.getDadosDoCampo();
+		int id = campoId.getDadosDoCampo();
+		for (Motorista motorista : fonteDeDadosMotorista) {
+			boolean nomesIguais = motorista.getCnh().equals(cnhInformada);
+			boolean idsDiferentes = motorista.getId() != id;
+			if (nomesIguais && idsDiferentes) {
+				throw new ValidacaoException("A CNH é única. Já existe uma CNH " + campoCnh.getDadosDoCampo() + " cadastrada. " +
+						"Informe uma CNH não cadastrada.");
+			}
+		}
+
+	}
 
 	private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
 		formulario.configureFormularioParaEntradaDeDados();
@@ -700,7 +726,6 @@ public class TelaMotorista extends javax.swing.JInternalFrame implements Formula
 	public List<JTextField> obtenhaCamposDoFormularioSemCampoId() {
 		List<JTextField> camposDoFormularioSemCampoId = new ArrayList<>();
 		camposDoFormularioSemCampoId.add(this.jTextFieldNome);
-		camposDoFormularioSemCampoId.add(this.jFormattedTextFieldCpf);
 		camposDoFormularioSemCampoId.add(this.jFormattedTextFieldCnh);
 		camposDoFormularioSemCampoId.add(this.jFormattedTextFieldDataNascimento);
 		camposDoFormularioSemCampoId.add(this.jFormattedTextFieldCep);
@@ -732,7 +757,6 @@ public class TelaMotorista extends javax.swing.JInternalFrame implements Formula
     private javax.swing.JComboBox<String> jComboBoxUF;
     private javax.swing.JFormattedTextField jFormattedTextFieldCep;
     private javax.swing.JFormattedTextField jFormattedTextFieldCnh;
-    private javax.swing.JFormattedTextField jFormattedTextFieldCpf;
     private javax.swing.JFormattedTextField jFormattedTextFieldDataNascimento;
     private javax.swing.JFormattedTextField jFormattedTextFieldTelefone;
     private javax.swing.JFormattedTextField jFormattedTextFieldTelefoneCel;
@@ -740,7 +764,6 @@ public class TelaMotorista extends javax.swing.JInternalFrame implements Formula
     private javax.swing.JLabel jLabelBairro;
     private javax.swing.JLabel jLabelCEP;
     private javax.swing.JLabel jLabelCNH;
-    private javax.swing.JLabel jLabelCPF;
     private javax.swing.JLabel jLabelCidade;
     private javax.swing.JLabel jLabelComplemento;
     private javax.swing.JLabel jLabelEmail;

@@ -261,7 +261,7 @@ public class TelaCategoria extends javax.swing.JInternalFrame implements Formula
 
 			CampoId campoId = new CampoId(jLabelID, jTextFieldID);
 			CampoDeTexto campoNome = new CampoDeTexto(jLabelNome, jTextFieldNome, true, ValidacaoTexto.NOME_MARCA_CATEGORIA);
-			CampoMonetario campoValor = new CampoMonetario(jLabelValorLocacao, jTextFieldValorLocacao, true, ValidacaoFloat.SEIS_DIGITOS);
+			CampoDinheiro campoValor = new CampoDinheiro(jLabelValorLocacao, jTextFieldValorLocacao, true, ValidacaoFloat.SEIS_DIGITOS);
 
 			String nome = campoNome.getDadosDoCampo();
 			float valor = Utils.convertaStringParaFloat(campoValor.getDadosDoCampo());
@@ -327,16 +327,20 @@ public class TelaCategoria extends javax.swing.JInternalFrame implements Formula
 	}//GEN-LAST:event_jButtonNovoActionPerformed
 
 	private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-		boolean podeModificarComponentes = formulario.confirmeApagarFormulario();
+		try{
+			boolean podeModificarComponentes = formulario.confirmeApagarFormulario();
 
-		if (podeModificarComponentes) {
-			int indexDoObjeto = jTableLista.getSelectedRow();
-			formulario.configureFormularioParaEntradaDeDados();
-			Categoria categoria = fonteDeDadosCategoria.get(indexDoObjeto);
-			jTextFieldID.setText(String.valueOf(categoria.getId()));
-			jTextFieldNome.setText(categoria.getNome());
-			String valorLocacaoTexto = Utils.convertaFloatParaStringComDuasCasasDecimais(categoria.getValorDiarioLocacao());
-			jTextFieldValorLocacao.setText(valorLocacaoTexto);
+			if (podeModificarComponentes) {
+				int indexDoObjeto = jTableLista.getSelectedRow();
+				formulario.configureFormularioParaEntradaDeDados();
+				Categoria categoria = fonteDeDadosCategoria.get(indexDoObjeto);
+				jTextFieldID.setText(String.valueOf(categoria.getId()));
+				jTextFieldNome.setText(categoria.getNome());
+				String valorLocacaoTexto = Utils.convertaFloatParaStringComDuasCasasDecimais(categoria.getValorDiarioLocacao());
+				jTextFieldValorLocacao.setText(valorLocacaoTexto);
+			}
+		} catch (Exception erro) {
+			Utils.mostreAdvertenciaTelaEdicao(erro);
 		}
 	}//GEN-LAST:event_jButtonEditarActionPerformed
 

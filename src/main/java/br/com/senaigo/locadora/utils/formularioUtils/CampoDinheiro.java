@@ -5,9 +5,9 @@ import br.com.senaigo.locadora.utils.Utils;
 
 import javax.swing.*;
 
-public class CampoMonetario extends CampoDeTexto {
+public class CampoDinheiro extends CampoDeTexto {
 
-	public CampoMonetario(JLabel labelDoCampo, JTextField componenteDoCampo, boolean isObrigatorio, ValidacaoFloat validacao) throws ValidacaoException {
+	public CampoDinheiro(JLabel labelDoCampo, JTextField componenteDoCampo, boolean isObrigatorio, ValidacaoFloat validacao) throws ValidacaoException {
 		super(labelDoCampo, componenteDoCampo, isObrigatorio, validacao);
 	}
 

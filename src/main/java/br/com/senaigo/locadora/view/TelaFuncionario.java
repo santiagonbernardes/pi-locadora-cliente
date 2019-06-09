@@ -663,30 +663,34 @@ public class TelaFuncionario extends javax.swing.JInternalFrame implements Formu
 	}// </editor-fold>//GEN-END:initComponents
 
 	private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-		boolean podeModificarComponentes = formulario.confirmeApagarFormulario();
+		try{
+			boolean podeModificarComponentes = formulario.confirmeApagarFormulario();
 
-		if (podeModificarComponentes) {
-			int indexDoObjeto = jTableLista.getSelectedRow();
-			formulario.configureFormularioParaEntradaDeDados();
-			Funcionario funcionario = fonteDeDadosFuncionario.get(indexDoObjeto);
-			jTextFieldID.setText(String.valueOf(funcionario.getId()));
-			jTextFieldNome.setText(funcionario.getNome());
-			jFormattedTextFieldCpf.setText(funcionario.getCpf());
-			jFormattedTextFieldDataNascimento.setText(DataUtils.convertaLocalDateParaStringFormatada(funcionario.getDataNascimento()));
-			jFormattedTextFieldCep.setText(funcionario.getEndereco().getCep());
-			jTextFieldLogradouro.setText(funcionario.getEndereco().getLogradouro());
-			jTextFieldNumero.setText(funcionario.getEndereco().getNumero());
-			jTextFieldComplemento.setText(funcionario.getEndereco().getComplemento());
-			jTextFieldBairro.setText(funcionario.getEndereco().getBairro());
-			jTextFieldCidade.setText(funcionario.getEndereco().getCidade());
-			jComboBoxUF.setSelectedItem(funcionario.getEndereco().getEstado());
-			jFormattedTextFieldTelefonePrincipal.setText(funcionario.getTelefonePrincipal().toString());
-			jFormattedTextFieldTelefoneCelular.setText(funcionario.getTelefoneAlternativo().toString());
-			jTextFieldEmail.setText(funcionario.getEmail());
-			jTextFieldRG.setText(funcionario.getRg());
-			jTextFieldCTE.setText(funcionario.getCarteiraDeTrabalho());
-			jTextFieldLogin.setText(funcionario.getLogin());
-			jTextFieldSenha.setText(funcionario.getSenha());
+			if (podeModificarComponentes) {
+				int indexDoObjeto = jTableLista.getSelectedRow();
+				formulario.configureFormularioParaEntradaDeDados();
+				Funcionario funcionario = fonteDeDadosFuncionario.get(indexDoObjeto);
+				jTextFieldID.setText(String.valueOf(funcionario.getId()));
+				jTextFieldNome.setText(funcionario.getNome());
+				jFormattedTextFieldCpf.setText(funcionario.getCpf());
+				jFormattedTextFieldDataNascimento.setText(DataUtils.convertaLocalDateParaStringFormatada(funcionario.getDataNascimento()));
+				jFormattedTextFieldCep.setText(funcionario.getEndereco().getCep());
+				jTextFieldLogradouro.setText(funcionario.getEndereco().getLogradouro());
+				jTextFieldNumero.setText(funcionario.getEndereco().getNumero());
+				jTextFieldComplemento.setText(funcionario.getEndereco().getComplemento());
+				jTextFieldBairro.setText(funcionario.getEndereco().getBairro());
+				jTextFieldCidade.setText(funcionario.getEndereco().getCidade());
+				jComboBoxUF.setSelectedItem(funcionario.getEndereco().getEstado());
+				jFormattedTextFieldTelefonePrincipal.setText(funcionario.getTelefonePrincipal().toString());
+				jFormattedTextFieldTelefoneCelular.setText(funcionario.getTelefoneAlternativo().toString());
+				jTextFieldEmail.setText(funcionario.getEmail());
+				jTextFieldRG.setText(funcionario.getRg());
+				jTextFieldCTE.setText(funcionario.getCarteiraDeTrabalho());
+				jTextFieldLogin.setText(funcionario.getLogin());
+				jTextFieldSenha.setText(funcionario.getSenha());
+			}
+		} catch (Exception erro) {
+			Utils.mostreAdvertenciaTelaEdicao(erro);
 		}
 	}//GEN-LAST:event_jButtonEditarActionPerformed
 

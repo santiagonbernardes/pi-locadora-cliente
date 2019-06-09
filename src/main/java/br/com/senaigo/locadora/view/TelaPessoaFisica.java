@@ -72,7 +72,8 @@ public class TelaPessoaFisica extends javax.swing.JInternalFrame implements Form
 			}
 			this.fonteDeDadosPessoaFisica = apenasClientesPessoaFisica;
 		} catch (Exception erro) {
-			Utils.mostreAdvertenciaPreenchimentoGrid(erro);
+			String titulo = "Erro do preencher fonte de dados de pessoas físicas!";
+			Utils.mostreAdvertencia(erro, titulo);
 		}
 	}
 
@@ -635,31 +636,35 @@ public class TelaPessoaFisica extends javax.swing.JInternalFrame implements Form
 	}//GEN-LAST:event_jButtonCancelarActionPerformed
 
 	private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-		boolean podeModificarComponentes = formulario.confirmeApagarFormulario();
+		try{
+			boolean podeModificarComponentes = formulario.confirmeApagarFormulario();
 
-		if (podeModificarComponentes) {
-			int indexDoObjeto = jTableLista.getSelectedRow();
-			formulario.configureFormularioParaEntradaDeDados();
-			Cliente cliente = fonteDeDadosPessoaFisica.get(indexDoObjeto);
-			jTextFieldID.setText(String.valueOf(cliente.getId()));
-			jTextFieldNome.setText(cliente.getNome());
-			jFormattedTextFieldCpf.setText(cliente.getCpf());
-			jFormattedTextFieldCpf.setValue(cliente.getCpf());
-			jFormattedTextFieldDataNascimento.setText(DataUtils.convertaLocalDateParaStringFormatada(cliente.getDataNascimento()));
-			jFormattedTextFieldDataNascimento.setValue(DataUtils.convertaLocalDateParaStringFormatada(cliente.getDataNascimento()));
-			jFormattedTextFieldCep.setText(cliente.getEndereco().getCep());
-			jFormattedTextFieldCep.setValue(cliente.getEndereco().getCep());
-			jTextFieldLogradouro.setText(cliente.getEndereco().getLogradouro());
-			jTextFieldNumero.setText(cliente.getEndereco().getNumero());
-			jTextFieldComplemento.setText(cliente.getEndereco().getComplemento());
-			jTextFieldBairro.setText(cliente.getEndereco().getBairro());
-			jTextFieldCidade.setText(cliente.getEndereco().getCidade());
-			jComboBoxUF.setSelectedItem(cliente.getEndereco().getEstado());
-			jFormattedTextFieldTelefonePrincipal.setText(cliente.getTelefonePrincipal().toString());
-			jFormattedTextFieldTelefonePrincipal.setValue(cliente.getTelefonePrincipal().toString());
-			jFormattedTextFieldTelefoneCelular.setText(cliente.getTelefoneAlternativo().toString());
-			jFormattedTextFieldTelefoneCelular.setValue(cliente.getTelefoneAlternativo().toString());
-			jTextFieldEmail.setText(cliente.getEmail());
+			if (podeModificarComponentes) {
+				int indexDoObjeto = jTableLista.getSelectedRow();
+				formulario.configureFormularioParaEntradaDeDados();
+				Cliente cliente = fonteDeDadosPessoaFisica.get(indexDoObjeto);
+				jTextFieldID.setText(String.valueOf(cliente.getId()));
+				jTextFieldNome.setText(cliente.getNome());
+				jFormattedTextFieldCpf.setText(cliente.getCpf());
+				jFormattedTextFieldCpf.setValue(cliente.getCpf());
+				jFormattedTextFieldDataNascimento.setText(DataUtils.convertaLocalDateParaStringFormatada(cliente.getDataNascimento()));
+				jFormattedTextFieldDataNascimento.setValue(DataUtils.convertaLocalDateParaStringFormatada(cliente.getDataNascimento()));
+				jFormattedTextFieldCep.setText(cliente.getEndereco().getCep());
+				jFormattedTextFieldCep.setValue(cliente.getEndereco().getCep());
+				jTextFieldLogradouro.setText(cliente.getEndereco().getLogradouro());
+				jTextFieldNumero.setText(cliente.getEndereco().getNumero());
+				jTextFieldComplemento.setText(cliente.getEndereco().getComplemento());
+				jTextFieldBairro.setText(cliente.getEndereco().getBairro());
+				jTextFieldCidade.setText(cliente.getEndereco().getCidade());
+				jComboBoxUF.setSelectedItem(cliente.getEndereco().getEstado());
+				jFormattedTextFieldTelefonePrincipal.setText(cliente.getTelefonePrincipal().toString());
+				jFormattedTextFieldTelefonePrincipal.setValue(cliente.getTelefonePrincipal().toString());
+				jFormattedTextFieldTelefoneCelular.setText(cliente.getTelefoneAlternativo().toString());
+				jFormattedTextFieldTelefoneCelular.setValue(cliente.getTelefoneAlternativo().toString());
+				jTextFieldEmail.setText(cliente.getEmail());
+			}
+		} catch (Exception erro) {
+			Utils.mostreAdvertenciaTelaEdicao(erro);
 		}
 	}//GEN-LAST:event_jButtonEditarActionPerformed
 

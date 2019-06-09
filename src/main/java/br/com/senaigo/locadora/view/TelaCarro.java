@@ -446,7 +446,7 @@ public class TelaCarro extends javax.swing.JInternalFrame implements FormularioP
 			CampoDeTexto campoPlaca = new CampoDeTexto(jLabelPlaca, jFormattedTextFieldPlaca, true);
 			CampoDeTexto campoRenavam = new CampoDeTexto(jLabelRENAVAM, jFormattedTextFieldRenavam, true);
 			CampoDeTexto campoAno = new CampoDeTexto(jLabelAno, jFormattedTextFieldAno, true);
-			CampoMonetario campoValor = new CampoMonetario(jLabelValorCompra, jTextFieldValorCompra, true, ValidacaoFloat.SETE_DIGITOS);
+			CampoDinheiro campoValor = new CampoDinheiro(jLabelValorCompra, jTextFieldValorCompra, true, ValidacaoFloat.SETE_DIGITOS);
 			CampoDeTexto campoKm = new CampoDeTexto(jLabelQuilometragem, jTextFieldQuilometragem, true, ValidacaoTexto.CARRO_KM);
 			CampoComboBox<Categoria> campoCategoria = new CampoComboBox<>(jLabelCategoria, jComboBoxCategoria);
 			CampoComboBox<Estado> campoEstado = new CampoComboBox<>(jLabelEstado, jComboBoxEstado);
@@ -501,25 +501,29 @@ public class TelaCarro extends javax.swing.JInternalFrame implements FormularioP
 	}
 
 	private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
-		boolean podeModificarComponentes = formulario.confirmeApagarFormulario();
+		try {
+			boolean podeModificarComponentes = formulario.confirmeApagarFormulario();
 
-		if (podeModificarComponentes) {
-			int indexDoVeiculo = jTableLista.getSelectedRow();
-			formulario.configureFormularioParaEntradaDeDados();
-			Veiculo veiculo = fonteDeDadosVeiculo.get(indexDoVeiculo);
-			jTextFieldID.setText(String.valueOf(veiculo.getId()));
-			jFormattedTextFieldPlaca.setText(veiculo.getPlaca());
-			jFormattedTextFieldPlaca.setValue(veiculo.getPlaca());
-			jFormattedTextFieldRenavam.setText(String.valueOf(veiculo.getRenavam()));
-			jFormattedTextFieldRenavam.setValue(String.valueOf(veiculo.getRenavam()));
-			jFormattedTextFieldAno.setText(String.valueOf(veiculo.getAnoFabricacao()));
-			jFormattedTextFieldAno.setValue(String.valueOf(veiculo.getAnoFabricacao()));
-			String valorCompra = Utils.convertaFloatParaStringComDuasCasasDecimais(veiculo.getValorCompra());
-			jTextFieldValorCompra.setText(valorCompra);
-			jTextFieldQuilometragem.setText(String.valueOf(veiculo.getKmAtual()));
-			jComboBoxCategoria.setSelectedItem(veiculo.getCategoria());
-			jComboBoxEstado.setSelectedItem(veiculo.getEstado());
-			jComboBoxModelo.setSelectedItem(veiculo.getModelo());
+			if (podeModificarComponentes) {
+				int indexDoVeiculo = jTableLista.getSelectedRow();
+				formulario.configureFormularioParaEntradaDeDados();
+				Veiculo veiculo = fonteDeDadosVeiculo.get(indexDoVeiculo);
+				jTextFieldID.setText(String.valueOf(veiculo.getId()));
+				jFormattedTextFieldPlaca.setText(veiculo.getPlaca());
+				jFormattedTextFieldPlaca.setValue(veiculo.getPlaca());
+				jFormattedTextFieldRenavam.setText(String.valueOf(veiculo.getRenavam()));
+				jFormattedTextFieldRenavam.setValue(String.valueOf(veiculo.getRenavam()));
+				jFormattedTextFieldAno.setText(String.valueOf(veiculo.getAnoFabricacao()));
+				jFormattedTextFieldAno.setValue(String.valueOf(veiculo.getAnoFabricacao()));
+				String valorCompra = Utils.convertaFloatParaStringComDuasCasasDecimais(veiculo.getValorCompra());
+				jTextFieldValorCompra.setText(valorCompra);
+				jTextFieldQuilometragem.setText(String.valueOf(veiculo.getKmAtual()));
+				jComboBoxCategoria.setSelectedItem(veiculo.getCategoria());
+				jComboBoxEstado.setSelectedItem(veiculo.getEstado());
+				jComboBoxModelo.setSelectedItem(veiculo.getModelo());
+			}
+		} catch (Exception erro) {
+			Utils.mostreAdvertenciaTelaEdicao(erro);
 		}
 	}//GEN-LAST:event_jButtonEditarActionPerformed
 
