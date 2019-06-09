@@ -7,8 +7,8 @@ import br.com.senaigo.locadora.model.Categoria;
 import br.com.senaigo.locadora.model.ControleFormularioPadrao;
 import br.com.senaigo.locadora.persistencia.Operacao;
 import br.com.senaigo.locadora.utils.Utils;
+import br.com.senaigo.locadora.utils.formularioUtils.*;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
@@ -258,44 +258,22 @@ public class TelaCategoria extends javax.swing.JInternalFrame implements Formula
 
 	private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
 		try {
-			String idTexto = jTextFieldID.getText().trim();
-			String nome = jTextFieldNome.getText().trim();
-			String valorDiariaTexto = jTextFieldValorLocacao.getText().trim();
 
-			if (nome.isEmpty()) {
-				throw new ValidacaoException("Não é possível salvar uma categoria sem o nome. (Obrigatório)");
-			}
+			CampoId campoId = new CampoId(jLabelID, jTextFieldID);
+			CampoDeTexto campoNome = new CampoDeTexto(jLabelNome, jTextFieldNome, true, ValidacaoTexto.NOME_MARCA_CATEGORIA);
+			CampoMonetario campoValor = new CampoMonetario(jLabelValorLocacao, jTextFieldValorLocacao, true, ValidacaoNumerica.VALORES_MONETARIOS_CATEGORIA);
 
-			if (!nome.matches("^[-'a-zA-ZÀ-ÖØ-öø-ÿ\\s]{1,15}$")) {
-				String mensagem = "O nome da marca é inválido. Informe um nome seguindo as regras abaixo:\n" +
-						"* Até 15 caracteres;\n" +
-						"* Letras (A-z permitindo acentuações válidas em português);\n" +
-						"* Cedilha (ç);\n" +
-						"* Hífen (-);\n" +
-						"* Apóstrofe (‘).";
-				throw new ValidacaoException(mensagem);
-			}
+			String nome = campoNome.getDadosDoCampo();
+			float valor = Utils.convertaStringParaFloat(campoValor.getDadosDoCampo());
+			int id = campoId.getDadosDoCampo();
 
-			if (valorDiariaTexto.isEmpty()) {
-				throw new ValidacaoException("Não é possível salvar uma categoria sem o valor da locação diária. (Obrigatório)");
-			}
-
-			float valorDiaria = Utils.convertaStringParaFloat(valorDiariaTexto);
-
-			if (valorDiaria <= 0) {
-				throw new ValidacaoException("O valor da locação não pode ser menor ou igual a 0.");
-			}
-
-			int id = idTexto.isEmpty() ? 0 : Utils.convertaStringParaInt(idTexto);
-
-			int dadosValidos = valideNomeUnicoValorJaExiste(nome, valorDiaria, id);
+			int dadosValidos = valideNomeUnicoValorJaExiste(nome, valor, id);
 
 			if (dadosValidos == JOptionPane.YES_OPTION) {
-
 				Categoria categoria = new Categoria();
 				categoria.setId(id);
 				categoria.setNome(nome);
-				categoria.setValorDiarioLocacao(valorDiaria);
+				categoria.setValorDiarioLocacao(valor);
 
 				Operacao operacao = categoria.getId() == 0 ? Operacao.INCLUIR : Operacao.ALTERAR;
 				controller.execute(categoria, operacao);

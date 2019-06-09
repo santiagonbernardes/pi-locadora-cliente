@@ -8,6 +8,10 @@ import br.com.senaigo.locadora.model.Marca;
 import br.com.senaigo.locadora.model.Modelo;
 import br.com.senaigo.locadora.persistencia.Operacao;
 import br.com.senaigo.locadora.utils.Utils;
+import br.com.senaigo.locadora.utils.formularioUtils.CampoComboBox;
+import br.com.senaigo.locadora.utils.formularioUtils.CampoDeTexto;
+import br.com.senaigo.locadora.utils.formularioUtils.CampoId;
+import br.com.senaigo.locadora.utils.formularioUtils.ValidacaoTexto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -293,37 +297,16 @@ public class TelaModelo extends javax.swing.JInternalFrame implements Formulario
 
 	private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
 		try {
-			String idTexto = jTextFieldID.getText().trim();
-			String nome = jTextFieldNome.getText().trim();
-			Marca marca = (Marca) jComboBoxMarca.getSelectedItem();
+			CampoId campoId = new CampoId(jLabelID, jTextFieldID);
+			CampoDeTexto campoNome = new CampoDeTexto(jLabelNome, jTextFieldNome, true, ValidacaoTexto.NOME_MARCA_CATEGORIA);
+			CampoComboBox<Marca> campoMarca = new CampoComboBox<>(jLabelMarca, jComboBoxMarca);
 
-			if (nome.isEmpty()) {
-				throw new ValidacaoException("Não é possível salvar uma modelo sem o nome. (Obrigatório)");
-			}
-
-			if (!nome.matches("^[0-9-'a-zA-ZÀ-ÖØ-öø-ÿ\\s]{1,15}$")) {
-				String mensagem = "O nome do modelo é inválido. Informe um nome seguindo as regras abaixo:\n" +
-						"* Até 15 caracteres;\n" +
-						"* Letras (A-z permitindo acentuações válidas em português);\n" +
-						"* Cedilha (ç);\n" +
-						"* Hífen (-);\n" +
-						"* Apóstrofe (‘);\n" +
-						"* Números (0-9).";
-				throw new ValidacaoException(mensagem);
-			}
-
-			if(marca == null) {
-				throw new ValidacaoException("Para cadastrar um modelo é necessário informar uma marca.");
-			}
-
-			valideNomeUnicoParaModelo(nome, marca);
-
-			int id = idTexto.isEmpty() ? 0 : Utils.convertaStringParaInt(idTexto);
+			valideNomeUnicoParaModelo(campoNome.getDadosDoCampo(), (Marca) campoMarca.getDadosDoCampo());
 
 			Modelo modelo = new Modelo();
-			modelo.setId(id);
-			modelo.setNome(nome);
-			modelo.setMarca(marca);
+			modelo.setId(campoId.getDadosDoCampo());
+			modelo.setNome(campoNome.getDadosDoCampo());
+			modelo.setMarca((Marca) campoMarca.getDadosDoCampo());
 
 			Operacao operacao = modelo.getId() == 0 ? Operacao.INCLUIR : Operacao.ALTERAR;
 

@@ -29,8 +29,7 @@ public class TelaLogon extends javax.swing.JFrame {
      * Creates new form TelaLogon
      */
     public TelaLogon() throws Exception {
-        ArquivoUtils.garantaExistenciaDeDiretorio("Repositório/Marcas");
-        ArquivoUtils.garantaExistenciaDeDiretorio("Repositório/Locação");
+        ArquivoUtils.garantaExistenciaDeDiretorio("Repositório/Locações");
         initComponents();
         controller = new ClienteTcpController();
         fonteDeDadosFuncionario = controller.liste("Funcionario");

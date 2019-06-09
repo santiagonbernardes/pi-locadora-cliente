@@ -6,14 +6,13 @@ import br.com.senaigo.locadora.interfaces.FormularioPadrao;
 import br.com.senaigo.locadora.model.ControleFormularioPadrao;
 import br.com.senaigo.locadora.model.Marca;
 import br.com.senaigo.locadora.persistencia.Operacao;
-import br.com.senaigo.locadora.utils.ArquivoUtils;
 import br.com.senaigo.locadora.utils.Utils;
+import br.com.senaigo.locadora.utils.formularioUtils.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
@@ -294,45 +293,22 @@ public class TelaMarca extends javax.swing.JInternalFrame implements FormularioP
 
 	private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
 		try {
-			String nome = jTextFieldNome.getText().trim();
-			String idTexto = jTextFieldID.getText().trim();
-			ImageIcon icon = (ImageIcon) jLabelIcone.getIcon();
+			CampoId campoId = new CampoId(jLabelID, jTextFieldID);
+			CampoDeTexto campoNome = new CampoDeTexto(jLabelNome, jTextFieldNome, true, ValidacaoTexto.NOME_MARCA_CATEGORIA);
+			CampoComImagem campoImagem = new CampoComImagem(jLabelIcone, "Marcas");
 
-			if (nome.isEmpty()) {
-				throw new ValidacaoException("Não é possível salvar uma marca sem o nome. (Obrigatório)");
-			}
-
-			if (!nome.matches("^[-'a-zA-ZÀ-ÖØ-öø-ÿ\\s]{1,15}$")) {
-				String mensagem = "O nome da marca é inválido. Informe um nome seguindo as regras abaixo:\n" +
-						"* Até 15 caracteres;\n" +
-						"* Letras (A-z permitindo acentuações válidas em português);\n" +
-						"* Cedilha (ç);\n" +
-						"* Hífen (-);\n" +
-						"* Apóstrofe (‘).";
-				throw new ValidacaoException(mensagem);
-			}
-
-			if(icon == null) {
-				throw new ValidacaoException("Informe a logomarca. (Obrigatório)");
-			}
-			int id = idTexto.isEmpty() ? 0 : Utils.convertaStringParaInt(idTexto);
-
-			valideNomeUnicoParaMarca(nome, id);
-
-			Image imagemSemTratamento = icon.getImage();
-			BufferedImage imagem = (BufferedImage) imagemSemTratamento;
-			String nomeArquivo = ArquivoUtils.obtenhaNomeAleatorioParaArquivo(10);
-			File arquivoImagem = new File("Repositório/Marcas/" + nomeArquivo + ".png");
-			ImageIO.write(imagem, "png", arquivoImagem);
+			valideNomeUnicoParaMarca(campoNome, campoId);
 
 			Marca marca = new Marca();
-			marca.setId(id);
-			marca.setNome(nome);
-			marca.setCaminhoParaArquivoLogo(arquivoImagem.getPath());
+			marca.setId(campoId.getDadosDoCampo());
+			marca.setNome(campoNome.getDadosDoCampo());
+			marca.setCaminhoParaArquivoLogo(campoImagem.obtenhaCaminhoParaArquivo());
 
 			Operacao operacao = marca.getId() == 0 ? Operacao.INCLUIR : Operacao.ALTERAR;
 
 			controller.execute(marca, operacao);
+
+			campoImagem.salveArquivo();
 
 			preenchaGrid();
 			formulario.configureFormularioParaNavegacao();
@@ -346,12 +322,14 @@ public class TelaMarca extends javax.swing.JInternalFrame implements FormularioP
 		}
 	}
 
-	private void valideNomeUnicoParaMarca(String nomeMarcaUsuario, int id) throws Exception {
+	private void valideNomeUnicoParaMarca(CampoDeTexto campoNome, CampoId campoId) throws Exception {
+		String nomeInformado = campoNome.getDadosDoCampo();
+		int idInformada = campoId.getDadosDoCampo();
 		for(Marca marca : fonteDeDadosMarca) {
-			boolean nomesIguais = marca.getNome().equalsIgnoreCase(nomeMarcaUsuario);
-			boolean idsDiferentes = marca.getId() != id;
+			boolean nomesIguais = marca.getNome().equalsIgnoreCase(nomeInformado);
+			boolean idsDiferentes = marca.getId() != idInformada;
 			if(nomesIguais && idsDiferentes){
-				throw new ValidacaoException("O nome da marca é único. Já existe uma marca " + nomeMarcaUsuario + " cadastrada. " +
+				throw new ValidacaoException("O nome da marca é único. Já existe uma marca " + campoNome + " cadastrada. " +
 						"Informe um nome não cadastrado.");
 			}
 		}

@@ -1,8 +1,9 @@
 package br.com.senaigo.locadora.utils;
 
+import br.com.senaigo.locadora.excecoes.ValidacaoException;
+
 import javax.swing.*;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,13 +18,20 @@ public class Utils {
 	}
 
 	public static float convertaStringParaFloat(String valor) {
-		return Float.parseFloat(valor);
+		float valorConvertido;
+		try {
+			valorConvertido = Float.parseFloat(valor);
+		} catch (NumberFormatException e) {
+			throw new RuntimeException("O valor informado não é numérico.");
+		}
+		return valorConvertido;
 	}
 
 	public static String convertaFloatParaStringComDuasCasasDecimais(float valor) {
 		DecimalFormat formatador = new DecimalFormat();
 		formatador.setMaximumFractionDigits(2);
 		formatador.setMinimumFractionDigits(2);
+		formatador.setGroupingUsed(false);
 		return formatador.format(valor).replace(",", ".");
 	}
 
@@ -31,6 +39,21 @@ public class Utils {
 		List<String> campos;
 		campos = Arrays.asList(dadosDoObjeto.split(";"));
 		return campos;
+	}
+
+	public static String obtenhaStringTratadaDeCampoDoFormulario(JTextField campoDoFormulario) {
+		String campoNaoTratado = campoDoFormulario.getText().trim();
+		return removaExcessoDeEspacosEmBrancoEntrePalavras(campoNaoTratado);
+	}
+
+	public static float obtenhaValorMonetarioDeCampoDoFormulario(JTextField campoDoFormulario) throws ValidacaoException {
+		String campoNaoTratado = campoDoFormulario.getText().trim();
+		String campoTratado = removaExcessoDeEspacosEmBrancoEntrePalavras(campoNaoTratado);
+		try {
+			 return campoTratado.isEmpty() ? 0 : convertaStringParaFloat(campoTratado);
+		} catch (NumberFormatException erro) {
+			throw new ValidacaoException("O valor informado não é numérico!");
+		}
 	}
 
 	public static void mostreAdvertencia(Exception excecao, String titulo) {
@@ -49,6 +72,10 @@ public class Utils {
 	public static void mostreAdvertenciaPreenchimentoGrid(Exception excecao) {
 		String titulo = "Erro ao preencher grid!";
 		mostreAdvertencia(excecao, titulo);
+	}
+
+	private static String removaExcessoDeEspacosEmBrancoEntrePalavras(String campo) {
+		return campo.replaceAll("(?<=.)\\s{2,}", " ");
 	}
 
 }
