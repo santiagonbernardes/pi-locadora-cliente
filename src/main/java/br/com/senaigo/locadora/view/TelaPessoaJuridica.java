@@ -1,12 +1,21 @@
 package br.com.senaigo.locadora.view;
 
 import br.com.senaigo.locadora.controller.ClienteTcpController;
+import br.com.senaigo.locadora.excecoes.ValidacaoException;
 import br.com.senaigo.locadora.interfaces.FormularioPadrao;
 import br.com.senaigo.locadora.model.*;
 import br.com.senaigo.locadora.persistencia.Operacao;
+import br.com.senaigo.locadora.utils.DataUtils;
 import br.com.senaigo.locadora.utils.Utils;
+import br.com.senaigo.locadora.utils.formularioUtils.CampoComboBox;
+import br.com.senaigo.locadora.utils.formularioUtils.CampoData;
+import br.com.senaigo.locadora.utils.formularioUtils.CampoDeTexto;
+import br.com.senaigo.locadora.utils.formularioUtils.CampoEmail;
+import br.com.senaigo.locadora.utils.formularioUtils.CampoId;
+import br.com.senaigo.locadora.utils.formularioUtils.ValidacaoTexto;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,21 +23,21 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 public class TelaPessoaJuridica extends javax.swing.JInternalFrame implements FormularioPadrao {
-    
-    private ClienteTcpController controller;
-    private List<Cliente> fonteDeDadosPessoaJuridica;
-    private List<EstadosBrasil> fonteDeDadosEstadosBrasil;
-    private ControleFormularioPadrao formulario;
+
+	private ClienteTcpController controller;
+	private List<Cliente> fonteDeDadosPessoaJuridica;
+	private List<EstadosBrasil> fonteDeDadosEstadosBrasil;
+	private ControleFormularioPadrao formulario;
 
 
-    public TelaPessoaJuridica() throws IOException {
+	public TelaPessoaJuridica() throws IOException {
 		controller = new ClienteTcpController();
 		inicializeFontesDeDadosCombo();
 		initComponents();
 		formulario = new ControleFormularioPadrao(this);
 		preenchaGrid();
 		formulario.configureFormularioParaNavegacao();
-    }
+	}
 
 	public void inicializeFontesDeDadosCombo() {
 		fonteDeDadosEstadosBrasil = Arrays.asList(EstadosBrasil.values());
@@ -41,15 +50,15 @@ public class TelaPessoaJuridica extends javax.swing.JInternalFrame implements Fo
 			tabela.setRowCount(0);
 			for (Cliente cliente : fonteDeDadosPessoaJuridica) {
 				Object[] campos = {
-					cliente.getId(),
-					cliente.getNomeFantasia(),
-					cliente.getRazaoSocial(),
-					cliente.getCnpj(),
-					cliente.getEndereco().getCidade(),
-					cliente.getEndereco().getEstado().getNome(),
-					cliente.getTelefonePrincipal(),
-					cliente.getTelefoneAlternativo(),
-					cliente.getEmail()
+						cliente.getId(),
+						cliente.getNomeFantasia(),
+						cliente.getRazaoSocial(),
+						cliente.getCnpj(),
+						cliente.getEndereco().getCidade(),
+						cliente.getEndereco().getEstado().getNome(),
+						cliente.getTelefonePrincipal(),
+						cliente.getTelefoneAlternativo(),
+						cliente.getEmail()
 				};
 				tabela.addRow(campos);
 			}
@@ -73,7 +82,7 @@ public class TelaPessoaJuridica extends javax.swing.JInternalFrame implements Fo
 		}
 	}
 
-    @SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -81,10 +90,10 @@ public class TelaPessoaJuridica extends javax.swing.JInternalFrame implements Fo
         jPanelDadosGerais = new javax.swing.JPanel();
         jLabelID = new javax.swing.JLabel();
         jTextFieldID = new javax.swing.JTextField();
-        jLabelCPF = new javax.swing.JLabel();
-        jLabelNome = new javax.swing.JLabel();
+        jLabelCnpj = new javax.swing.JLabel();
+        jLabelNomeFantasia = new javax.swing.JLabel();
         jTextFieldNomeFantasia = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        jLabelRazaoSocial = new javax.swing.JLabel();
         jTextFieldRazaoSocial = new javax.swing.JTextField();
         jFormattedTextFieldCnpj = new javax.swing.JFormattedTextField();
         jPanelDadosDeEndereco = new javax.swing.JPanel();
@@ -133,22 +142,22 @@ public class TelaPessoaJuridica extends javax.swing.JInternalFrame implements Fo
         jTextFieldID.setEditable(false);
         jTextFieldID.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
-        jLabelCPF.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelCPF.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabelCPF.setForeground(new java.awt.Color(0, 0, 0));
-        jLabelCPF.setText("CNPJ");
+        jLabelCnpj.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelCnpj.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabelCnpj.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelCnpj.setText("CNPJ:");
 
-        jLabelNome.setBackground(new java.awt.Color(255, 255, 255));
-        jLabelNome.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabelNome.setForeground(new java.awt.Color(0, 0, 0));
-        jLabelNome.setText("Nome Fantasia");
+        jLabelNomeFantasia.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelNomeFantasia.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabelNomeFantasia.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelNomeFantasia.setText("Nome Fantasia");
 
         jTextFieldNomeFantasia.setBackground(new java.awt.Color(254, 254, 160));
         jTextFieldNomeFantasia.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTextFieldNomeFantasia.setForeground(new java.awt.Color(0, 0, 0));
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel1.setText("Razão Social");
+        jLabelRazaoSocial.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabelRazaoSocial.setText("Razão Social");
 
         jTextFieldRazaoSocial.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
@@ -171,17 +180,17 @@ public class TelaPessoaJuridica extends javax.swing.JInternalFrame implements Fo
                             .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(54, 54, 54)
                         .addGroup(jPanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelCPF)
+                            .addComponent(jLabelCnpj)
                             .addComponent(jFormattedTextFieldCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelDadosGeraisLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
+                                .addComponent(jLabelRazaoSocial)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 885, Short.MAX_VALUE))
                             .addComponent(jTextFieldRazaoSocial)))
                     .addGroup(jPanelDadosGeraisLayout.createSequentialGroup()
                         .addGroup(jPanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelNome)
+                            .addComponent(jLabelNomeFantasia)
                             .addComponent(jTextFieldNomeFantasia, javax.swing.GroupLayout.PREFERRED_SIZE, 1035, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(43, 43, 43))
@@ -193,11 +202,11 @@ public class TelaPessoaJuridica extends javax.swing.JInternalFrame implements Fo
                     .addGroup(jPanelDadosGeraisLayout.createSequentialGroup()
                         .addGroup(jPanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelID)
-                            .addComponent(jLabelCPF))
+                            .addComponent(jLabelCnpj))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDadosGeraisLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabelRazaoSocial)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDadosGeraisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -205,7 +214,7 @@ public class TelaPessoaJuridica extends javax.swing.JInternalFrame implements Fo
                         .addComponent(jFormattedTextFieldCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jTextFieldID, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelNome)
+                .addComponent(jLabelNomeFantasia)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jTextFieldNomeFantasia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -272,7 +281,7 @@ public class TelaPessoaJuridica extends javax.swing.JInternalFrame implements Fo
         jComboBoxUF.setBackground(new java.awt.Color(255, 255, 255));
         jComboBoxUF.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
         jComboBoxUF.setForeground(new java.awt.Color(0, 0, 0));
-        jComboBoxUF.setModel(new javax.swing.DefaultComboBoxModel(fonteDeDadosEstadosBrasil.toArray()));
+        jComboBoxUF.setModel(new DefaultComboBoxModel(fonteDeDadosEstadosBrasil.toArray()));
 
         try {
             jFormattedTextFieldCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
@@ -556,7 +565,7 @@ public class TelaPessoaJuridica extends javax.swing.JInternalFrame implements Fo
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+	private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
 		boolean podeModificarComponentes = formulario.confirmeApagarFormulario();
 
 		if (podeModificarComponentes) {
@@ -564,10 +573,12 @@ public class TelaPessoaJuridica extends javax.swing.JInternalFrame implements Fo
 			formulario.configureFormularioParaEntradaDeDados();
 			Cliente cliente = fonteDeDadosPessoaJuridica.get(indexDoObjeto);
 			jTextFieldID.setText(String.valueOf(cliente.getId()));
-			jTextFieldNomeFantasia.setText(cliente.getNomeFantasia());
-			jTextFieldRazaoSocial.setText(cliente.getRazaoSocial());
 			jFormattedTextFieldCnpj.setText(cliente.getCnpj());
+			jFormattedTextFieldCnpj.setValue(cliente.getCnpj());
+			jTextFieldRazaoSocial.setText(cliente.getRazaoSocial());
+			jTextFieldNomeFantasia.setText(cliente.getNomeFantasia());
 			jFormattedTextFieldCep.setText(cliente.getEndereco().getCep());
+			jFormattedTextFieldCep.setValue(cliente.getEndereco().getCep());
 			jTextFieldLogradouro.setText(cliente.getEndereco().getLogradouro());
 			jTextFieldNumero.setText(cliente.getEndereco().getNumero());
 			jTextFieldComplemento.setText(cliente.getEndereco().getComplemento());
@@ -575,131 +586,157 @@ public class TelaPessoaJuridica extends javax.swing.JInternalFrame implements Fo
 			jTextFieldCidade.setText(cliente.getEndereco().getCidade());
 			jComboBoxUF.setSelectedItem(cliente.getEndereco().getEstado());
 			jFormattedTextFieldTelefone.setText(cliente.getTelefonePrincipal().toString());
+			jFormattedTextFieldTelefone.setValue(cliente.getTelefonePrincipal().toString());
 			jFormattedTextFieldCelular.setText(cliente.getTelefoneAlternativo().toString());
+			jFormattedTextFieldCelular.setValue(cliente.getTelefoneAlternativo().toString());
 			jTextFieldEmail.setText(cliente.getEmail());
 		}
-    }//GEN-LAST:event_jButtonEditarActionPerformed
+	}//GEN-LAST:event_jButtonEditarActionPerformed
 
-    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+	private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
 		boolean podeModificarComponentes = formulario.confirmeApagarFormulario();
 		if (podeModificarComponentes) {
 			formulario.configureFormularioParaNavegacao();
 		}
-    }//GEN-LAST:event_jButtonCancelarActionPerformed
+	}//GEN-LAST:event_jButtonCancelarActionPerformed
 
-    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
-        try{
-            String id = jTextFieldID.getText();
-            String nomeFantasia = jTextFieldNomeFantasia.getText();
-            String razaoSocial = jTextFieldRazaoSocial.getText();
-            String cnpj = jFormattedTextFieldCnpj.getText();
-            String logradouro = jTextFieldLogradouro.getText();
-            String numero = jTextFieldNumero.getText();
-            String complemento = jTextFieldComplemento.getText();
-            String bairro = jTextFieldBairro.getText();
-            String cidade = jTextFieldCidade.getText();
-            String cep = jFormattedTextFieldCep.getText();
-            EstadosBrasil estado = (EstadosBrasil) jComboBoxUF.getSelectedItem();
-            String telefonePrincipal = jFormattedTextFieldTelefone.getText();
-            String telefoneAlternativo = jFormattedTextFieldCelular.getText();
-            String email = jTextFieldEmail.getText();
+	private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+		try {
+			CampoId campoId = new CampoId(jLabelID, jTextFieldID);
+			CampoDeTexto campoCnpj = new CampoDeTexto(jLabelCnpj, jFormattedTextFieldCnpj, true);
+			CampoDeTexto campoRazaoSocial = new CampoDeTexto(jLabelRazaoSocial, jTextFieldRazaoSocial, true, ValidacaoTexto.RAZAO_SOCIAL);
+			CampoDeTexto campoNomeFantasia = new CampoDeTexto(jLabelNomeFantasia, jTextFieldNomeFantasia, false, ValidacaoTexto.RAZAO_SOCIAL);
+			CampoDeTexto campoCep = new CampoDeTexto(jLabelCEP, jFormattedTextFieldCep, true);
+			CampoDeTexto campoLogradouro = new CampoDeTexto(jLabelLogradouro, jTextFieldLogradouro, true, ValidacaoTexto.LOGRADOURO);
+			CampoDeTexto campoNumero = new CampoDeTexto(jLabelNumero, jTextFieldNumero, false, ValidacaoTexto.NUMERO_ENDERECO);
+			CampoDeTexto campoComplemento = new CampoDeTexto(jLabelComplemento, jTextFieldComplemento, false, ValidacaoTexto.COMPLEMENTO_ENDERECO);
+			CampoDeTexto campoBairro = new CampoDeTexto(jLabelBairro, jTextFieldBairro, true, ValidacaoTexto.BAIRRO_ENDERECO);
+			CampoDeTexto campoCidade = new CampoDeTexto(jLabelCidade, jTextFieldCidade, true, ValidacaoTexto.CIDADE);
+			CampoComboBox<EstadosBrasil> campoEstadoBrasil = new CampoComboBox<>(jLabelUF, jComboBoxUF);
+			CampoDeTexto campoTelefone = new CampoDeTexto(jLabelTelefone, jFormattedTextFieldTelefone, false);
+			CampoDeTexto campoTelefoneCel = new CampoDeTexto(jLabelTelefoneCel, jFormattedTextFieldCelular, false);
+			CampoEmail campoEmail = new CampoEmail(jLabelEmail, jTextFieldEmail, false);
 
-            Cliente cliente = new Cliente();
-            cliente.setNomeFantasia(nomeFantasia);
-            cliente.setRazaoSocial(razaoSocial);
-            cliente.setCnpj(cnpj);
-            Endereco endereco = new Endereco();
-            endereco.setLogradouro(logradouro);
-            endereco.setBairro(bairro);
-            endereco.setComplemento(complemento);
-            endereco.setNumero(numero);
-            endereco.setCep(cep);
-            endereco.setCidade(cidade);
-            endereco.setEstado(estado);
-            cliente.setEndereco(endereco);
-            Telefone telefonePrincipalObjeto = Telefone.obtenhaInstancia(telefonePrincipal);
-            Telefone telefoneAlternativoObjeto = Telefone.obtenhaInstancia(telefoneAlternativo);
-            cliente.setTelefonePrincipal(telefonePrincipalObjeto);
-            cliente.setTelefoneAlternativo(telefoneAlternativoObjeto);
-            cliente.setEmail(email);
+			valideUmTelefoneObrigatorio(campoTelefone, campoTelefoneCel);
+			valideCnpjUnico(campoCnpj, campoId);
 
-            if(id.isEmpty()) {
-                controller.execute(cliente, Operacao.INCLUIR);
-            } else {
-                cliente.setId(Utils.convertaStringParaInt(id));
-                controller.execute(cliente, Operacao.ALTERAR);
-            }
+			Cliente cliente = new Cliente();
+			cliente.setId(campoId.getDadosDoCampo());
+			cliente.setCnpj(campoCnpj.getDadosDoCampo());
+			cliente.setRazaoSocial(campoRazaoSocial.getDadosDoCampo());
+			cliente.setNomeFantasia(campoNomeFantasia.getDadosDoCampo());
+			Endereco endereco = new Endereco();
+			endereco.setLogradouro(campoLogradouro.getDadosDoCampo());
+			endereco.setBairro(campoBairro.getDadosDoCampo());
+			endereco.setComplemento(campoComplemento.getDadosDoCampo());
+			endereco.setNumero(campoNumero.getDadosDoCampo());
+			endereco.setCep(campoCep.getDadosDoCampo());
+			endereco.setCidade(campoCidade.getDadosDoCampo());
+			endereco.setEstado((EstadosBrasil) campoEstadoBrasil.getDadosDoCampo());
+			cliente.setEndereco(endereco);
+			Telefone telefonePrincipal = Telefone.obtenhaInstancia(campoTelefone.getDadosDoCampo());
+			Telefone telefoneCelular = Telefone.obtenhaInstancia(campoTelefoneCel.getDadosDoCampo());
+			cliente.setTelefonePrincipal(telefonePrincipal);
+			cliente.setTelefoneAlternativo(telefoneCelular);
+			cliente.setEmail(campoEmail.getDadosDoCampo());
+
+			Operacao operacao = cliente.getId() == 0 ? Operacao.INCLUIR : Operacao.ALTERAR;
+
+			controller.execute(cliente, operacao);
 
 			preenchaGrid();
 			formulario.configureFormularioParaNavegacao();
-        } catch (Exception erro) {
-            JOptionPane.showMessageDialog(null, erro.getMessage());
-        }
-    }//GEN-LAST:event_jButtonSalvarActionPerformed
 
-    private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
-        formulario.configureFormularioParaEntradaDeDados();
-    }//GEN-LAST:event_jButtonNovoActionPerformed
+		} catch (ValidacaoException erroDeValidacao) {
+			Utils.mostreAdvertenciaValidacao(erroDeValidacao);
+		} catch (Exception erro) {
+			Utils.mostreAdvertencia(erro, "Erro ao salvar Pessoa Jurídica!");
+		}
+	}//GEN-LAST:event_jButtonSalvarActionPerformed
 
-    private void jTableListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListaMouseClicked
-        formulario.configureConformeInteracaoComGrid();
-    }//GEN-LAST:event_jTableListaMouseClicked
+	private void valideUmTelefoneObrigatorio(CampoDeTexto campoTelefone, CampoDeTexto campoTelefoneCel) throws ValidacaoException {
+		if (campoTelefone.getDadosDoCampo().isEmpty() && campoTelefoneCel.getDadosDoCampo().isEmpty()) {
+			throw new ValidacaoException("Informe ao menos um número de telefone!");
+		}
+	}
 
-    @Override
-    public JButton obtenhaBotaoSalvar() {
-        return this.jButtonSalvar;
-    }
+	private void valideCnpjUnico(CampoDeTexto campoCnpj, CampoId campoId) throws ValidacaoException {
+		String cnpjInformado = campoCnpj.getDadosDoCampo();
+		int id = campoId.getDadosDoCampo();
+		for (Cliente cliente : fonteDeDadosPessoaJuridica) {
+			boolean nomesIguais = cliente.getCnpj().equals(cnpjInformado);
+			boolean idsDiferentes = cliente.getId() != id;
+			if (nomesIguais && idsDiferentes) {
+				throw new ValidacaoException("O CNPJ é único. Já existe um CNPJ " + campoCnpj.getDadosDoCampo() + " cadastrado. " +
+						"Informe um CNPJ não cadastrado.");
+			}
+		}
 
-    @Override
-    public JButton obtenhaBotaoEditar() {
-        return this.jButtonEditar;
-    }
+	}
 
-    @Override
-    public JButton obtenhaBotaoCancelar() {
-        return this.jButtonCancelar;
-    }
+	private void jButtonNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovoActionPerformed
+		formulario.configureFormularioParaEntradaDeDados();
+	}//GEN-LAST:event_jButtonNovoActionPerformed
 
-    @Override
-    public JButton obtenhaBotaoNovo() {
-        return this.jButtonNovo;
-    }
+	private void jTableListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableListaMouseClicked
+		formulario.configureConformeInteracaoComGrid();
+	}//GEN-LAST:event_jTableListaMouseClicked
 
-    @Override
-    public JTable obtenhaGrid() {
-        return this.jTableLista;
-    }
+	@Override
+	public JButton obtenhaBotaoSalvar() {
+		return this.jButtonSalvar;
+	}
 
-    @Override
-    public JTextField obtenhaCampoId() {
-        return this.jTextFieldID;
-    }
+	@Override
+	public JButton obtenhaBotaoEditar() {
+		return this.jButtonEditar;
+	}
 
-    @Override
-    public List<JTextField> obtenhaCamposDoFormularioSemCampoId() {
-        List<JTextField> camposDoFormularioSemCampoId = new ArrayList<>();
-        camposDoFormularioSemCampoId.add(this.jTextFieldRazaoSocial);
-        camposDoFormularioSemCampoId.add(this.jTextFieldNomeFantasia);
-        camposDoFormularioSemCampoId.add(this.jFormattedTextFieldCnpj);
-        camposDoFormularioSemCampoId.add(this.jFormattedTextFieldCep);
-        camposDoFormularioSemCampoId.add(this.jTextFieldLogradouro);
-        camposDoFormularioSemCampoId.add(this.jTextFieldNumero);
-        camposDoFormularioSemCampoId.add(this.jTextFieldComplemento);
-        camposDoFormularioSemCampoId.add(this.jTextFieldCidade);
-        camposDoFormularioSemCampoId.add(this.jTextFieldBairro);
-        camposDoFormularioSemCampoId.add(this.jFormattedTextFieldTelefone);
-        camposDoFormularioSemCampoId.add(this.jFormattedTextFieldCelular);
-        camposDoFormularioSemCampoId.add(this.jTextFieldEmail);
+	@Override
+	public JButton obtenhaBotaoCancelar() {
+		return this.jButtonCancelar;
+	}
 
-        return camposDoFormularioSemCampoId;
-    }
+	@Override
+	public JButton obtenhaBotaoNovo() {
+		return this.jButtonNovo;
+	}
 
-    @Override
-    public List<JComboBox> obtenhaComboBoxesDoFormulario() {
-        List<JComboBox> comboBoxesDoFormulario = new ArrayList<>();
-        comboBoxesDoFormulario.add(jComboBoxUF);
-        return comboBoxesDoFormulario;
-    }
+	@Override
+	public JTable obtenhaGrid() {
+		return this.jTableLista;
+	}
+
+	@Override
+	public JTextField obtenhaCampoId() {
+		return this.jTextFieldID;
+	}
+
+	@Override
+	public List<JTextField> obtenhaCamposDoFormularioSemCampoId() {
+		List<JTextField> camposDoFormularioSemCampoId = new ArrayList<>();
+		camposDoFormularioSemCampoId.add(this.jTextFieldRazaoSocial);
+		camposDoFormularioSemCampoId.add(this.jTextFieldNomeFantasia);
+		camposDoFormularioSemCampoId.add(this.jFormattedTextFieldCnpj);
+		camposDoFormularioSemCampoId.add(this.jFormattedTextFieldCep);
+		camposDoFormularioSemCampoId.add(this.jTextFieldLogradouro);
+		camposDoFormularioSemCampoId.add(this.jTextFieldNumero);
+		camposDoFormularioSemCampoId.add(this.jTextFieldComplemento);
+		camposDoFormularioSemCampoId.add(this.jTextFieldCidade);
+		camposDoFormularioSemCampoId.add(this.jTextFieldBairro);
+		camposDoFormularioSemCampoId.add(this.jFormattedTextFieldTelefone);
+		camposDoFormularioSemCampoId.add(this.jFormattedTextFieldCelular);
+		camposDoFormularioSemCampoId.add(this.jTextFieldEmail);
+
+		return camposDoFormularioSemCampoId;
+	}
+
+	@Override
+	public List<JComboBox> obtenhaComboBoxesDoFormulario() {
+		List<JComboBox> comboBoxesDoFormulario = new ArrayList<>();
+		comboBoxesDoFormulario.add(jComboBoxUF);
+		return comboBoxesDoFormulario;
+	}
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -712,17 +749,17 @@ public class TelaPessoaJuridica extends javax.swing.JInternalFrame implements Fo
     private javax.swing.JFormattedTextField jFormattedTextFieldCep;
     private javax.swing.JFormattedTextField jFormattedTextFieldCnpj;
     private javax.swing.JFormattedTextField jFormattedTextFieldTelefone;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelBairro;
     private javax.swing.JLabel jLabelCEP;
-    private javax.swing.JLabel jLabelCPF;
     private javax.swing.JLabel jLabelCidade;
+    private javax.swing.JLabel jLabelCnpj;
     private javax.swing.JLabel jLabelComplemento;
     private javax.swing.JLabel jLabelEmail;
     private javax.swing.JLabel jLabelID;
     private javax.swing.JLabel jLabelLogradouro;
-    private javax.swing.JLabel jLabelNome;
+    private javax.swing.JLabel jLabelNomeFantasia;
     private javax.swing.JLabel jLabelNumero;
+    private javax.swing.JLabel jLabelRazaoSocial;
     private javax.swing.JLabel jLabelTelefone;
     private javax.swing.JLabel jLabelTelefoneCel;
     private javax.swing.JLabel jLabelUF;
@@ -742,6 +779,5 @@ public class TelaPessoaJuridica extends javax.swing.JInternalFrame implements Fo
     private javax.swing.JTextField jTextFieldNomeFantasia;
     private javax.swing.JTextField jTextFieldNumero;
     private javax.swing.JTextField jTextFieldRazaoSocial;
-
-	// End of variables declaration//GEN-END:variables
+    // End of variables declaration//GEN-END:variables
 }

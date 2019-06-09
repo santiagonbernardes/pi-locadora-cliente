@@ -110,13 +110,13 @@
                               </Group>
                               <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabelCPF" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelCnpj" min="-2" max="-2" attributes="0"/>
                                   <Component id="jFormattedTextFieldCnpj" min="-2" pref="136" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabelRazaoSocial" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace pref="885" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="jTextFieldRazaoSocial" max="32767" attributes="0"/>
@@ -124,7 +124,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabelNome" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelNomeFantasia" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jTextFieldNomeFantasia" alignment="0" min="-2" pref="1035" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -141,13 +141,13 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabelID" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabelCPF" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelCnpj" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabelRazaoSocial" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -159,7 +159,7 @@
                           <Component id="jTextFieldID" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabelNome" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabelNomeFantasia" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jTextFieldNomeFantasia" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -189,7 +189,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabelCPF">
+            <Component class="javax.swing.JLabel" name="jLabelCnpj">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -200,10 +200,10 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="CNPJ"/>
+                <Property name="text" type="java.lang.String" value="CNPJ:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabelNome">
+            <Component class="javax.swing.JLabel" name="jLabelNomeFantasia">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -230,7 +230,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel1">
+            <Component class="javax.swing.JLabel" name="jLabelRazaoSocial">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="18" style="0"/>
@@ -531,36 +531,8 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="27">
-                    <StringItem index="0" value="AC"/>
-                    <StringItem index="1" value="AL"/>
-                    <StringItem index="2" value="AM"/>
-                    <StringItem index="3" value="AP"/>
-                    <StringItem index="4" value="BA"/>
-                    <StringItem index="5" value="CE"/>
-                    <StringItem index="6" value="DF"/>
-                    <StringItem index="7" value="ES"/>
-                    <StringItem index="8" value="GO"/>
-                    <StringItem index="9" value="MA"/>
-                    <StringItem index="10" value="MG"/>
-                    <StringItem index="11" value="MS"/>
-                    <StringItem index="12" value="MT"/>
-                    <StringItem index="13" value="PA"/>
-                    <StringItem index="14" value="PB"/>
-                    <StringItem index="15" value="PE"/>
-                    <StringItem index="16" value="PI"/>
-                    <StringItem index="17" value="PR"/>
-                    <StringItem index="18" value="RJ"/>
-                    <StringItem index="19" value="RN"/>
-                    <StringItem index="20" value="RO"/>
-                    <StringItem index="21" value="RR"/>
-                    <StringItem index="22" value="RS"/>
-                    <StringItem index="23" value="SC"/>
-                    <StringItem index="24" value="SE"/>
-                    <StringItem index="25" value="SP"/>
-                    <StringItem index="26" value="TO"/>
-                  </StringArray>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new DefaultComboBoxModel(fonteDeDadosEstadosBrasil.toArray())" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>

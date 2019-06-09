@@ -602,7 +602,6 @@ public class TelaPessoaFisica extends javax.swing.JInternalFrame implements Form
 
 		} catch (ValidacaoException erroDeValidacao) {
 			Utils.mostreAdvertenciaValidacao(erroDeValidacao);
-			//formulario.limpeValores();
 		} catch (Exception erro) {
 			Utils.mostreAdvertencia(erro, "Erro ao salvar Pessoa Física!");
 		}
@@ -621,8 +620,8 @@ public class TelaPessoaFisica extends javax.swing.JInternalFrame implements Form
 			boolean nomesIguais = cliente.getCpf().equals(cpfInformado);
 			boolean idsDiferentes = cliente.getId() != id;
 			if (nomesIguais && idsDiferentes) {
-				throw new ValidacaoException("O cpf é único. Já existe um cpf " + campoCpf.getDadosDoCampo() + " cadastrado. " +
-						"Informe um cpf não cadastrado.");
+				throw new ValidacaoException("O CPF é único. Já existe um CPF " + campoCpf.getDadosDoCampo() + " cadastrado. " +
+						"Informe um CPF não cadastrado.");
 			}
 		}
 

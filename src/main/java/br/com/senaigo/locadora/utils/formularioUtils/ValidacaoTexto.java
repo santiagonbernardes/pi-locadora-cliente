@@ -163,7 +163,23 @@ public enum ValidacaoTexto implements ValidacaoComRegex {
 					"* Ponto Final (.);\n" +
 					"* Apóstrofo (‘).";
 		}
-	}
+	},
+        RAZAO_SOCIAL() {
+            @Override
+		public String obtenhaRegexParaValidacao() {
+			return "^[-'0-9a-zA-ZÀ-ÖØ-öø-ÿ\\s]{1,50}$";
+		}
+
+		@Override
+		public String informeComoValidacaoDeveriaSer() {
+			return "* Até 50 caracteres;\n" +
+					"* Letras (A-z permitindo acentuações);\n" +
+                                        "* Números (0-9);\n" +
+					"* Cedilha (ç);\n" +
+					"* Hífen (-);\n" +
+					"* Apóstrofo (‘).";
+		}
+        }
 
 
 }
