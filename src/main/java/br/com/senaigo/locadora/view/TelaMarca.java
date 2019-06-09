@@ -291,7 +291,7 @@ public class TelaMarca extends javax.swing.JInternalFrame implements FormularioP
 		}
 	}//GEN-LAST:event_jButtonCancelarActionPerformed
 
-	private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+	private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {                                              
 		try {
 			CampoId campoId = new CampoId(jLabelID, jTextFieldID);
 			CampoDeTexto campoNome = new CampoDeTexto(jLabelNome, jTextFieldNome, true, ValidacaoTexto.NOME_MARCA_CATEGORIA);
@@ -329,7 +329,7 @@ public class TelaMarca extends javax.swing.JInternalFrame implements FormularioP
 			boolean nomesIguais = marca.getNome().equalsIgnoreCase(nomeInformado);
 			boolean idsDiferentes = marca.getId() != idInformada;
 			if(nomesIguais && idsDiferentes){
-				throw new ValidacaoException("O nome da marca é único. Já existe uma marca " + campoNome + " cadastrada. " +
+				throw new ValidacaoException("O nome da marca é único. Já existe uma marca " + campoNome.getDadosDoCampo() + " cadastrada. " +
 						"Informe um nome não cadastrado.");
 			}
 		}

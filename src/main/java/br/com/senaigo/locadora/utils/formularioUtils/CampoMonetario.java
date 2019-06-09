@@ -7,7 +7,7 @@ import javax.swing.*;
 
 public class CampoMonetario extends CampoDeTexto {
 
-	public CampoMonetario(JLabel labelDoCampo, JTextField componenteDoCampo, boolean isObrigatorio, ValidacaoNumerica validacao) throws ValidacaoException {
+	public CampoMonetario(JLabel labelDoCampo, JTextField componenteDoCampo, boolean isObrigatorio, ValidacaoFloat validacao) throws ValidacaoException {
 		super(labelDoCampo, componenteDoCampo, isObrigatorio, validacao);
 	}
 

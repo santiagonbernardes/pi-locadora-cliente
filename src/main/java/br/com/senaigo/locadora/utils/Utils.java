@@ -42,7 +42,13 @@ public class Utils {
 	}
 
 	public static String obtenhaStringTratadaDeCampoDoFormulario(JTextField campoDoFormulario) {
-		String campoNaoTratado = campoDoFormulario.getText().trim();
+		String campoNaoTratado;
+		if(campoDoFormulario instanceof JFormattedTextField) {
+			String valor = (String) ((JFormattedTextField) campoDoFormulario).getValue();
+			campoNaoTratado = valor == null ? "" : valor.trim();
+		} else {
+			campoNaoTratado = campoDoFormulario.getText().trim();
+		}
 		return removaExcessoDeEspacosEmBrancoEntrePalavras(campoNaoTratado);
 	}
 

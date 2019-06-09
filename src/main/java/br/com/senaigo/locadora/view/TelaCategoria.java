@@ -261,7 +261,7 @@ public class TelaCategoria extends javax.swing.JInternalFrame implements Formula
 
 			CampoId campoId = new CampoId(jLabelID, jTextFieldID);
 			CampoDeTexto campoNome = new CampoDeTexto(jLabelNome, jTextFieldNome, true, ValidacaoTexto.NOME_MARCA_CATEGORIA);
-			CampoMonetario campoValor = new CampoMonetario(jLabelValorLocacao, jTextFieldValorLocacao, true, ValidacaoNumerica.VALORES_MONETARIOS_CATEGORIA);
+			CampoMonetario campoValor = new CampoMonetario(jLabelValorLocacao, jTextFieldValorLocacao, true, ValidacaoFloat.SEIS_DIGITOS);
 
 			String nome = campoNome.getDadosDoCampo();
 			float valor = Utils.convertaStringParaFloat(campoValor.getDadosDoCampo());

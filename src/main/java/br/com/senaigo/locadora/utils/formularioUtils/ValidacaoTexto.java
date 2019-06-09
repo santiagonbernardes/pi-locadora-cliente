@@ -28,6 +28,18 @@ public enum ValidacaoTexto implements ValidacaoComRegex {
 					"* Apóstrofe (‘).";
 		}
 	},
+	CARRO_KM() {
+		@Override
+		public String obtenhaRegexParaValidacao() {
+			return "^\\d{0,7}$";
+		}
+
+		@Override
+		public String informeComoValidacaoDeveriaSer() {
+			return "* Até 7 dígitos;\n" +
+					"* Somente números (0-9).";
+		}
+	}
 
 
 }

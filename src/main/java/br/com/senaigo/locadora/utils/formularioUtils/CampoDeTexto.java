@@ -11,7 +11,11 @@ public class CampoDeTexto extends CampoDeFormulario <String> {
 		super(labelDoCampo, componenteDoCampo, isObrigatorio, validacao);
 	}
 
-	protected CampoDeTexto(JLabel labelDoCampo, JTextField componenteDoCampo, boolean isObrigatorio, ValidacaoNumerica validacao) throws ValidacaoException {
+	public CampoDeTexto(JLabel labelDoCampo, JFormattedTextField componenteDoCampo, boolean isObrigatorio) throws ValidacaoException {
+		super(labelDoCampo, componenteDoCampo, isObrigatorio, ValidacaoTexto.SEM_VALIDACAO_COM_REGEX);
+	}
+
+	protected CampoDeTexto(JLabel labelDoCampo, JTextField componenteDoCampo, boolean isObrigatorio, ValidacaoFloat validacao) throws ValidacaoException {
 		super(labelDoCampo, componenteDoCampo, isObrigatorio, validacao);
 	}
 

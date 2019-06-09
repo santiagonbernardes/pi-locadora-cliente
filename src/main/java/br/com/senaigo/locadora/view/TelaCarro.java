@@ -1,10 +1,12 @@
 package br.com.senaigo.locadora.view;
 
 import br.com.senaigo.locadora.controller.ClienteTcpController;
+import br.com.senaigo.locadora.excecoes.ValidacaoException;
 import br.com.senaigo.locadora.interfaces.FormularioPadrao;
 import br.com.senaigo.locadora.model.*;
 import br.com.senaigo.locadora.persistencia.Operacao;
 import br.com.senaigo.locadora.utils.Utils;
+import br.com.senaigo.locadora.utils.formularioUtils.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,7 +51,7 @@ public class TelaCarro extends javax.swing.JInternalFrame implements FormularioP
 					veiculo.getPlaca(),
 					veiculo.getRenavam(),
 					veiculo.getAnoFabricacao(),
-					veiculo.getValorCompra(),
+					"R$ "+Utils.convertaFloatParaStringComDuasCasasDecimais(veiculo.getValorCompra()),
 					veiculo.getKmAtual(),
 					veiculo.getCategoria().getNome(),
 					veiculo.getEstado().getDescricao(),
@@ -58,7 +60,7 @@ public class TelaCarro extends javax.swing.JInternalFrame implements FormularioP
 				tabela.addRow(campos);
 			}
 		} catch (Exception erro) {
-			JOptionPane.showMessageDialog(null, "Erro ao " + Operacao.LISTAR + " Veiculo: " + erro.getMessage());
+			Utils.mostreAdvertenciaPreenchimentoGrid(erro);
 		}
 	}
 
@@ -95,10 +97,10 @@ public class TelaCarro extends javax.swing.JInternalFrame implements FormularioP
 	@Override
 	public List<JTextField> obtenhaCamposDoFormularioSemCampoId() {
 		List<JTextField> camposDoFormularioSemCampoId = new ArrayList<>();
-		camposDoFormularioSemCampoId.add(this.jTextFieldAno);
-		camposDoFormularioSemCampoId.add(this.jTextFieldPlaca);
+		camposDoFormularioSemCampoId.add(this.jFormattedTextFieldAno);
+		camposDoFormularioSemCampoId.add(this.jFormattedTextFieldPlaca);
 		camposDoFormularioSemCampoId.add(this.jTextFieldQuilometragem);
-		camposDoFormularioSemCampoId.add(this.jTextFieldRenavam);
+		camposDoFormularioSemCampoId.add(this.jFormattedTextFieldRenavam);
 		camposDoFormularioSemCampoId.add(this.jTextFieldValorCompra);
 		return camposDoFormularioSemCampoId;
 	}
@@ -116,7 +118,8 @@ public class TelaCarro extends javax.swing.JInternalFrame implements FormularioP
 		try {
 			fonteDeDadosVeiculo = controller.liste("Veiculo");
 		} catch (Exception erro) {
-			JOptionPane.showMessageDialog(null, "Erro do preencher fonte de dados de veículo: " + erro.getMessage());
+			String titulo = "Erro do preencher fonte de dados de veículos!";
+			Utils.mostreAdvertencia(erro, titulo);
 		}
 	}
 
@@ -127,11 +130,8 @@ public class TelaCarro extends javax.swing.JInternalFrame implements FormularioP
         jPanelBase = new javax.swing.JPanel();
         jPanelCarro = new javax.swing.JPanel();
         jLabelPlaca = new javax.swing.JLabel();
-        jTextFieldPlaca = new javax.swing.JTextField();
         jLabelRENAVAM = new javax.swing.JLabel();
-        jTextFieldRenavam = new javax.swing.JTextField();
         jLabelAno = new javax.swing.JLabel();
-        jTextFieldAno = new javax.swing.JTextField();
         jLabelValorCompra = new javax.swing.JLabel();
         jTextFieldValorCompra = new javax.swing.JTextField();
         jLabelQuilometragem = new javax.swing.JLabel();
@@ -146,6 +146,9 @@ public class TelaCarro extends javax.swing.JInternalFrame implements FormularioP
         jTextFieldID = new javax.swing.JTextField();
         jButtonSalvar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
+        jFormattedTextFieldPlaca = new javax.swing.JFormattedTextField();
+        jFormattedTextFieldRenavam = new javax.swing.JFormattedTextField();
+        jFormattedTextFieldAno = new javax.swing.JFormattedTextField();
         jPanelBotoes = new javax.swing.JPanel();
         jButtonNovo = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
@@ -165,24 +168,15 @@ public class TelaCarro extends javax.swing.JInternalFrame implements FormularioP
         jLabelPlaca.setForeground(new java.awt.Color(0, 0, 0));
         jLabelPlaca.setText("Placa:");
 
-        jTextFieldPlaca.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jTextFieldPlaca.setForeground(new java.awt.Color(0, 0, 0));
-
         jLabelRENAVAM.setBackground(new java.awt.Color(255, 255, 255));
         jLabelRENAVAM.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabelRENAVAM.setForeground(new java.awt.Color(0, 0, 0));
-        jLabelRENAVAM.setText("RENAVAM:");
-
-        jTextFieldRenavam.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jTextFieldRenavam.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelRENAVAM.setText("Renavam:");
 
         jLabelAno.setBackground(new java.awt.Color(255, 255, 255));
         jLabelAno.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabelAno.setForeground(new java.awt.Color(0, 0, 0));
         jLabelAno.setText("Ano:");
-
-        jTextFieldAno.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jTextFieldAno.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabelValorCompra.setBackground(new java.awt.Color(255, 255, 255));
         jLabelValorCompra.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -195,7 +189,7 @@ public class TelaCarro extends javax.swing.JInternalFrame implements FormularioP
         jLabelQuilometragem.setBackground(new java.awt.Color(255, 255, 255));
         jLabelQuilometragem.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabelQuilometragem.setForeground(new java.awt.Color(0, 0, 0));
-        jLabelQuilometragem.setText("Última Quilometragem:");
+        jLabelQuilometragem.setText("Quilometragem:");
 
         jTextFieldQuilometragem.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTextFieldQuilometragem.setForeground(new java.awt.Color(0, 0, 0));
@@ -256,18 +250,36 @@ public class TelaCarro extends javax.swing.JInternalFrame implements FormularioP
             }
         });
 
+        try {
+            jFormattedTextFieldPlaca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("UUU-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            jFormattedTextFieldRenavam.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            jFormattedTextFieldAno.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout jPanelCarroLayout = new javax.swing.GroupLayout(jPanelCarro);
         jPanelCarro.setLayout(jPanelCarroLayout);
         jPanelCarroLayout.setHorizontalGroup(
             jPanelCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCarroLayout.createSequentialGroup()
-                .addContainerGap(48, Short.MAX_VALUE)
+                .addContainerGap(46, Short.MAX_VALUE)
                 .addGroup(jPanelCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelCarroLayout.createSequentialGroup()
                         .addGroup(jPanelCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelCategoria)
                             .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                         .addGroup(jPanelCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelEstado)
                             .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -275,34 +287,39 @@ public class TelaCarro extends javax.swing.JInternalFrame implements FormularioP
                         .addGroup(jPanelCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelID)
                             .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanelCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelPlaca)
-                            .addComponent(jTextFieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanelCarroLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabelPlaca)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE))
+                            .addGroup(jPanelCarroLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jFormattedTextFieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(jPanelCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelRENAVAM)
-                            .addComponent(jTextFieldRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                            .addComponent(jFormattedTextFieldRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(95, 95, 95)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(jPanelCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelCarroLayout.createSequentialGroup()
                         .addGroup(jPanelCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelAno))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                            .addComponent(jLabelAno)
+                            .addComponent(jFormattedTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanelCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelValorCompra)
                             .addComponent(jTextFieldValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanelCarroLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 117, Short.MAX_VALUE)
                         .addGroup(jPanelCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabelModelo)
                             .addComponent(jComboBoxModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(jPanelCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jTextFieldQuilometragem, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelQuilometragem, javax.swing.GroupLayout.Alignment.LEADING))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
             .addGroup(jPanelCarroLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -319,27 +336,25 @@ public class TelaCarro extends javax.swing.JInternalFrame implements FormularioP
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldQuilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jFormattedTextFieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jFormattedTextFieldRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabelID)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanelCarroLayout.createSequentialGroup()
-                            .addGap(28, 28, 28)
-                            .addComponent(jTextFieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabelPlaca))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanelCarroLayout.createSequentialGroup()
-                            .addGap(24, 24, 24)
-                            .addComponent(jTextFieldRenavam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabelRENAVAM))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCarroLayout.createSequentialGroup()
+                        .addComponent(jLabelPlaca)
+                        .addGap(38, 38, 38))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCarroLayout.createSequentialGroup()
+                        .addComponent(jLabelRENAVAM)
+                        .addGap(34, 34, 34))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCarroLayout.createSequentialGroup()
                         .addComponent(jLabelValorCompra)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanelCarroLayout.createSequentialGroup()
-                            .addGap(24, 24, 24)
-                            .addComponent(jTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabelAno)))
+                        .addGroup(jPanelCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jFormattedTextFieldAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCarroLayout.createSequentialGroup()
+                        .addComponent(jLabelAno)
+                        .addGap(34, 34, 34)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPanelCarroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelModelo)
@@ -476,37 +491,39 @@ public class TelaCarro extends javax.swing.JInternalFrame implements FormularioP
 
 	private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
 		try {
-			String id = jTextFieldID.getText();
-			String placa = jTextFieldPlaca.getText();
-			String renavam = jTextFieldRenavam.getText();
-			String ano = jTextFieldAno.getText();
-			String valorCompra = jTextFieldValorCompra.getText();
-			String quilometragem = jTextFieldQuilometragem.getText();
-			Categoria categoria = (Categoria) jComboBoxCategoria.getSelectedItem();
-			Estado estado = (Estado) jComboBoxEstado.getSelectedItem();
-			Modelo modelo = (Modelo) jComboBoxModelo.getSelectedItem();
+			CampoId campoId = new CampoId(jLabelID, jTextFieldID);
+			CampoDeTexto campoPlaca = new CampoDeTexto(jLabelPlaca, jFormattedTextFieldPlaca, true);
+			CampoDeTexto campoRenavam = new CampoDeTexto(jLabelRENAVAM, jFormattedTextFieldRenavam, true);
+			CampoDeTexto campoAno = new CampoDeTexto(jLabelAno, jFormattedTextFieldAno, true);
+			CampoMonetario campoValor = new CampoMonetario(jLabelValorCompra, jTextFieldValorCompra, true, ValidacaoFloat.SETE_DIGITOS);
+			CampoDeTexto campoKm = new CampoDeTexto(jLabelQuilometragem, jTextFieldQuilometragem, true, ValidacaoTexto.CARRO_KM);
+			CampoComboBox<Categoria> campoCategoria = new CampoComboBox<>(jLabelCategoria, jComboBoxCategoria);
+			CampoComboBox<Estado> campoEstado = new CampoComboBox<>(jLabelEstado, jComboBoxEstado);
+			CampoComboBox<Modelo> campoModelo = new CampoComboBox<>(jLabelModelo, jComboBoxModelo);
+
+			valideRenavamUnico(campoRenavam.getDadosDoCampo(), campoId.getDadosDoCampo());
 
 			Veiculo veiculo = new Veiculo();
-			veiculo.setPlaca(placa);
-			veiculo.setRenavam(Utils.convertaStringParaLong(renavam));
-			veiculo.setAnoFabricacao(Utils.convertaStringParaInt(ano));
-			veiculo.setValorCompra(Utils.convertaStringParaFloat(valorCompra));
-			veiculo.setKmAtual(Utils.convertaStringParaInt(quilometragem));
-			veiculo.setCategoria(categoria);
-			veiculo.setEstado(estado);
-			veiculo.setModelo(modelo);
+			veiculo.setId(campoId.getDadosDoCampo());
+			veiculo.setPlaca(campoPlaca.getDadosDoCampo());
+			veiculo.setRenavam(Utils.convertaStringParaLong(campoRenavam.getDadosDoCampo()));
+			veiculo.setAnoFabricacao(Utils.convertaStringParaInt(campoAno.getDadosDoCampo()));
+			veiculo.setValorCompra(Utils.convertaStringParaFloat(campoValor.getDadosDoCampo()));
+			veiculo.setKmAtual(Utils.convertaStringParaInt(campoKm.getDadosDoCampo()));
+			veiculo.setCategoria((Categoria) campoCategoria.getDadosDoCampo());
+			veiculo.setEstado((Estado) campoEstado.getDadosDoCampo());
+			veiculo.setModelo((Modelo) campoModelo.getDadosDoCampo());
 
-			if (id.isEmpty()) {
-				controller.execute(veiculo, Operacao.INCLUIR);
-			} else {
-				veiculo.setId(Utils.convertaStringParaInt(id));
-				controller.execute(veiculo, Operacao.ALTERAR);
-			}
+			Operacao operacao = veiculo.getId() == 0 ? Operacao.INCLUIR : Operacao.ALTERAR;
+
+			controller.execute(veiculo, operacao);
 
 			preenchaGrid();
 			formulario.configureFormularioParaNavegacao();
+		} catch (ValidacaoException erro) {
+			Utils.mostreAdvertenciaValidacao(erro);
 		} catch (Exception erro) {
-			JOptionPane.showMessageDialog(null, "Erro ao " + Operacao.INCLUIR + " Marca: " + erro.getMessage());
+			Utils.mostreAdvertencia(erro, "Erro ao salvar veículo!");
 		}
 	}//GEN-LAST:event_jButtonSalvarActionPerformed
 
@@ -518,6 +535,20 @@ public class TelaCarro extends javax.swing.JInternalFrame implements FormularioP
 
 	}//GEN-LAST:event_jButtonCancelarActionPerformed
 
+	private void valideRenavamUnico(String renavamEmTexto, int id) throws ValidacaoException {
+		long renavam = Utils.convertaStringParaLong(renavamEmTexto);
+		for(Veiculo veiculo : fonteDeDadosVeiculo) {
+			boolean renavamIgual = veiculo.getRenavam() == renavam;
+			boolean idsDiferentes = veiculo.getId() != id;
+			if(renavamIgual && idsDiferentes) {
+				String mensagem = "O renavam do veículo é único. " +
+						"O renavam " + renavamEmTexto + " já está cadastrado. " +
+						"Informe um renavam não cadastrado.";
+				throw new ValidacaoException(mensagem);
+			}
+		}
+	}
+
 	private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
 		boolean podeModificarComponentes = formulario.confirmeApagarFormulario();
 
@@ -526,10 +557,14 @@ public class TelaCarro extends javax.swing.JInternalFrame implements FormularioP
 			formulario.configureFormularioParaEntradaDeDados();
 			Veiculo veiculo = fonteDeDadosVeiculo.get(indexDoVeiculo);
 			jTextFieldID.setText(String.valueOf(veiculo.getId()));
-			jTextFieldPlaca.setText(veiculo.getPlaca());
-			jTextFieldRenavam.setText(String.valueOf(veiculo.getRenavam()));
-			jTextFieldAno.setText(String.valueOf(veiculo.getAnoFabricacao()));
-			jTextFieldValorCompra.setText(String.valueOf(veiculo.getValorCompra()));
+			jFormattedTextFieldPlaca.setText(veiculo.getPlaca());
+			jFormattedTextFieldPlaca.setValue(veiculo.getPlaca());
+			jFormattedTextFieldRenavam.setText(String.valueOf(veiculo.getRenavam()));
+			jFormattedTextFieldRenavam.setValue(String.valueOf(veiculo.getRenavam()));
+			jFormattedTextFieldAno.setText(String.valueOf(veiculo.getAnoFabricacao()));
+			jFormattedTextFieldAno.setValue(String.valueOf(veiculo.getAnoFabricacao()));
+			String valorCompra = Utils.convertaFloatParaStringComDuasCasasDecimais(veiculo.getValorCompra());
+			jTextFieldValorCompra.setText(valorCompra);
 			jTextFieldQuilometragem.setText(String.valueOf(veiculo.getKmAtual()));
 			jComboBoxCategoria.setSelectedItem(veiculo.getCategoria());
 			jComboBoxEstado.setSelectedItem(veiculo.getEstado());
@@ -550,6 +585,9 @@ public class TelaCarro extends javax.swing.JInternalFrame implements FormularioP
     private javax.swing.JComboBox<String> jComboBoxCategoria;
     private javax.swing.JComboBox<String> jComboBoxEstado;
     private javax.swing.JComboBox<String> jComboBoxModelo;
+    private javax.swing.JFormattedTextField jFormattedTextFieldAno;
+    private javax.swing.JFormattedTextField jFormattedTextFieldPlaca;
+    private javax.swing.JFormattedTextField jFormattedTextFieldRenavam;
     private javax.swing.JLabel jLabelAno;
     private javax.swing.JLabel jLabelCategoria;
     private javax.swing.JLabel jLabelEstado;
@@ -564,11 +602,8 @@ public class TelaCarro extends javax.swing.JInternalFrame implements FormularioP
     private javax.swing.JPanel jPanelCarro;
     private javax.swing.JScrollPane jScrollPaneTabela;
     private javax.swing.JTable jTableLista;
-    private javax.swing.JTextField jTextFieldAno;
     private javax.swing.JTextField jTextFieldID;
-    private javax.swing.JTextField jTextFieldPlaca;
     private javax.swing.JTextField jTextFieldQuilometragem;
-    private javax.swing.JTextField jTextFieldRenavam;
     private javax.swing.JTextField jTextFieldValorCompra;
     // End of variables declaration//GEN-END:variables
 }
