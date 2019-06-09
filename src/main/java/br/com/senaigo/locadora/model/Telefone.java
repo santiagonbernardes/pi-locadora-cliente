@@ -65,11 +65,17 @@ public class Telefone {
 	public String toString() {
 		String numeroSemFormatacao = String.valueOf(numero);
 		int tamanho = numeroSemFormatacao.length();
+		String retorno;
 
-		String digitosAntesHifen = tamanho == 8 ? numeroSemFormatacao.substring(0, 4) : numeroSemFormatacao.substring(0, 5);
-		String digitosAposHifen = tamanho == 8 ? numeroSemFormatacao.substring(4) : numeroSemFormatacao.substring(5);
-		String numeroFormatado = digitosAntesHifen + "-" + digitosAposHifen;
+		if(tamanho < 8 || tamanho > 9) {
+			retorno = "";
+		} else {
+			String digitosAntesHifen = tamanho == 8 ? numeroSemFormatacao.substring(0, 4) : numeroSemFormatacao.substring(0, 5);
+			String digitosAposHifen = tamanho == 8 ? numeroSemFormatacao.substring(4) : numeroSemFormatacao.substring(5);
+			String numeroFormatado = digitosAntesHifen + "-" + digitosAposHifen;
+			retorno = "(" + this.ddd + ")" + numeroFormatado;
+		}
 
-		return "(" + this.ddd + ")" + numeroFormatado;
+		return retorno;
 	}
 }

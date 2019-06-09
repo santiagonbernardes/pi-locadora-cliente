@@ -32,24 +32,35 @@ public abstract class CampoDeFormulario <T> {
 	private T obtenhaDadosDoComponenteValidados(JComponent componente) throws ValidacaoException {
 		T objeto = leiaDadosDoComponente(componente);
 		boolean objetoIsTexto = objeto instanceof String;
+		String objetoEmTexto = "";
+		if(objetoIsTexto) {
+			objetoEmTexto = (String) objeto;
+		}
 
 		if(this.isObrigatorio) {
 			valideEntradaObrigatoria(objeto, objetoIsTexto);
+			valideTexto(objetoEmTexto, objetoIsTexto);
 		}
 
+		if(!objetoEmTexto.isEmpty()) {
+			valideTexto(objetoEmTexto, true);
+		}
+
+		facaValidacoesAdicionaisSeNecessario(objetoEmTexto);
+
+		return objeto;
+	}
+
+	private void valideTexto(String objetoEmTexto, boolean objetoIsTexto) throws ValidacaoException {
 		if(objetoIsTexto && validacao != ValidacaoTexto.SEM_VALIDACAO_COM_REGEX) {
 			String regex = this.validacao.obtenhaRegexParaValidacao();
-			String objetoEmTexto = (String) objeto;
 
 			if(!objetoEmTexto.matches(regex)) {
 				String cabecalhoErro = "O campo \"" +nomeDoCampo + "\" é inválido! Siga o padrão abaixo:\n";
 				String msgErro = cabecalhoErro + this.validacao.informeComoValidacaoDeveriaSer();
 				throw new ValidacaoException(msgErro);
 			}
-			facaValidacoesAdicionaisSeNecessario(objetoEmTexto);
 		}
-
-		return objeto;
 	}
 
 	protected abstract T leiaDadosDoComponente(JComponent componente);

@@ -26,7 +26,7 @@ public class TelaModelo extends javax.swing.JInternalFrame implements Formulario
 	private ControleFormularioPadrao formulario;
 
 	public TelaModelo() {
-		try{
+		try {
 			controller = new ClienteTcpController();
 			atualizeFonteDeDadosMarca();
 			initComponents();
@@ -130,74 +130,74 @@ public class TelaModelo extends javax.swing.JInternalFrame implements Formulario
 		javax.swing.GroupLayout jPanelMarcaLayout = new javax.swing.GroupLayout(jPanelMarca);
 		jPanelMarca.setLayout(jPanelMarcaLayout);
 		jPanelMarcaLayout.setHorizontalGroup(
-			jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(jPanelMarcaLayout.createSequentialGroup()
-					.addGap(52, 52, 52)
-					.addGroup(jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 						.addGroup(jPanelMarcaLayout.createSequentialGroup()
-							.addComponent(jLabelNome)
-							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-							.addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 901, javax.swing.GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addGap(52, 52, 52)
+								.addGroup(jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addGroup(jPanelMarcaLayout.createSequentialGroup()
+												.addComponent(jLabelNome)
+												.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+												.addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 901, javax.swing.GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+										.addGroup(jPanelMarcaLayout.createSequentialGroup()
+												.addComponent(jLabelID)
+												.addGap(18, 18, 18)
+												.addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addComponent(jLabelMarca)
+												.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+												.addComponent(jComboBoxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+												.addGap(331, 331, 331)))
+								.addComponent(jLabelIcone, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 						.addGroup(jPanelMarcaLayout.createSequentialGroup()
-							.addComponent(jLabelID)
-							.addGap(18, 18, 18)
-							.addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(jLabelMarca)
-							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-							.addComponent(jComboBoxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-							.addGap(331, 331, 331)))
-					.addComponent(jLabelIcone, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-				.addGroup(jPanelMarcaLayout.createSequentialGroup()
-					.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(jButtonSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(jButtonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		jPanelMarcaLayout.setVerticalGroup(
-			jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(jPanelMarcaLayout.createSequentialGroup()
-					.addGroup(jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-						.addComponent(jLabelIcone, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+				jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 						.addGroup(jPanelMarcaLayout.createSequentialGroup()
-							.addGap(27, 27, 27)
-							.addGroup(jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+								.addGroup(jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addComponent(jLabelIcone, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addGroup(jPanelMarcaLayout.createSequentialGroup()
+												.addGap(27, 27, 27)
+												.addGroup(jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+														.addGroup(jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+																.addComponent(jLabelMarca)
+																.addComponent(jComboBoxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+														.addGroup(jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+																.addComponent(jLabelID)
+																.addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+										.addGroup(jPanelMarcaLayout.createSequentialGroup()
+												.addGap(83, 83, 83)
+												.addGroup(jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+														.addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+														.addComponent(jLabelNome))))
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
 								.addGroup(jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-									.addComponent(jLabelMarca)
-									.addComponent(jComboBoxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-								.addGroup(jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-									.addComponent(jLabelID)
-									.addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-						.addGroup(jPanelMarcaLayout.createSequentialGroup()
-							.addGap(83, 83, 83)
-							.addGroup(jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-								.addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-								.addComponent(jLabelNome))))
-					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-					.addGroup(jPanelMarcaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-						.addComponent(jButtonCancelar)
-						.addComponent(jButtonSalvar))
-					.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+										.addComponent(jButtonCancelar)
+										.addComponent(jButtonSalvar))
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 
 		jTableLista.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 		jTableLista.setForeground(new java.awt.Color(0, 0, 0));
 		jTableLista.setModel(new javax.swing.table.DefaultTableModel(
-			new Object[][]{
+				new Object[][]{
 
-			},
-			new String[]{
-				"ID", "Nome", "Marca"
-			}
+				},
+				new String[]{
+						"ID", "Nome", "Marca"
+				}
 		) {
 			Class[] types = new Class[]{
-				java.lang.String.class, java.lang.String.class, java.lang.String.class
+					java.lang.String.class, java.lang.String.class, java.lang.String.class
 			};
 			boolean[] canEdit = new boolean[]{
-				false, false, false
+					false, false, false
 			};
 
 			public Class getColumnClass(int columnIndex) {
@@ -229,46 +229,46 @@ public class TelaModelo extends javax.swing.JInternalFrame implements Formulario
 		javax.swing.GroupLayout jPanelBaseLayout = new javax.swing.GroupLayout(jPanelBase);
 		jPanelBase.setLayout(jPanelBaseLayout);
 		jPanelBaseLayout.setHorizontalGroup(
-			jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(jPanelBaseLayout.createSequentialGroup()
-					.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+				jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 						.addGroup(jPanelBaseLayout.createSequentialGroup()
-							.addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
-							.addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-						.addComponent(jPanelMarca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBaseLayout.createSequentialGroup()
-							.addComponent(jButtonNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+										.addGroup(jPanelBaseLayout.createSequentialGroup()
+												.addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+												.addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+										.addComponent(jPanelMarca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBaseLayout.createSequentialGroup()
+												.addComponent(jButtonNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addComponent(jButtonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		jPanelBaseLayout.setVerticalGroup(
-			jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(jPanelBaseLayout.createSequentialGroup()
-					.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addComponent(jPanelMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-					.addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-						.addComponent(jButtonNovo)
-						.addComponent(jButtonEditar))
-					.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-					.addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-						.addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE))
-					.addContainerGap())
+				jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addGroup(jPanelBaseLayout.createSequentialGroup()
+								.addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(jPanelMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+								.addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+										.addComponent(jButtonNovo)
+										.addComponent(jButtonEditar))
+								.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+								.addGroup(jPanelBaseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+										.addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+										.addComponent(jScrollPaneTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE))
+								.addContainerGap())
 		);
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
 		getContentPane().setLayout(layout);
 		layout.setHorizontalGroup(
-			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addComponent(jPanelBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addComponent(jPanelBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 		);
 		layout.setVerticalGroup(
-			layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addComponent(jPanelBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+						.addComponent(jPanelBase, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 		);
 
 		pack();
@@ -298,7 +298,7 @@ public class TelaModelo extends javax.swing.JInternalFrame implements Formulario
 	private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
 		try {
 			CampoId campoId = new CampoId(jLabelID, jTextFieldID);
-			CampoDeTexto campoNome = new CampoDeTexto(jLabelNome, jTextFieldNome, true, ValidacaoTexto.NOME_MARCA_CATEGORIA);
+			CampoDeTexto campoNome = new CampoDeTexto(jLabelNome, jTextFieldNome, true, ValidacaoTexto.NOME_MODELO);
 			CampoComboBox<Marca> campoMarca = new CampoComboBox<>(jLabelMarca, jComboBoxMarca);
 
 			valideNomeUnicoParaModelo(campoNome.getDadosDoCampo(), (Marca) campoMarca.getDadosDoCampo());
@@ -314,9 +314,9 @@ public class TelaModelo extends javax.swing.JInternalFrame implements Formulario
 
 			preenchaGrid();
 			formulario.configureFormularioParaNavegacao();
-		} catch(ValidacaoException erroValidacao){
+		} catch (ValidacaoException erroValidacao) {
 			Utils.mostreAdvertenciaValidacao(erroValidacao);
-		}catch (Exception erro) {
+		} catch (Exception erro) {
 			String titulo = "Erro ao salvar modelo!";
 			Utils.mostreAdvertencia(erro, titulo);
 		}
@@ -334,8 +334,8 @@ public class TelaModelo extends javax.swing.JInternalFrame implements Formulario
 	}//GEN-LAST:event_jTableListaMouseClicked
 
 	private void valideNomeUnicoParaModelo(String nomeInformado, Marca marcaSelecionada) throws ValidacaoException {
-		for(Modelo modelo : fonteDeDadosModelo) {
-			if(modelo.getNome().equalsIgnoreCase(nomeInformado) && modelo.getMarca().equals(marcaSelecionada)) {
+		for (Modelo modelo : fonteDeDadosModelo) {
+			if (modelo.getNome().equalsIgnoreCase(nomeInformado) && modelo.getMarca().equals(marcaSelecionada)) {
 				String mensagem = "Já existe um modelo " + nomeInformado + " vinculado a marca " + marcaSelecionada.toString();
 				throw new ValidacaoException(mensagem);
 			}
@@ -349,9 +349,9 @@ public class TelaModelo extends javax.swing.JInternalFrame implements Formulario
 			tabela.setRowCount(0);
 			for (Modelo modelo : fonteDeDadosModelo) {
 				Object[] campos = {
-					modelo.getId(),
-					modelo.getNome(),
-					modelo.getMarca().getNome()
+						modelo.getId(),
+						modelo.getNome(),
+						modelo.getMarca().getNome()
 				};
 				tabela.addRow(campos);
 			}
@@ -378,24 +378,6 @@ public class TelaModelo extends javax.swing.JInternalFrame implements Formulario
 		}
 	}
 
-
-	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private javax.swing.JButton jButtonCancelar;
-	private javax.swing.JButton jButtonEditar;
-	private javax.swing.JButton jButtonNovo;
-	private javax.swing.JButton jButtonSalvar;
-	private javax.swing.JComboBox<String> jComboBoxMarca;
-	private javax.swing.JLabel jLabelID;
-	private javax.swing.JLabel jLabelIcone;
-	private javax.swing.JLabel jLabelLogo;
-	private javax.swing.JLabel jLabelMarca;
-	private javax.swing.JLabel jLabelNome;
-	private javax.swing.JPanel jPanelBase;
-	private javax.swing.JPanel jPanelMarca;
-	private javax.swing.JScrollPane jScrollPaneTabela;
-	private javax.swing.JTable jTableLista;
-	private javax.swing.JTextField jTextFieldID;
-	private javax.swing.JTextField jTextFieldNome;
 
 	@Override
 	public JButton obtenhaBotaoSalvar() {
@@ -440,5 +422,24 @@ public class TelaModelo extends javax.swing.JInternalFrame implements Formulario
 		comboBoxesDoFormulario.add(jComboBoxMarca);
 		return comboBoxesDoFormulario;
 	}
+
+
+	// Variables declaration - do not modify//GEN-BEGIN:variables
+	private javax.swing.JButton jButtonCancelar;
+	private javax.swing.JButton jButtonEditar;
+	private javax.swing.JButton jButtonNovo;
+	private javax.swing.JButton jButtonSalvar;
+	private javax.swing.JComboBox<String> jComboBoxMarca;
+	private javax.swing.JLabel jLabelID;
+	private javax.swing.JLabel jLabelIcone;
+	private javax.swing.JLabel jLabelLogo;
+	private javax.swing.JLabel jLabelMarca;
+	private javax.swing.JLabel jLabelNome;
+	private javax.swing.JPanel jPanelBase;
+	private javax.swing.JPanel jPanelMarca;
+	private javax.swing.JScrollPane jScrollPaneTabela;
+	private javax.swing.JTable jTableLista;
+	private javax.swing.JTextField jTextFieldID;
+	private javax.swing.JTextField jTextFieldNome;
 	// End of variables declaration//GEN-END:variables
 }

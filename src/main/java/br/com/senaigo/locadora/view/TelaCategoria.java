@@ -19,7 +19,7 @@ public class TelaCategoria extends javax.swing.JInternalFrame implements Formula
 	private List<Categoria> fonteDeDadosCategoria;
 	private ControleFormularioPadrao formulario;
 
-	public TelaCategoria(){
+	public TelaCategoria() {
 		try {
 			controller = new ClienteTcpController();
 			initComponents();
@@ -349,7 +349,7 @@ public class TelaCategoria extends javax.swing.JInternalFrame implements Formula
 				Object[] campos = {
 						categoria.getId(),
 						categoria.getNome(),
-						"R$ "+Utils.convertaFloatParaStringComDuasCasasDecimais(categoria.getValorDiarioLocacao())
+						"R$ " + Utils.convertaFloatParaStringComDuasCasasDecimais(categoria.getValorDiarioLocacao())
 				};
 				tabela.addRow(campos);
 			}
@@ -366,24 +366,6 @@ public class TelaCategoria extends javax.swing.JInternalFrame implements Formula
 			Utils.mostreAdvertencia(erro, titulo);
 		}
 	}
-
-
-	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private javax.swing.JButton jButtonCancelar;
-	private javax.swing.JButton jButtonEditar;
-	private javax.swing.JButton jButtonNovo;
-	private javax.swing.JButton jButtonSalvar;
-	private javax.swing.JLabel jLabelID;
-	private javax.swing.JLabel jLabelLogo;
-	private javax.swing.JLabel jLabelNome;
-	private javax.swing.JLabel jLabelValorLocacao;
-	private javax.swing.JPanel jPanelBase;
-	private javax.swing.JPanel jPanelMarca;
-	private javax.swing.JScrollPane jScrollPaneTabela;
-	private javax.swing.JTable jTableLista;
-	private javax.swing.JTextField jTextFieldID;
-	private javax.swing.JTextField jTextFieldNome;
-	private javax.swing.JTextField jTextFieldValorLocacao;
 
 	@Override
 	public JButton obtenhaBotaoSalvar() {
@@ -428,5 +410,23 @@ public class TelaCategoria extends javax.swing.JInternalFrame implements Formula
 		List<JComboBox> comboBoxesDoFormulario = new ArrayList<>();
 		return comboBoxesDoFormulario;
 	}
+
+
+	// Variables declaration - do not modify//GEN-BEGIN:variables
+	private javax.swing.JButton jButtonCancelar;
+	private javax.swing.JButton jButtonEditar;
+	private javax.swing.JButton jButtonNovo;
+	private javax.swing.JButton jButtonSalvar;
+	private javax.swing.JLabel jLabelID;
+	private javax.swing.JLabel jLabelLogo;
+	private javax.swing.JLabel jLabelNome;
+	private javax.swing.JLabel jLabelValorLocacao;
+	private javax.swing.JPanel jPanelBase;
+	private javax.swing.JPanel jPanelMarca;
+	private javax.swing.JScrollPane jScrollPaneTabela;
+	private javax.swing.JTable jTableLista;
+	private javax.swing.JTextField jTextFieldID;
+	private javax.swing.JTextField jTextFieldNome;
+	private javax.swing.JTextField jTextFieldValorLocacao;
 	// End of variables declaration//GEN-END:variables
 }

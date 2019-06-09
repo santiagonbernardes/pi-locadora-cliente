@@ -54,8 +54,8 @@ public class ControleFormularioPadrao {
 
 		if (!isFormularioVazio()) {
 			int opcaoDoUsuario = JOptionPane.showConfirmDialog(null,
-				"As informações do formulário serão perdidas, deseja continuar?",
-				"Apagar formulário?", JOptionPane.YES_NO_OPTION);
+					"As informações do formulário serão perdidas, deseja continuar?",
+					"Apagar formulário?", JOptionPane.YES_NO_OPTION);
 
 			podeModificarComponentes = opcaoDoUsuario == JOptionPane.YES_OPTION;
 		}
@@ -89,18 +89,18 @@ public class ControleFormularioPadrao {
 	}
 
 	private void desativeTodosCamposDeTexto() {
-		for(JTextField campoDeTexto : camposDoFormularioSemCampoId) {
+		for (JTextField campoDeTexto : camposDoFormularioSemCampoId) {
 			campoDeTexto.setEditable(false);
 		}
 		campoId.setEnabled(false);
 	}
 
 	private void limpeTodosOsCamposDeTexto() {
-		for(JTextField campoDeTexto : camposDoFormularioSemCampoId) {
+		for (JTextField campoDeTexto : camposDoFormularioSemCampoId) {
 			campoDeTexto.setText("");
-                        if (campoDeTexto instanceof JFormattedTextField) {
-                            ((JFormattedTextField) campoDeTexto).setValue(null);
-                        }
+			if (campoDeTexto instanceof JFormattedTextField) {
+				((JFormattedTextField) campoDeTexto).setValue(null);
+			}
 		}
 		campoId.setText("");
 	}
@@ -112,7 +112,7 @@ public class ControleFormularioPadrao {
 	}
 
 	private void ativeTodosOsCamposTextoMenosId() {
-		for(JTextField campoDeTexto : camposDoFormularioSemCampoId) {
+		for (JTextField campoDeTexto : camposDoFormularioSemCampoId) {
 			campoDeTexto.setEditable(true);
 		}
 	}
@@ -124,9 +124,9 @@ public class ControleFormularioPadrao {
 	}
 
 	private boolean isFormularioVazio() {
-		for(JTextField camposDeTexto : camposDoFormularioSemCampoId) {
-			if(camposDeTexto instanceof JFormattedTextField) {
-				if(((JFormattedTextField) camposDeTexto).getValue() != null) {
+		for (JTextField camposDeTexto : camposDoFormularioSemCampoId) {
+			if (camposDeTexto instanceof JFormattedTextField) {
+				if (((JFormattedTextField) camposDeTexto).getValue() != null) {
 					return false;
 				}
 			} else if (!camposDeTexto.getText().trim().isEmpty()) {
@@ -140,5 +140,13 @@ public class ControleFormularioPadrao {
 			}
 		}
 		return true;
+	}
+
+	public void limpeValores() {
+		for (JTextField campoDeTexto : camposDoFormularioSemCampoId) {
+			if (campoDeTexto instanceof JFormattedTextField) {
+				((JFormattedTextField) campoDeTexto).setValue(null);
+			}
+		}
 	}
 }

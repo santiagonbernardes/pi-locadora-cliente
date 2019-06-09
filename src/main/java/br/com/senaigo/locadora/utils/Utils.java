@@ -37,7 +37,7 @@ public class Utils {
 
 	public static List<String> obtenhaCampos(String dadosDoObjeto) {
 		List<String> campos;
-		campos = Arrays.asList(dadosDoObjeto.split(";"));
+		campos = Arrays.asList(dadosDoObjeto.split(";", -1));
 		return campos;
 	}
 

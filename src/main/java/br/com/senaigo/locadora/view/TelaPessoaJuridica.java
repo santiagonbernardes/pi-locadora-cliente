@@ -645,6 +645,62 @@ public class TelaPessoaJuridica extends javax.swing.JInternalFrame implements Fo
         formulario.configureConformeInteracaoComGrid();
     }//GEN-LAST:event_jTableListaMouseClicked
 
+    @Override
+    public JButton obtenhaBotaoSalvar() {
+        return this.jButtonSalvar;
+    }
+
+    @Override
+    public JButton obtenhaBotaoEditar() {
+        return this.jButtonEditar;
+    }
+
+    @Override
+    public JButton obtenhaBotaoCancelar() {
+        return this.jButtonCancelar;
+    }
+
+    @Override
+    public JButton obtenhaBotaoNovo() {
+        return this.jButtonNovo;
+    }
+
+    @Override
+    public JTable obtenhaGrid() {
+        return this.jTableLista;
+    }
+
+    @Override
+    public JTextField obtenhaCampoId() {
+        return this.jTextFieldID;
+    }
+
+    @Override
+    public List<JTextField> obtenhaCamposDoFormularioSemCampoId() {
+        List<JTextField> camposDoFormularioSemCampoId = new ArrayList<>();
+        camposDoFormularioSemCampoId.add(this.jTextFieldRazaoSocial);
+        camposDoFormularioSemCampoId.add(this.jTextFieldNomeFantasia);
+        camposDoFormularioSemCampoId.add(this.jFormattedTextFieldCnpj);
+        camposDoFormularioSemCampoId.add(this.jFormattedTextFieldCep);
+        camposDoFormularioSemCampoId.add(this.jTextFieldLogradouro);
+        camposDoFormularioSemCampoId.add(this.jTextFieldNumero);
+        camposDoFormularioSemCampoId.add(this.jTextFieldComplemento);
+        camposDoFormularioSemCampoId.add(this.jTextFieldCidade);
+        camposDoFormularioSemCampoId.add(this.jTextFieldBairro);
+        camposDoFormularioSemCampoId.add(this.jFormattedTextFieldTelefone);
+        camposDoFormularioSemCampoId.add(this.jFormattedTextFieldCelular);
+        camposDoFormularioSemCampoId.add(this.jTextFieldEmail);
+
+        return camposDoFormularioSemCampoId;
+    }
+
+    @Override
+    public List<JComboBox> obtenhaComboBoxesDoFormulario() {
+        List<JComboBox> comboBoxesDoFormulario = new ArrayList<>();
+        comboBoxesDoFormulario.add(jComboBoxUF);
+        return comboBoxesDoFormulario;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
@@ -687,60 +743,5 @@ public class TelaPessoaJuridica extends javax.swing.JInternalFrame implements Fo
     private javax.swing.JTextField jTextFieldNumero;
     private javax.swing.JTextField jTextFieldRazaoSocial;
 
-	@Override
-	public JButton obtenhaBotaoSalvar() {
-		return this.jButtonSalvar;
-	}
-
-	@Override
-	public JButton obtenhaBotaoEditar() {
-		return this.jButtonEditar;
-	}
-
-	@Override
-	public JButton obtenhaBotaoCancelar() {
-		return this.jButtonCancelar;
-	}
-
-	@Override
-	public JButton obtenhaBotaoNovo() {
-		return this.jButtonNovo;
-	}
-
-	@Override
-	public JTable obtenhaGrid() {
-		return this.jTableLista;
-	}
-
-	@Override
-	public JTextField obtenhaCampoId() {
-		return this.jTextFieldID;
-	}
-
-	@Override
-	public List<JTextField> obtenhaCamposDoFormularioSemCampoId() {
-		List<JTextField> camposDoFormularioSemCampoId = new ArrayList<>();
-		camposDoFormularioSemCampoId.add(this.jTextFieldRazaoSocial);
-		camposDoFormularioSemCampoId.add(this.jTextFieldNomeFantasia);
-		camposDoFormularioSemCampoId.add(this.jFormattedTextFieldCnpj);
-		camposDoFormularioSemCampoId.add(this.jFormattedTextFieldCep);
-		camposDoFormularioSemCampoId.add(this.jTextFieldLogradouro);
-		camposDoFormularioSemCampoId.add(this.jTextFieldNumero);
-		camposDoFormularioSemCampoId.add(this.jTextFieldComplemento);
-		camposDoFormularioSemCampoId.add(this.jTextFieldCidade);
-		camposDoFormularioSemCampoId.add(this.jTextFieldBairro);
-		camposDoFormularioSemCampoId.add(this.jFormattedTextFieldTelefone);
-		camposDoFormularioSemCampoId.add(this.jFormattedTextFieldCelular);
-		camposDoFormularioSemCampoId.add(this.jTextFieldEmail);
-
-		return camposDoFormularioSemCampoId;
-	}
-
-	@Override
-	public List<JComboBox> obtenhaComboBoxesDoFormulario() {
-		List<JComboBox> comboBoxesDoFormulario = new ArrayList<>();
-		comboBoxesDoFormulario.add(jComboBoxUF);
-		return comboBoxesDoFormulario;
-	}
 	// End of variables declaration//GEN-END:variables
 }
