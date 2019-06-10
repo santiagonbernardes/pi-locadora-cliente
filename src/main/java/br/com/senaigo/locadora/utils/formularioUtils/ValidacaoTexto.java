@@ -164,8 +164,8 @@ public enum ValidacaoTexto implements ValidacaoComRegex {
 					"* Apóstrofo (‘).";
 		}
 	},
-        RAZAO_SOCIAL() {
-            @Override
+	RAZAO_SOCIAL() {
+		@Override
 		public String obtenhaRegexParaValidacao() {
 			return "^[-'0-9a-zA-ZÀ-ÖØ-öø-ÿ\\s]{1,50}$";
 		}
@@ -174,12 +174,41 @@ public enum ValidacaoTexto implements ValidacaoComRegex {
 		public String informeComoValidacaoDeveriaSer() {
 			return "* Até 50 caracteres;\n" +
 					"* Letras (A-z permitindo acentuações);\n" +
-                                        "* Números (0-9);\n" +
+					"* Números (0-9);\n" +
 					"* Cedilha (ç);\n" +
 					"* Hífen (-);\n" +
 					"* Apóstrofo (‘).";
 		}
-        }
+	},
+	LOGIN() {
+		@Override
+		public String obtenhaRegexParaValidacao() {
+			return "^[ç0-9a-zA-Z]{4,10}$";
+		}
+
+		@Override
+		public String informeComoValidacaoDeveriaSer() {
+			return "* No mínimo 4 caracteres;\n" +
+					"* No máximo 10 caracteres;\n" +
+					"* Letras (A-z);\n" +
+					"* Números (0-9);\n" +
+					"* Cedilha (ç).";
+		}
+	},
+	SENHA() {
+		@Override
+		public String obtenhaRegexParaValidacao() {
+			return "^[0-9a-zA-Z]{6,10}$";
+		}
+
+		@Override
+		public String informeComoValidacaoDeveriaSer() {
+			return "* No mínimo 6 caracteres;\n" +
+					"* No máximo 10 caracteres;\n" +
+					"* Letras (A-z);\n" +
+					"* Números (0-9).";
+		}
+	}
 
 
 }

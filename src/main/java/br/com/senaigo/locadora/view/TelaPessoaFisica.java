@@ -57,7 +57,7 @@ public class TelaPessoaFisica extends javax.swing.JInternalFrame implements Form
 				tabela.addRow(campos);
 			}
 		} catch (Exception erro) {
-			JOptionPane.showMessageDialog(null, "Erro ao " + Operacao.LISTAR + " Modelo: " + erro.getMessage());
+			Utils.mostreAdvertenciaPreenchimentoGrid(erro);
 		}
 	}
 
