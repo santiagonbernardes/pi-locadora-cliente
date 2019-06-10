@@ -13,6 +13,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -58,6 +59,16 @@ public class TelaPessoaFisica extends javax.swing.JInternalFrame implements Form
 			}
 		} catch (Exception erro) {
 			Utils.mostreAdvertenciaPreenchimentoGrid(erro);
+		}
+	}
+
+	private void valideMaiorDeIdade(CampoData campoData) throws ValidacaoException {
+		LocalDate dataHoje = LocalDate.now();
+		LocalDate dataNascimento = DataUtils.convertaStringParaLocalDate(campoData.getDadosDoCampo());
+		int idade = Period.between(dataNascimento, dataHoje).getYears();
+
+		if(idade < 18) {
+			throw new ValidacaoException("O cliente pessoa física deve ser maior de 18 anos!");
 		}
 	}
 
@@ -571,6 +582,7 @@ public class TelaPessoaFisica extends javax.swing.JInternalFrame implements Form
 			CampoEmail campoEmail = new CampoEmail(jLabelEmail, jTextFieldEmail, false);
 
 			valideUmTelefoneObrigatorio(campoTelefone, campoTelefoneCel);
+			valideMaiorDeIdade(campoData);
 			valideCpfUnico(campoCpf, campoId);
 
 			Cliente cliente = new Cliente();

@@ -16,7 +16,10 @@ public class CampoData extends CampoDeTexto {
 	@Override
 	protected void facaValidacoesAdicionaisSeNecessario(String objetoEmTexto) throws ValidacaoException {
 		try{
-			DataUtils.convertaStringParaLocalDate(objetoEmTexto);
+			LocalDate data = DataUtils.convertaStringParaLocalDate(objetoEmTexto);
+			if(data.getYear() < 1900) {
+				throw new ValidacaoException("O ano não pode ser menor que 1900!");
+			}
 		} catch (DateTimeException erro) {
 			throw new ValidacaoException("A data informada é inválida!");
 		}
