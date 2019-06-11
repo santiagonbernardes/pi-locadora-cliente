@@ -13,6 +13,7 @@ public class Funcionario implements PersisteDados {
 	private int id;
 	private String nome;
 	private LocalDate dataNascimento;
+	//TODO se sobrar tempo, tentar tirar os atributos que não fazem mais parte dos requisitos
 	private String cpf;
 	private Endereco endereco;
 	private Telefone telefonePrincipal;

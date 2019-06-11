@@ -160,4 +160,8 @@ public class Motorista implements PersisteDados {
 		return dadosDoObjeto.toString();
 	}
 
+	@Override
+	public String toString() {
+		return this.cnh + " - " + this.nome;
+	}
 }

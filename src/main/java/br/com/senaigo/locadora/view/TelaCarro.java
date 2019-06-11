@@ -36,7 +36,8 @@ public class TelaCarro extends javax.swing.JInternalFrame implements FormularioP
 			fonteDeDadosModelo = controller.liste("Modelo");
 			fonteDeDadosCategoria = controller.liste("Categoria");
 		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Erro ao inicializar fontes de dados: " + e.getMessage());
+                        String titulo = "Erro ao carregar combo boxes!";
+			Utils.mostreAdvertencia(e, titulo);
 		}
 	}
 

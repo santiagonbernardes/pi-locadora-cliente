@@ -185,4 +185,10 @@ public class Cliente implements PersisteDados {
 		return dadosDoObjeto.toString();
 	}
 
+	@Override
+	public String toString() {
+		String dadoUnico = !this.cpf.isEmpty() ? this.cpf : this.cnpj;
+		String nome = !this.nome.isEmpty() ? this.nome : this.razaoSocial;
+		return dadoUnico + " - " + nome;
+	}
 }

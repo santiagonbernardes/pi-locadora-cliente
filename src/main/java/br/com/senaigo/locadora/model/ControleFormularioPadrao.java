@@ -141,12 +141,4 @@ public class ControleFormularioPadrao {
 		}
 		return true;
 	}
-
-	public void limpeValores() {
-		for (JTextField campoDeTexto : camposDoFormularioSemCampoId) {
-			if (campoDeTexto instanceof JFormattedTextField) {
-				((JFormattedTextField) campoDeTexto).setValue(null);
-			}
-		}
-	}
 }

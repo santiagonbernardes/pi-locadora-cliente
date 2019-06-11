@@ -153,4 +153,13 @@ public class Veiculo implements PersisteDados {
 
 		return dadosDoObjeto.toString();
 	}
+
+	@Override
+	public String toString() {
+		String marca = this.modelo.getMarca().getNome();
+		String modelo = this.modelo.getNome();
+		String categoria = this.categoria.getNome();
+		String precoDaLocacao = "R$" + Utils.convertaFloatParaStringComDuasCasasDecimais(this.categoria.getValorDiarioLocacao());
+		return marca + " " + modelo + " - " + categoria + ": " + precoDaLocacao;
+	}
 }
