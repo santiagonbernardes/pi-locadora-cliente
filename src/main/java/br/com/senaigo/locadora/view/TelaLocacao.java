@@ -110,23 +110,23 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
         jLabelMotorista = new javax.swing.JLabel();
         jComboBoxMotorista = new javax.swing.JComboBox<>();
         jLabelCNHMotoristaImagem = new javax.swing.JLabel();
-        jButtonArquivo = new javax.swing.JButton();
+        jButtonFotoCNH = new javax.swing.JButton();
         jLabelQuilometragem = new javax.swing.JLabel();
         jTextFieldQuilometragem = new javax.swing.JTextField();
         jLabelCNHMotorista = new javax.swing.JLabel();
         jLabelDataLocacao = new javax.swing.JLabel();
         jFormattedTextFieldDataLocacao = new javax.swing.JFormattedTextField();
         jLabelDataDevolucao = new javax.swing.JLabel();
-        jFormattedTextFieldDataDevolucao = new javax.swing.JFormattedTextField();
+        jFormattedTextFieldDataPrevistaDevolucao = new javax.swing.JFormattedTextField();
         jLabelDataCNH = new javax.swing.JLabel();
         jFormattedTextFieldDataCNH = new javax.swing.JFormattedTextField();
         jLabelSituacao = new javax.swing.JLabel();
         jComboBoxSituacao = new javax.swing.JComboBox<>();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jCheckBoxEMotorista = new javax.swing.JCheckBox();
+        jLabelNumeroCNH = new javax.swing.JLabel();
+        jTextFieldNumeroCNH = new javax.swing.JTextField();
+        jLabelCategoria = new javax.swing.JLabel();
+        jComboBoxCategoria = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableLista = new javax.swing.JTable();
         jPanelBotoes = new javax.swing.JPanel();
@@ -177,12 +177,12 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
         jComboBoxMotorista.setForeground(new java.awt.Color(0, 0, 0));
         jComboBoxMotorista.setModel(new DefaultComboBoxModel(fonteDeDadosMotoristas.toArray()));
 
-        jButtonArquivo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jButtonArquivo.setForeground(new java.awt.Color(0, 0, 0));
-        jButtonArquivo.setText("Foto da CNH");
-        jButtonArquivo.addActionListener(new java.awt.event.ActionListener() {
+        jButtonFotoCNH.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jButtonFotoCNH.setForeground(new java.awt.Color(0, 0, 0));
+        jButtonFotoCNH.setText("Foto da CNH");
+        jButtonFotoCNH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonArquivoActionPerformed(evt);
+                jButtonFotoCNHActionPerformed(evt);
             }
         });
 
@@ -215,13 +215,13 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
         jLabelDataDevolucao.setForeground(new java.awt.Color(0, 0, 0));
         jLabelDataDevolucao.setText("Data Prevista Devolução:");
 
-        jFormattedTextFieldDataDevolucao.setForeground(new java.awt.Color(0, 0, 0));
+        jFormattedTextFieldDataPrevistaDevolucao.setForeground(new java.awt.Color(0, 0, 0));
         try {
-            jFormattedTextFieldDataDevolucao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            jFormattedTextFieldDataPrevistaDevolucao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jFormattedTextFieldDataDevolucao.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jFormattedTextFieldDataPrevistaDevolucao.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
         jLabelDataCNH.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabelDataCNH.setForeground(new java.awt.Color(0, 0, 0));
@@ -243,24 +243,24 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
         jComboBoxSituacao.setForeground(new java.awt.Color(0, 0, 0));
         jComboBoxSituacao.setModel(new DefaultComboBoxModel(fonteDeDadosSituacao.toArray()));
 
-        jCheckBox1.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
-        jCheckBox1.setForeground(new java.awt.Color(0, 0, 0));
-        jCheckBox1.setText("É motorista");
+        jCheckBoxEMotorista.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
+        jCheckBoxEMotorista.setForeground(new java.awt.Color(0, 0, 0));
+        jCheckBoxEMotorista.setText("É motorista");
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Número da CNH:");
+        jLabelNumeroCNH.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabelNumeroCNH.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelNumeroCNH.setText("Número da CNH:");
 
-        jTextField1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
+        jTextFieldNumeroCNH.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jTextFieldNumeroCNH.setForeground(new java.awt.Color(0, 0, 0));
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Categoria:");
+        jLabelCategoria.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabelCategoria.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelCategoria.setText("Categoria:");
 
-        jComboBox1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(0, 0, 0));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxCategoria.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jComboBoxCategoria.setForeground(new java.awt.Color(0, 0, 0));
+        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanelLocacaoLayout = new javax.swing.GroupLayout(jPanelLocacao);
         jPanelLocacao.setLayout(jPanelLocacaoLayout);
@@ -278,7 +278,7 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
                                 .addComponent(jComboBoxVeiculo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(91, 91, 91)))
                         .addGroup(jPanelLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormattedTextFieldDataDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jFormattedTextFieldDataPrevistaDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelDataDevolucao))
                         .addGap(127, 127, 127))
                     .addGroup(jPanelLocacaoLayout.createSequentialGroup()
@@ -309,8 +309,8 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
                                     .addComponent(jFormattedTextFieldDataCNH, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanelLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(jLabelCategoria)
+                                    .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 398, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanelLocacaoLayout.createSequentialGroup()
                                 .addGroup(jPanelLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabelID)
@@ -320,15 +320,15 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
                                     .addGroup(jPanelLocacaoLayout.createSequentialGroup()
                                         .addComponent(jComboBoxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jCheckBox1))
+                                        .addComponent(jCheckBoxEMotorista))
                                     .addComponent(jLabelCliente))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)))
                 .addGroup(jPanelLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelCNHMotorista)
                     .addComponent(jLabelCNHMotoristaImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButtonFotoCNH, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelNumeroCNH)
+                    .addComponent(jTextFieldNumeroCNH, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanelLocacaoLayout.setVerticalGroup(
@@ -338,13 +338,13 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
                 .addGroup(jPanelLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelID)
                     .addComponent(jLabelCliente)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabelNumeroCNH))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jCheckBoxEMotorista)
+                    .addComponent(jTextFieldNumeroCNH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelMotorista)
@@ -355,7 +355,7 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLocacaoLayout.createSequentialGroup()
                         .addComponent(jLabelCNHMotoristaImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonArquivo))
+                        .addComponent(jButtonFotoCNH))
                     .addGroup(jPanelLocacaoLayout.createSequentialGroup()
                         .addGroup(jPanelLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jComboBoxMotorista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -363,11 +363,11 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanelLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelDataCNH)
-                            .addComponent(jLabel2))
+                            .addComponent(jLabelCategoria))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jFormattedTextFieldDataCNH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBoxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanelLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanelLocacaoLayout.createSequentialGroup()
@@ -377,7 +377,7 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
                             .addGroup(jPanelLocacaoLayout.createSequentialGroup()
                                 .addComponent(jLabelDataDevolucao)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jFormattedTextFieldDataDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jFormattedTextFieldDataPrevistaDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(38, 38, 38)
                         .addGroup(jPanelLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanelLocacaoLayout.createSequentialGroup()
@@ -513,7 +513,7 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
 		// TODO add your handling code here:
 	}//GEN-LAST:event_jButtonNovaActionPerformed
 
-	private void jButtonArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonArquivoActionPerformed
+	private void jButtonFotoCNHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFotoCNHActionPerformed
 		// TODO add your handling code here:
 		try {
 			JFileChooser fileChooser = new JFileChooser();
@@ -534,34 +534,34 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
 
 		} catch (Exception e) {
 		}
-	}//GEN-LAST:event_jButtonArquivoActionPerformed
+	}//GEN-LAST:event_jButtonFotoCNHActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonArquivo;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
+    private javax.swing.JButton jButtonFotoCNH;
     private javax.swing.JButton jButtonNova;
     private javax.swing.JButton jButtonSalvar;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JCheckBox jCheckBoxEMotorista;
+    private javax.swing.JComboBox<String> jComboBoxCategoria;
     private javax.swing.JComboBox<String> jComboBoxCliente;
     private javax.swing.JComboBox<String> jComboBoxMotorista;
     private javax.swing.JComboBox<String> jComboBoxSituacao;
     private javax.swing.JComboBox<String> jComboBoxVeiculo;
     private javax.swing.JFormattedTextField jFormattedTextFieldDataCNH;
-    private javax.swing.JFormattedTextField jFormattedTextFieldDataDevolucao;
     private javax.swing.JFormattedTextField jFormattedTextFieldDataLocacao;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JFormattedTextField jFormattedTextFieldDataPrevistaDevolucao;
     private javax.swing.JLabel jLabelCNHMotorista;
     private javax.swing.JLabel jLabelCNHMotoristaImagem;
+    private javax.swing.JLabel jLabelCategoria;
     private javax.swing.JLabel jLabelCliente;
     private javax.swing.JLabel jLabelDataCNH;
     private javax.swing.JLabel jLabelDataDevolucao;
     private javax.swing.JLabel jLabelDataLocacao;
     private javax.swing.JLabel jLabelID;
     private javax.swing.JLabel jLabelMotorista;
+    private javax.swing.JLabel jLabelNumeroCNH;
     private javax.swing.JLabel jLabelQuilometragem;
     private javax.swing.JLabel jLabelSituacao;
     private javax.swing.JLabel jLabelVeiculo;
@@ -570,8 +570,8 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanelLocacao;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableLista;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextFieldID;
+    private javax.swing.JTextField jTextFieldNumeroCNH;
     private javax.swing.JTextField jTextFieldQuilometragem;
     // End of variables declaration//GEN-END:variables
 }

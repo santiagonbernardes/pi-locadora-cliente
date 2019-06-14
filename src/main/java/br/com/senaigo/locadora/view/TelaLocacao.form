@@ -115,7 +115,7 @@
                                   </Group>
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jFormattedTextFieldDataDevolucao" min="-2" pref="170" max="-2" attributes="0"/>
+                                  <Component id="jFormattedTextFieldDataPrevistaDevolucao" min="-2" pref="170" max="-2" attributes="0"/>
                                   <Component id="jLabelDataDevolucao" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="127" max="-2" attributes="0"/>
@@ -156,8 +156,8 @@
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jComboBox1" min="-2" pref="398" max="-2" attributes="0"/>
+                                          <Component id="jLabelCategoria" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jComboBoxCategoria" min="-2" pref="398" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
@@ -170,7 +170,7 @@
                                           <Group type="102" attributes="0">
                                               <Component id="jComboBoxCliente" min="-2" pref="650" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jCheckBoxEMotorista" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Component id="jLabelCliente" min="-2" max="-2" attributes="0"/>
                                       </Group>
@@ -182,9 +182,9 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabelCNHMotorista" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelCNHMotoristaImagem" min="-2" pref="400" max="-2" attributes="0"/>
-                          <Component id="jButtonArquivo" min="-2" pref="140" max="-2" attributes="0"/>
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField1" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
+                          <Component id="jButtonFotoCNH" min="-2" pref="140" max="-2" attributes="0"/>
+                          <Component id="jLabelNumeroCNH" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldNumeroCNH" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -197,14 +197,14 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabelID" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelCliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelNumeroCNH" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jTextFieldID" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jComboBoxCliente" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jCheckBox1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jCheckBoxEMotorista" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextFieldNumeroCNH" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -217,7 +217,7 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabelCNHMotoristaImagem" min="-2" pref="224" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="jButtonArquivo" min="-2" max="-2" attributes="0"/>
+                              <Component id="jButtonFotoCNH" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -227,12 +227,12 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabelDataCNH" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabelCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jFormattedTextFieldDataCNH" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
@@ -244,7 +244,7 @@
                                   <Group type="102" attributes="0">
                                       <Component id="jLabelDataDevolucao" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jFormattedTextFieldDataDevolucao" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jFormattedTextFieldDataPrevistaDevolucao" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
@@ -373,7 +373,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelCNHMotoristaImagem">
             </Component>
-            <Component class="javax.swing.JButton" name="jButtonArquivo">
+            <Component class="javax.swing.JButton" name="jButtonFotoCNH">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="18" style="0"/>
@@ -384,7 +384,7 @@
                 <Property name="text" type="java.lang.String" value="Foto da CNH"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonArquivoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFotoCNHActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabelQuilometragem">
@@ -456,7 +456,7 @@
                 <Property name="text" type="java.lang.String" value="Data Prevista Devolu&#xe7;&#xe3;o:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JFormattedTextField" name="jFormattedTextFieldDataDevolucao">
+            <Component class="javax.swing.JFormattedTextField" name="jFormattedTextFieldDataPrevistaDevolucao">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
@@ -520,7 +520,7 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JCheckBox" name="jCheckBox1">
+            <Component class="javax.swing.JCheckBox" name="jCheckBoxEMotorista">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="15" style="0"/>
@@ -531,7 +531,7 @@
                 <Property name="text" type="java.lang.String" value="&#xc9; motorista"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel1">
+            <Component class="javax.swing.JLabel" name="jLabelNumeroCNH">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="18" style="0"/>
@@ -542,7 +542,7 @@
                 <Property name="text" type="java.lang.String" value="N&#xfa;mero da CNH:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField1">
+            <Component class="javax.swing.JTextField" name="jTextFieldNumeroCNH">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="18" style="0"/>
@@ -552,7 +552,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel2">
+            <Component class="javax.swing.JLabel" name="jLabelCategoria">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="18" style="0"/>
@@ -563,7 +563,7 @@
                 <Property name="text" type="java.lang.String" value="Categoria:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBox1">
+            <Component class="javax.swing.JComboBox" name="jComboBoxCategoria">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Dialog" size="18" style="0"/>
