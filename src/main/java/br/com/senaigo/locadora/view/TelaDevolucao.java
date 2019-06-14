@@ -39,8 +39,8 @@ public class TelaDevolucao extends javax.swing.JInternalFrame {
         jTextFieldQuilometragem = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabelLocacao = new javax.swing.JLabel();
+        jComboBoxLocacao = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableLista = new javax.swing.JTable();
 
@@ -138,13 +138,13 @@ public class TelaDevolucao extends javax.swing.JInternalFrame {
         jTextField2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTextField2.setForeground(new java.awt.Color(0, 0, 0));
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Locação:");
+        jLabelLocacao.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabelLocacao.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelLocacao.setText("Locação:");
 
-        jComboBox1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(0, 0, 0));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxLocacao.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jComboBoxLocacao.setForeground(new java.awt.Color(0, 0, 0));
+        jComboBoxLocacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanelDevolucaoLayout = new javax.swing.GroupLayout(jPanelDevolucao);
         jPanelDevolucao.setLayout(jPanelDevolucaoLayout);
@@ -160,8 +160,8 @@ public class TelaDevolucao extends javax.swing.JInternalFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanelDevolucaoLayout.createSequentialGroup()
                         .addGroup(jPanelDevolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabelLocacao)
+                            .addComponent(jComboBoxLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanelDevolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelDataDeDevolucao)
@@ -183,12 +183,12 @@ public class TelaDevolucao extends javax.swing.JInternalFrame {
                 .addGroup(jPanelDevolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelDataDeDevolucao)
                     .addComponent(jLabelQuilometragem)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabelLocacao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDevolucaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jFormattedTextFieldDataDeDevolucao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldQuilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(118, Short.MAX_VALUE))
         );
 
@@ -266,11 +266,11 @@ public class TelaDevolucao extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonNova;
     private javax.swing.JButton jButtonSalvar;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBoxLocacao;
     private javax.swing.JFormattedTextField jFormattedTextFieldDataDeDevolucao;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelDataDeDevolucao;
+    private javax.swing.JLabel jLabelLocacao;
     private javax.swing.JLabel jLabelQuilometragem;
     private javax.swing.JPanel jPanelBase;
     private javax.swing.JPanel jPanelBotoes;
