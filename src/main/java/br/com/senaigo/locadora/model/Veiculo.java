@@ -156,10 +156,9 @@ public class Veiculo implements PersisteDados {
 
 	@Override
 	public String toString() {
+                String placa = this.placa;
 		String marca = this.modelo.getMarca().getNome();
-		String modelo = this.modelo.getNome();
-		String categoria = this.categoria.getNome();
-		String precoDaLocacao = "R$" + Utils.convertaFloatParaStringComDuasCasasDecimais(this.categoria.getValorDiarioLocacao());
-		return marca + " " + modelo + " - " + categoria + ": " + precoDaLocacao;
+		String modelo = this.modelo.getNome();              
+		return placa + " - " +  marca + " " + modelo;
 	}
 }
