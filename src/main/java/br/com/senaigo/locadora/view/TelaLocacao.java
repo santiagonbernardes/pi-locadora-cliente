@@ -693,8 +693,10 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
             locacao.setId(campoId.getDadosDoCampo());
             Cliente cliente = (Cliente) comboCliente.getDadosDoCampo();
             locacao.setCliente(cliente);
-            locacao.setVeiculo((Veiculo) comboVeiculo.getDadosDoCampo());
-            
+            Veiculo veiculo = (Veiculo) comboVeiculo.getDadosDoCampo();
+            locacao.setVeiculo(veiculo);
+
+
             
             Motorista motorista;
             if(jCheckBoxEMotorista.isSelected()) {
@@ -703,10 +705,13 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
             } else {
                 motorista = (Motorista) comboMotorista.getDadosDoCampo();
             }
+
+            int km = Utils.convertaStringParaInt(campoKm.getDadosDoCampo());
+
             locacao.setMotorista(motorista);
             locacao.setDataDaLocacao(DataUtils.convertaStringParaLocalDate(campoDataLocacao.getDadosDoCampo()));
             locacao.setDataPrevistaParaDevolucao(DataUtils.convertaStringParaLocalDate(campoDataPrevistaDev.getDadosDoCampo()));
-            locacao.setKmVeiculoLocacao(Utils.convertaStringParaInt(campoKm.getDadosDoCampo()));
+            locacao.setKmVeiculoLocacao(km);
             locacao.setDataVencimentoCnh(DataUtils.convertaStringParaLocalDate(campoValidadeCnh.getDadosDoCampo()));
             locacao.setCaminhoParaArquivoCnh(campoImagem.obtenhaCaminhoParaArquivo());
             LocacaoController controller = new LocacaoController(locacao, controllerCliente);
