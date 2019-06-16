@@ -749,6 +749,9 @@
                 <Property name="text" type="java.lang.String" value="Efetuar Loca&#xe7;&#xe3;o"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSalvarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonEditar">
               <Properties>
@@ -773,6 +776,9 @@
                 <Property name="text" type="java.lang.String" value="Cancelar"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCancelarActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

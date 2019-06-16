@@ -9,6 +9,10 @@ public class CampoComboBox<T> extends CampoDeFormulario {
 	public CampoComboBox(JLabel labelDoCampo, JComboBox componente) throws ValidacaoException {
 		super(labelDoCampo, componente);
 	}
+        
+        public CampoComboBox(JLabel labelDoCampo, JComboBox componente, boolean obrigatorio) throws ValidacaoException {
+		super(labelDoCampo, componente, obrigatorio);
+	}
 
 	@Override
 	protected T leiaDadosDoComponente(JComponent componente) {

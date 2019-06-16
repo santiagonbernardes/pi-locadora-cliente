@@ -16,5 +16,19 @@ public enum SituacaoLocacao {
 
     public String getDescricao() {
         return descricao;
-    }    
+    }
+
+    public int getValor() {
+        return valor;
+    }
+
+    public static SituacaoLocacao valueOf(int valor) {
+        SituacaoLocacao situacaoLocacaoEncontrada = null;
+        for (SituacaoLocacao situacaoLocacao : SituacaoLocacao.values()) {
+            if (situacaoLocacao.valor == valor) {
+                situacaoLocacaoEncontrada = situacaoLocacao;
+            }
+        }
+        return situacaoLocacaoEncontrada;
+    }
 }

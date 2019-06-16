@@ -32,6 +32,19 @@ public class Motorista implements PersisteDados {
 		this.email = "";
 		this.cnh = "";
 	}
+        
+        public Motorista(Cliente cliente, String numeroCnh) {
+                this.id = 0;
+		this.nome = cliente.getNome();
+		this.dataNascimento = cliente.getDataNascimento();
+		this.cpf = cliente.getCpf();
+		this.endereco = cliente.getEndereco();
+		this.telefonePrincipal = cliente.getTelefonePrincipal();
+		this.telefoneAlternativo = cliente.getTelefoneAlternativo();
+		this.email = cliente.getEmail();
+		this.cnh = numeroCnh;
+            
+        }
 
 	//Getters e Setters
 	public int getId() {

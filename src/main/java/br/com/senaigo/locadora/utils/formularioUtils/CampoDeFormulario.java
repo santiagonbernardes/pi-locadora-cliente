@@ -28,6 +28,14 @@ public abstract class CampoDeFormulario <T> {
 		msgCampoObrigatorio = "O campo \"" + nomeDoCampo +"\" deve ser informado! (Obrigatório)";
 		this.dadosDoCampo = this.obtenhaDadosDoComponenteValidados(componente);
 	}
+        
+        protected CampoDeFormulario(JLabel labelDoCampo, JComponent componente, boolean isObrigatorio) throws ValidacaoException {
+		this.nomeDoCampo = obtenhaNomeDoCampo(labelDoCampo);
+		this.isObrigatorio = isObrigatorio;
+		this.validacao = ValidacaoTexto.SEM_VALIDACAO_COM_REGEX;
+		msgCampoObrigatorio = "O campo \"" + nomeDoCampo +"\" deve ser informado! (Obrigatório)";
+		this.dadosDoCampo = this.obtenhaDadosDoComponenteValidados(componente);
+	}
 
 	private T obtenhaDadosDoComponenteValidados(JComponent componente) throws ValidacaoException {
 		T objeto = leiaDadosDoComponente(componente);

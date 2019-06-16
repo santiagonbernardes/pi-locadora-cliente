@@ -72,7 +72,7 @@ public class Categoria implements PersisteDados {
 
     @Override
     public String toString() {
-        return this.nome;
+        return this.nome + " - " + "R$" + Utils.convertaFloatParaStringComDuasCasasDecimais(this.valorDiarioLocacao);
     }
 
 	@Override
