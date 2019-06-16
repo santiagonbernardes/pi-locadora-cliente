@@ -83,9 +83,12 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
 			DefaultTableModel tabela = (DefaultTableModel) jTableLista.getModel();
 			tabela.setRowCount(0);
 			for (Locacao locacao : fonteDeDadosLocacao) {
+                String nomeClientePf = locacao.getCliente().getNome();
+                String nomeClientePj = locacao.getCliente().getRazaoSocial();
+                String nome = nomeClientePf.isEmpty() ? nomeClientePj : nomeClientePf;
 				Object[] campos = {
 						locacao.getId(),
-						locacao.getCliente().getNome(),
+						nome,
 						locacao.getMotorista().getNome(),
 						locacao.getVeiculo().toString(),
 						DataUtils.convertaLocalDateParaStringFormatada(locacao.getDataDaLocacao()),

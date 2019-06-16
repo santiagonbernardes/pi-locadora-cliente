@@ -50,6 +50,7 @@ public class LocacaoController {
 
         locacao.setSituacao(SituacaoLocacao.ABERTO);
         locacao.getVeiculo().setEstado(Estado.LOCADO);
+        controllerCliente.execute(locacao.getVeiculo(), Operacao.ALTERAR);
         controllerCliente.execute(locacao, operacao);
     }
 
