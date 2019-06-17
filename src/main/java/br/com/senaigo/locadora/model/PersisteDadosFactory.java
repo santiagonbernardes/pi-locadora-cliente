@@ -44,6 +44,12 @@ public enum PersisteDadosFactory {
 		PersisteDados obtenhaInstancia() {
 			return new Veiculo();
 		}
+	},
+	LOCACAO {
+		@Override
+		PersisteDados obtenhaInstancia() {
+			return new Locacao();
+		}
 	};
 
 	public static PersisteDados obtenhaInstancia(String nomeEntidade) {

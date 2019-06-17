@@ -1,4 +1,4 @@
-package br.com.senaigo.locadora.model;
+package br.com.senaigo.locadora.view.formulario;
 
 import br.com.senaigo.locadora.interfaces.FormularioPadrao;
 

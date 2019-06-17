@@ -3,7 +3,7 @@ package br.com.senaigo.locadora.view;
 import br.com.senaigo.locadora.controller.ClienteTcpController;
 import br.com.senaigo.locadora.excecoes.ValidacaoException;
 import br.com.senaigo.locadora.interfaces.FormularioPadrao;
-import br.com.senaigo.locadora.model.ControleFormularioPadrao;
+import br.com.senaigo.locadora.view.formulario.ControleFormularioPadrao;
 import br.com.senaigo.locadora.model.Marca;
 import br.com.senaigo.locadora.persistencia.Operacao;
 import br.com.senaigo.locadora.utils.Utils;

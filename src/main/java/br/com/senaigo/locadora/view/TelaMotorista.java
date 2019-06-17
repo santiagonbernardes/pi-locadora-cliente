@@ -1,5 +1,6 @@
 package br.com.senaigo.locadora.view;
 
+import br.com.senaigo.locadora.view.formulario.ControleFormularioPadrao;
 import br.com.senaigo.locadora.controller.ClienteTcpController;
 import br.com.senaigo.locadora.excecoes.ValidacaoException;
 import br.com.senaigo.locadora.interfaces.FormularioPadrao;

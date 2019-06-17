@@ -6,24 +6,35 @@
 package br.com.senaigo.locadora.view;
 
 import br.com.senaigo.locadora.controller.ClienteTcpController;
+import br.com.senaigo.locadora.controller.LocacaoController;
+import br.com.senaigo.locadora.excecoes.ValidacaoException;
+import br.com.senaigo.locadora.model.Categoria;
 import br.com.senaigo.locadora.model.Cliente;
-import br.com.senaigo.locadora.model.Funcionario;
 import br.com.senaigo.locadora.model.Locacao;
 import br.com.senaigo.locadora.model.Motorista;
 import br.com.senaigo.locadora.model.SituacaoLocacao;
 import br.com.senaigo.locadora.model.Veiculo;
+import br.com.senaigo.locadora.persistencia.Operacao;
 import br.com.senaigo.locadora.utils.DataUtils;
 import br.com.senaigo.locadora.utils.Utils;
+import br.com.senaigo.locadora.utils.formularioUtils.*;
+import br.com.senaigo.locadora.view.componentes.JComboBoxModelCategoria;
+import br.com.senaigo.locadora.view.componentes.JComboBoxModelCliente;
+import br.com.senaigo.locadora.view.componentes.JComboBoxModelMotorista;
+import br.com.senaigo.locadora.view.componentes.JComboBoxModelVeiculo;
+
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
@@ -34,67 +45,73 @@ import javax.swing.table.DefaultTableModel;
 public class TelaLocacao extends javax.swing.JInternalFrame {
 
 	private List<Cliente> fonteDeDadosClientes;
-        private List<Veiculo> fonteDeDadosVeiculos;
-        private List<Motorista> fonteDeDadosMotoristas;
-        private List<Locacao> fonteDeDadosLocacao;
-        private List<SituacaoLocacao> fonteDeDadosSituacao;
-        private ClienteTcpController controller;
-        
+	private List<Veiculo> fonteDeDadosVeiculos;
+	private List<Motorista> fonteDeDadosMotoristas;
+	private List<Locacao> fonteDeDadosLocacao;
+	private List<SituacaoLocacao> fonteDeDadosSituacoes;
+	private List<Categoria> fonteDeDadosCategorias;
+	private ClienteTcpController controllerCliente;
+
 	public TelaLocacao() {
-            try {
-                controller = new ClienteTcpController();
-                inicializeComboBoxes();
-		initComponents();
-                preenchaGrid();
-            } catch (Exception erro) {
-                String titulo = "Erro ao abrir tela de categorias!";
-                Utils.mostreAdvertencia(erro, titulo);
-            }
+		try {
+			controllerCliente = new ClienteTcpController();
+			inicializeComboBoxes();
+			initComponents();
+			preenchaGrid();
+		} catch (Exception erro) {
+			String titulo = "Erro ao abrir tela de locação!";
+			Utils.mostreAdvertencia(erro, titulo);
+		}
 	}
 
 	private void inicializeComboBoxes() {
-            try {
-                fonteDeDadosClientes = controller.liste("Cliente");
-                fonteDeDadosMotoristas = controller.liste("Motorista");
-                fonteDeDadosVeiculos = controller.liste("Veiculo");
-                fonteDeDadosSituacao = Arrays.asList(SituacaoLocacao.values());
-            } catch (Exception erro) {
-                String msg = "Erro ao inicializar combo boxes!";
-                Utils.mostreAdvertencia(erro, msg);
-            }
-        }
-        
-        private void preenchaGrid() {
-            try{
-                atualizeFonteDeDadosLocacao();
-                DefaultTableModel tabela = (DefaultTableModel) jTableLista.getModel();
+		try {
+			fonteDeDadosClientes = controllerCliente.liste("Cliente");
+			fonteDeDadosMotoristas = controllerCliente.liste("Motorista");
+			fonteDeDadosVeiculos = controllerCliente.liste("Veiculo");
+			fonteDeDadosCategorias = controllerCliente.liste("Categoria");
+			fonteDeDadosSituacoes = Arrays.asList(SituacaoLocacao.values());
+		} catch (Exception erro) {
+			String msg = "Erro ao inicializar combo boxes!";
+			Utils.mostreAdvertencia(erro, msg);
+		}
+	}
+
+	private void preenchaGrid() {
+		try {
+			atualizeFonteDeDadosLocacao();
+			DefaultTableModel tabela = (DefaultTableModel) jTableLista.getModel();
 			tabela.setRowCount(0);
 			for (Locacao locacao : fonteDeDadosLocacao) {
-                            Object[] campos = {
+                String nomeClientePf = locacao.getCliente().getNome();
+                String nomeClientePj = locacao.getCliente().getRazaoSocial();
+                String nome = nomeClientePf.isEmpty() ? nomeClientePj : nomeClientePf;
+				Object[] campos = {
 						locacao.getId(),
-						locacao.getCliente().getNome(),
+						nome,
 						locacao.getMotorista().getNome(),
 						locacao.getVeiculo().toString(),
-                                                DataUtils.convertaLocalDateParaStringFormatada(locacao.getDataDaLocacao()),
-                                                DataUtils.convertaLocalDateParaStringFormatada(locacao.getDataPrevistaParaDevolucao()),
-                                                locacao.getSituacao().getDescricao()
+						DataUtils.convertaLocalDateParaStringFormatada(locacao.getDataDaLocacao()),
+						DataUtils.convertaLocalDateParaStringFormatada(locacao.getDataPrevistaParaDevolucao()),
+						locacao.getSituacao().getDescricao()
 				};
 				tabela.addRow(campos);
-                        }
-            } catch(Exception erro) {
-                Utils.mostreAdvertenciaPreenchimentoGrid(erro);
-            }
-            
-            
-        }
-        
-        private void atualizeFonteDeDadosLocacao() {
-            try {
-                fonteDeDadosLocacao = controller.liste("Locacao");
-            } catch (Exception erro) {
-                Utils.mostreAdvertenciaPreenchimentoGrid(erro);
-            }
-        }
+			}
+		} catch (Exception erro) {
+			Utils.mostreAdvertenciaPreenchimentoGrid(erro);
+		}
+
+
+	}
+
+	private void atualizeFonteDeDadosLocacao() {
+		try {
+			fonteDeDadosLocacao = controllerCliente.liste("Locacao");
+		} catch (Exception erro) {
+			Utils.mostreAdvertenciaPreenchimentoGrid(erro);
+		}
+	}
+
 	@SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -122,11 +139,12 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
         jFormattedTextFieldDataCNH = new javax.swing.JFormattedTextField();
         jLabelSituacao = new javax.swing.JLabel();
         jComboBoxSituacao = new javax.swing.JComboBox<>();
+        jComboBoxSituacao.setSelectedIndex(-1);
         jCheckBoxEMotorista = new javax.swing.JCheckBox();
         jLabelNumeroCNH = new javax.swing.JLabel();
-        jTextFieldNumeroCNH = new javax.swing.JTextField();
         jLabelCategoria = new javax.swing.JLabel();
         jComboBoxCategoria = new javax.swing.JComboBox<>();
+        jFormattedTextFieldCnh = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableLista = new javax.swing.JTable();
         jPanelBotoes = new javax.swing.JPanel();
@@ -152,6 +170,7 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
         jTextFieldID.setEditable(false);
         jTextFieldID.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTextFieldID.setForeground(new java.awt.Color(0, 0, 0));
+        jTextFieldID.setEnabled(false);
 
         jLabelCliente.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabelCliente.setForeground(new java.awt.Color(0, 0, 0));
@@ -159,7 +178,14 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
 
         jComboBoxCliente.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jComboBoxCliente.setForeground(new java.awt.Color(0, 0, 0));
-        jComboBoxCliente.setModel(new DefaultComboBoxModel(fonteDeDadosClientes.toArray()));
+        jComboBoxCliente.setModel(new JComboBoxModelCliente(fonteDeDadosClientes)
+        );
+        jComboBoxCliente.setEnabled(false);
+        jComboBoxCliente.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxClienteItemStateChanged(evt);
+            }
+        });
 
         jLabelVeiculo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabelVeiculo.setForeground(new java.awt.Color(0, 0, 0));
@@ -167,7 +193,13 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
 
         jComboBoxVeiculo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jComboBoxVeiculo.setForeground(new java.awt.Color(0, 0, 0));
-        jComboBoxVeiculo.setModel(new DefaultComboBoxModel(fonteDeDadosVeiculos.toArray()));
+        jComboBoxVeiculo.setModel(new JComboBoxModelVeiculo(fonteDeDadosVeiculos));
+        jComboBoxVeiculo.setEnabled(false);
+        jComboBoxVeiculo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxVeiculoItemStateChanged(evt);
+            }
+        });
 
         jLabelMotorista.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabelMotorista.setForeground(new java.awt.Color(0, 0, 0));
@@ -175,11 +207,16 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
 
         jComboBoxMotorista.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jComboBoxMotorista.setForeground(new java.awt.Color(0, 0, 0));
-        jComboBoxMotorista.setModel(new DefaultComboBoxModel(fonteDeDadosMotoristas.toArray()));
+        jComboBoxMotorista.setModel(new JComboBoxModelMotorista(fonteDeDadosMotoristas)
+        );
+        jComboBoxMotorista.setEnabled(false);
+
+        jLabelCNHMotoristaImagem.setEnabled(false);
 
         jButtonFotoCNH.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jButtonFotoCNH.setForeground(new java.awt.Color(0, 0, 0));
         jButtonFotoCNH.setText("Foto da CNH");
+        jButtonFotoCNH.setEnabled(false);
         jButtonFotoCNH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonFotoCNHActionPerformed(evt);
@@ -193,6 +230,7 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
         jTextFieldQuilometragem.setEditable(false);
         jTextFieldQuilometragem.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTextFieldQuilometragem.setForeground(new java.awt.Color(0, 0, 0));
+        jTextFieldQuilometragem.setEnabled(false);
 
         jLabelCNHMotorista.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabelCNHMotorista.setForeground(new java.awt.Color(0, 0, 0));
@@ -209,30 +247,35 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jFormattedTextFieldDataLocacao.setEnabled(false);
         jFormattedTextFieldDataLocacao.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
         jLabelDataDevolucao.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabelDataDevolucao.setForeground(new java.awt.Color(0, 0, 0));
         jLabelDataDevolucao.setText("Data Prevista Devolução:");
 
+        jFormattedTextFieldDataPrevistaDevolucao.setEditable(false);
         jFormattedTextFieldDataPrevistaDevolucao.setForeground(new java.awt.Color(0, 0, 0));
         try {
             jFormattedTextFieldDataPrevistaDevolucao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jFormattedTextFieldDataPrevistaDevolucao.setEnabled(false);
         jFormattedTextFieldDataPrevistaDevolucao.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
         jLabelDataCNH.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabelDataCNH.setForeground(new java.awt.Color(0, 0, 0));
         jLabelDataCNH.setText("Data de Validade da CNH:");
 
+        jFormattedTextFieldDataCNH.setEditable(false);
         jFormattedTextFieldDataCNH.setForeground(new java.awt.Color(0, 0, 0));
         try {
             jFormattedTextFieldDataCNH.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jFormattedTextFieldDataCNH.setEnabled(false);
         jFormattedTextFieldDataCNH.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
         jLabelSituacao.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -241,18 +284,22 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
 
         jComboBoxSituacao.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jComboBoxSituacao.setForeground(new java.awt.Color(0, 0, 0));
-        jComboBoxSituacao.setModel(new DefaultComboBoxModel(fonteDeDadosSituacao.toArray()));
+        jComboBoxSituacao.setModel(new DefaultComboBoxModel(fonteDeDadosSituacoes.toArray()));
+        jComboBoxSituacao.setEnabled(false);
 
         jCheckBoxEMotorista.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
         jCheckBoxEMotorista.setForeground(new java.awt.Color(0, 0, 0));
         jCheckBoxEMotorista.setText("É motorista");
+        jCheckBoxEMotorista.setEnabled(false);
+        jCheckBoxEMotorista.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBoxEMotoristaItemStateChanged(evt);
+            }
+        });
 
         jLabelNumeroCNH.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabelNumeroCNH.setForeground(new java.awt.Color(0, 0, 0));
         jLabelNumeroCNH.setText("Número da CNH:");
-
-        jTextFieldNumeroCNH.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jTextFieldNumeroCNH.setForeground(new java.awt.Color(0, 0, 0));
 
         jLabelCategoria.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jLabelCategoria.setForeground(new java.awt.Color(0, 0, 0));
@@ -260,7 +307,21 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
 
         jComboBoxCategoria.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jComboBoxCategoria.setForeground(new java.awt.Color(0, 0, 0));
-        jComboBoxCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxCategoria.setModel(new JComboBoxModelCategoria(fonteDeDadosCategorias));
+        jComboBoxCategoria.setEnabled(false);
+        jComboBoxCategoria.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxCategoriaItemStateChanged(evt);
+            }
+        });
+
+        jFormattedTextFieldCnh.setEditable(false);
+        try {
+            jFormattedTextFieldCnh.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jFormattedTextFieldCnh.setEnabled(false);
 
         javax.swing.GroupLayout jPanelLocacaoLayout = new javax.swing.GroupLayout(jPanelLocacao);
         jPanelLocacao.setLayout(jPanelLocacaoLayout);
@@ -328,7 +389,7 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
                     .addComponent(jLabelCNHMotoristaImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonFotoCNH, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelNumeroCNH)
-                    .addComponent(jTextFieldNumeroCNH, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFormattedTextFieldCnh, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanelLocacaoLayout.setVerticalGroup(
@@ -344,7 +405,7 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
                     .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jCheckBoxEMotorista)
-                    .addComponent(jTextFieldNumeroCNH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFormattedTextFieldCnh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelLocacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelMotorista)
@@ -435,14 +496,27 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
         jButtonSalvar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jButtonSalvar.setForeground(new java.awt.Color(0, 0, 0));
         jButtonSalvar.setText("Efetuar Locação");
+        jButtonSalvar.setEnabled(false);
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalvarActionPerformed(evt);
+            }
+        });
 
         jButtonEditar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jButtonEditar.setForeground(new java.awt.Color(0, 0, 0));
         jButtonEditar.setText("Editar");
+        jButtonEditar.setEnabled(false);
 
         jButtonCancelar.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jButtonCancelar.setForeground(new java.awt.Color(0, 0, 0));
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.setEnabled(false);
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelBotoesLayout = new javax.swing.GroupLayout(jPanelBotoes);
         jPanelBotoes.setLayout(jPanelBotoesLayout);
@@ -488,11 +562,11 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
             .addGroup(jPanelBaseLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanelLocacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(jPanelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -510,11 +584,25 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 	private void jButtonNovaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNovaActionPerformed
-		// TODO add your handling code here:
+		jComboBoxCliente.setEnabled(true);
+		jFormattedTextFieldDataCNH.setEnabled(true);
+		jFormattedTextFieldDataCNH.setEditable(true);
+		jComboBoxCategoria.setEnabled(true);
+		jFormattedTextFieldDataPrevistaDevolucao.setEnabled(true);
+		jFormattedTextFieldDataPrevistaDevolucao.setEditable(true);
+		jButtonFotoCNH.setEnabled(true);
+		jLabelCNHMotoristaImagem.setEnabled(true);
+		LocalDate dataHoje = LocalDate.now();
+                String dataConvertida = DataUtils.convertaLocalDateParaStringFormatada(dataHoje);
+		jFormattedTextFieldDataLocacao.setText(dataConvertida);
+                jFormattedTextFieldDataLocacao.setValue(dataConvertida);
+		jComboBoxSituacao.setSelectedItem(SituacaoLocacao.ABERTO);
+                jButtonNova.setEnabled(false);
+                jButtonCancelar.setEnabled(true);
+                jButtonSalvar.setEnabled(true);
 	}//GEN-LAST:event_jButtonNovaActionPerformed
 
 	private void jButtonFotoCNHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFotoCNHActionPerformed
-		// TODO add your handling code here:
 		try {
 			JFileChooser fileChooser = new JFileChooser();
 			fileChooser.setDialogTitle("Procurar imagem");
@@ -525,18 +613,138 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
 			if (retorno == JFileChooser.APPROVE_OPTION) {
 				File file = fileChooser.getSelectedFile();
 				BufferedImage imagemOriginal = ImageIO.read(file);
-				//BufferedImage imagemTratada = new BufferedImage(LARGURA_LOGO, ALTURA_LOGO, imagemOriginal.getType());
-				//Graphics2D graphics = imagemTratada.createGraphics();
-				//graphics.drawImage(imagemOriginal, 0, 0, LARGURA_LOGO, ALTURA_LOGO, null);
-				//graphics.dispose();
-				//jLabelCNHMotoristaImagem.setIcon(new ImageIcon(imagemTratada));
+				int largura = jLabelCNHMotoristaImagem.getWidth();
+				int altura = jLabelCNHMotoristaImagem.getHeight();
+				BufferedImage imagemTratada = new BufferedImage(largura, altura, imagemOriginal.getType());
+				Graphics2D graphics = imagemTratada.createGraphics();
+				graphics.drawImage(imagemOriginal, 0, 0, largura, altura, null);
+				graphics.dispose();
+				jLabelCNHMotoristaImagem.setIcon(new ImageIcon(imagemTratada));
 			}
 
 		} catch (Exception e) {
 		}
 	}//GEN-LAST:event_jButtonFotoCNHActionPerformed
 
+	private void jComboBoxClienteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxClienteItemStateChanged
+		int index = jComboBoxCliente.getSelectedIndex();
+		Cliente clienteSelecionado = jComboBoxCliente.getItemAt(index);
+		if (clienteSelecionado != null) {
+			boolean deveHabilitarCheckBox = !clienteSelecionado.getCpf().isEmpty();
+			jCheckBoxEMotorista.setEnabled(deveHabilitarCheckBox);
+			jCheckBoxEMotorista.setSelected(false);
+			jComboBoxMotorista.setEnabled(true);
+		}
+	}//GEN-LAST:event_jComboBoxClienteItemStateChanged
 
+	private void jCheckBoxEMotoristaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBoxEMotoristaItemStateChanged
+		boolean ehMotorista = jCheckBoxEMotorista.isSelected();
+		jFormattedTextFieldCnh.setEnabled(ehMotorista);
+		jFormattedTextFieldCnh.setEditable(ehMotorista);
+		jComboBoxMotorista.setEnabled(!ehMotorista);
+		jComboBoxMotorista.setSelectedIndex(-1);
+		if (!ehMotorista) {
+			jFormattedTextFieldCnh.setText("");
+			jFormattedTextFieldCnh.setValue(null);
+		}
+	}//GEN-LAST:event_jCheckBoxEMotoristaItemStateChanged
+
+	private void jComboBoxCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaItemStateChanged
+		int index = jComboBoxCategoria.getSelectedIndex();
+		Categoria categoriaSelecionada = jComboBoxCategoria.getItemAt(index);
+
+		if (categoriaSelecionada != null) {
+			List<Veiculo> veiculosFiltrados = new ArrayList<>();
+			for (Veiculo veiculo : fonteDeDadosVeiculos) {
+				if (veiculo.getCategoria().equals(categoriaSelecionada)) {
+					veiculosFiltrados.add(veiculo);
+				}
+			}
+			jComboBoxVeiculo.setModel(new JComboBoxModelVeiculo(veiculosFiltrados));
+			jComboBoxVeiculo.setEnabled(true);
+		}
+	}//GEN-LAST:event_jComboBoxCategoriaItemStateChanged
+
+	private void jComboBoxVeiculoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxVeiculoItemStateChanged
+		int index = jComboBoxVeiculo.getSelectedIndex();
+		Veiculo veiculoSelecionado = jComboBoxVeiculo.getItemAt(index);
+		if (veiculoSelecionado != null) {
+			String kmAtual = String.valueOf(veiculoSelecionado.getKmAtual());
+			jTextFieldQuilometragem.setText(kmAtual);
+		}
+	}//GEN-LAST:event_jComboBoxVeiculoItemStateChanged
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        try {
+            CampoId campoId = new CampoId(jLabelID, jTextFieldID);
+            CampoComboBox<Cliente> comboCliente = new CampoComboBox<>(jLabelCliente, jComboBoxCliente);
+            CampoDeTexto campoCnh = new CampoDeTexto(jLabelCNHMotorista, jFormattedTextFieldCnh, jCheckBoxEMotorista.isSelected());
+            CampoComboBox<Motorista> comboMotorista = new CampoComboBox<>(jLabelMotorista, jComboBoxMotorista, !jCheckBoxEMotorista.isSelected());
+            CampoData campoDataLocacao = new CampoData(jLabelDataLocacao, jFormattedTextFieldDataLocacao, true);
+            CampoData campoValidadeCnh = new CampoData(jLabelDataCNH, jFormattedTextFieldDataCNH, true);
+            CampoComboBox<Veiculo> comboVeiculo = new CampoComboBox(jLabelVeiculo, jComboBoxVeiculo);
+            CampoData campoDataPrevistaDev = new CampoData(jLabelDataDevolucao, jFormattedTextFieldDataPrevistaDevolucao, true);
+            CampoDeTexto campoKm = new CampoDeTexto(jLabelQuilometragem, jTextFieldQuilometragem, true, ValidacaoTexto.CARRO_KM);            
+            CampoComImagem campoImagem = new CampoComImagem(jLabelCNHMotoristaImagem, "Locações");
+            
+            
+            Locacao locacao = new Locacao();
+            locacao.setId(campoId.getDadosDoCampo());
+            Cliente cliente = (Cliente) comboCliente.getDadosDoCampo();
+            locacao.setCliente(cliente);
+            Veiculo veiculo = (Veiculo) comboVeiculo.getDadosDoCampo();
+            locacao.setVeiculo(veiculo);
+
+
+            
+            Motorista motorista;
+            if(jCheckBoxEMotorista.isSelected()) {
+                valideCnhUnica(campoCnh);
+                motorista = new Motorista(cliente, campoCnh.getDadosDoCampo());                       
+            } else {
+                motorista = (Motorista) comboMotorista.getDadosDoCampo();
+            }
+
+            int km = Utils.convertaStringParaInt(campoKm.getDadosDoCampo());
+
+            locacao.setMotorista(motorista);
+            locacao.setDataDaLocacao(DataUtils.convertaStringParaLocalDate(campoDataLocacao.getDadosDoCampo()));
+            locacao.setDataPrevistaParaDevolucao(DataUtils.convertaStringParaLocalDate(campoDataPrevistaDev.getDadosDoCampo()));
+            locacao.setKmVeiculoLocacao(km);
+            locacao.setDataVencimentoCnh(DataUtils.convertaStringParaLocalDate(campoValidadeCnh.getDadosDoCampo()));
+            locacao.setCaminhoParaArquivoCnh(campoImagem.obtenhaCaminhoParaArquivo());
+            LocacaoController controller = new LocacaoController(locacao, controllerCliente);
+            
+            String msgConfirmacao = controller.obtenhaRelatorioPgtoLocacao();
+            
+            int escolha = JOptionPane.showConfirmDialog(null, msgConfirmacao, "Efetuar pagamento?", JOptionPane.YES_NO_OPTION);
+
+            if(escolha == JOptionPane.YES_OPTION){
+                Operacao operacao = locacao.getId() == 0 ? Operacao.INCLUIR : Operacao.ALTERAR;
+                controller.execute(locacao, operacao);
+                campoImagem.salveArquivo();
+            }
+        } catch (ValidacaoException erro) {
+            Utils.mostreAdvertenciaValidacao(erro);
+        } catch (Exception erro) {
+            Utils.mostreAdvertencia(erro,"Erro ao efetuar uma locação de veículos!");
+        }
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
+
+
+    private void valideCnhUnica(CampoDeTexto campoCnh) throws ValidacaoException {
+        String numeroCnh = campoCnh.getDadosDoCampo();
+        for(Motorista motorista : fonteDeDadosMotoristas) {
+            if(motorista.getCnh().equals(numeroCnh)) {
+                String msg = "O motorista " + motorista.getNome() + " já está cadastrado com este número de CNH!";
+                throw new ValidacaoException(msg);
+            }
+        }             
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEditar;
@@ -544,11 +752,12 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonNova;
     private javax.swing.JButton jButtonSalvar;
     private javax.swing.JCheckBox jCheckBoxEMotorista;
-    private javax.swing.JComboBox<String> jComboBoxCategoria;
-    private javax.swing.JComboBox<String> jComboBoxCliente;
-    private javax.swing.JComboBox<String> jComboBoxMotorista;
+    private javax.swing.JComboBox<Categoria> jComboBoxCategoria;
+    private javax.swing.JComboBox<Cliente> jComboBoxCliente;
+    private javax.swing.JComboBox<Motorista> jComboBoxMotorista;
     private javax.swing.JComboBox<String> jComboBoxSituacao;
-    private javax.swing.JComboBox<String> jComboBoxVeiculo;
+    private javax.swing.JComboBox<Veiculo> jComboBoxVeiculo;
+    private javax.swing.JFormattedTextField jFormattedTextFieldCnh;
     private javax.swing.JFormattedTextField jFormattedTextFieldDataCNH;
     private javax.swing.JFormattedTextField jFormattedTextFieldDataLocacao;
     private javax.swing.JFormattedTextField jFormattedTextFieldDataPrevistaDevolucao;
@@ -571,7 +780,6 @@ public class TelaLocacao extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableLista;
     private javax.swing.JTextField jTextFieldID;
-    private javax.swing.JTextField jTextFieldNumeroCNH;
     private javax.swing.JTextField jTextFieldQuilometragem;
     // End of variables declaration//GEN-END:variables
 }
